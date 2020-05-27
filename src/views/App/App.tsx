@@ -1,13 +1,16 @@
 import React from 'react'
 import PageWrapper from '../PageWrapper/PageWrapper'
-import MainCanvas from "../MainCanvas/MainCanvas";
+import MainCanvas from '../MainCanvas/MainCanvas'
+
+import { GlobalStyle } from '../style'
 
 type Props = {}
 
 const App: React.FC<Props> = () => {
   return (
     <PageWrapper>
-      <MainCanvas/>
+      <GlobalStyle />
+      <MainCanvas />
     </PageWrapper>
   )
 }

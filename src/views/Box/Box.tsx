@@ -1,11 +1,10 @@
-import React, { useRef, useState} from 'react'
-import { useFrame } from 'react-three-fiber'
+import React, { useRef, useState } from 'react'
 
 type Props = {
   position: [number, number, number]
 }
 
-const Box: React.FC<Props> = ({position}: Props) => {
+const Box: React.FC<Props> = ({ position }: Props) => {
   // This reference will give us direct access to the mesh
   const box = useRef<THREE.Mesh>()
 
@@ -14,9 +13,9 @@ const Box: React.FC<Props> = ({position}: Props) => {
   const [active, setActive] = useState(false)
 
   // Rotate mesh every frame, this is outside of React without overhead
-  useFrame(() => {
-    if(box.current) box.current.rotation.x = box.current.rotation.y += 0.01
-  })
+  // useFrame(() => {
+  //   if(box.current) box.current.rotation.x = box.current.rotation.y += 0.01
+  // })
 
   return (
     <group>
@@ -24,11 +23,11 @@ const Box: React.FC<Props> = ({position}: Props) => {
         position={position}
         ref={box}
         scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
-        onClick={e => setActive(!active)}
-        onPointerOver={e => setHover(true)}
-        onPointerOut={e => setHover(false)}>
+        onClick={(): void => setActive(!active)}
+        onPointerOver={(): void => setHover(true)}
+        onPointerOut={(): void => setHover(false)}>
         <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-        <meshStandardMaterial attach="material" color={hovered ? 'hotpink' : 'orange'} />
+        <meshStandardMaterial attach="material" color={hovered ? 'hotpink' : '#acacac'} />
       </mesh>
     </group>
   )

@@ -14,7 +14,8 @@ module.exports = {
     },
   },
   rules: {
-    '@typescript-eslint/member-delimiter-style': [ //This is so it doesn't require semicolons in type aliases which prettier tries to remove
+    '@typescript-eslint/member-delimiter-style': [
+      //This is so it doesn't require semicolons in type aliases which prettier tries to remove
       2,
       {
         multiline: {
@@ -27,6 +28,7 @@ module.exports = {
         },
       },
     ],
+    '@typescript-eslint/no-namespace': [0],
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
     // e.g. "@typescript-eslint/explicit-function-return-type": "off",
   },
