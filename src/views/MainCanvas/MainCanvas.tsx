@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Canvas } from 'react-three-fiber'
 
 // Components
@@ -8,6 +8,7 @@ import Controls from '../Controls/Controls'
 
 // Style
 import { CanvasContainer } from './style'
+import FontTest from '../FontTest/FontTest'
 
 type Props = {}
 
@@ -18,6 +19,9 @@ const MainCanvas: React.FC<Props> = () => {
         <ambientLight />
         <pointLight position={[8, 5, 15]} />
         <Box position={[0, 1, 0]} />
+        <Suspense fallback={null}>
+          <FontTest />
+        </Suspense>
         <axesHelper />
         <Grid />
         <Controls />

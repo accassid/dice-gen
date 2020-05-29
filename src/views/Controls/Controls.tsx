@@ -1,6 +1,7 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useThree, extend } from 'react-three-fiber'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { useGlobalState } from '../../modules/global'
 
 type Props = {}
 
@@ -15,7 +16,12 @@ extend({ OrbitControls })
  */
 const Controls: React.FC<Props> = () => {
   const orbit = useRef()
-  const { camera, gl } = useThree()
+  const { camera, gl, scene } = useThree()
+  const [globalScene, setScene] = useGlobalState('scene')
+
+  useEffect(() => {
+    if (scene && globalScene !== scene) setScene(scene)
+  }, [scene, globalScene, setScene])
 
   return (
     <orbitControls ref={orbit} args={[camera, gl.domElement]} enableDamping dampingFactor={0.1} rotateSpeed={0.1} />
