@@ -21,6 +21,7 @@
     "react-three-fiber": "^4.1.4",
     "styled-components": "^5.1.0",
     "three": "^0.116.1",
+    "three-js-csg-es6": "^73.0.0",
     "typescript": "~3.7.2"
   },
   "scripts": {

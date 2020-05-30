@@ -10816,6 +10816,11 @@ text-table@0.2.0, text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
+three-js-csg-es6@^73.0.0:
+  version "73.0.0"
+  resolved "https://registry.yarnpkg.com/three-js-csg-es6/-/three-js-csg-es6-73.0.0.tgz#f2237ee135aba0ecee2a3abae0e6e1b3fe2ebd30"
+  integrity sha512-eeXGyvRVKlfsfqUxuc8V1rIynDkXgEHXqFxQvdyOY2XVOT0ZdoSwQQEzNXUJrLiOUSXC3UaHqhA3P3bfDGL1Qw==
+
 three@^0.116.1:
   version "0.116.1"
   resolved "https://registry.yarnpkg.com/three/-/three-0.116.1.tgz#a393f7a81fdc3e2fbf57ded5ba47dc5bd3678ce0"
