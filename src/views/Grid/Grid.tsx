@@ -8,7 +8,7 @@ type Props = {}
  * @constructor
  */
 const Grid: React.FC<Props> = () => {
-  return <gridHelper args={[75, 75, 0xb4b4b4]} position={[0, 0, 0]} receiveShadow />
+  return <gridHelper args={[70, 70, 0xb4b4b4]} position={[0, 0, 0]} receiveShadow />
 }
 
 export default Grid
