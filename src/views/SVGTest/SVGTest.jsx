@@ -5,6 +5,7 @@ import { Mesh } from 'three'
 import { BoxGeometry } from 'three'
 import { ThreeBSP } from 'three-js-csg-es6'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
+import { useGlobalState } from '../../modules/global'
 
 /**
  * https://threejs.org/docs/#api/en/geometries/ExtrudeGeometry
@@ -12,11 +13,21 @@ import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
  */
 const SVGTest = () => {
   const [myMesh, setMesh] = useState(null)
+  const [svgData, setData] = useState(null)
 
-  const svgData = useLoader(SVGLoader, '/star.svg')
+  const [file, setFile] = useGlobalState('svgFile')
 
   useEffect(() => {
-    if (!myMesh) {
+    if (file) {
+      const loader = new SVGLoader()
+      loader.load(URL.createObjectURL(file), data => setData(data))
+    }
+  }, [file])
+
+  // const svgData = useLoader(SVGLoader, '/star.svg')
+
+  useEffect(() => {
+    if (svgData) {
       const svgGroup = new THREE.Group()
 
       let sMesh = null
@@ -29,14 +40,20 @@ const SVGTest = () => {
         shapes.forEach((shape, j) => {
           // Finally we can take each shape and extrude it
           const geometry = new THREE.ExtrudeGeometry(shape, {
-            depth: 100,
+            depth: 2,
             bevelEnabled: false,
           })
-          geometry.scale(0.02, 0.02, 0.02)
           geometry.center()
-          geometry.translate(1, 1, 1)
+          const scale = 7 / geometry.boundingBox.max.y // TODO Check if x is outside of the bounds as well
+          geometry.scale(scale, scale, 1)
+
+          geometry.rotateZ(3.14159)
+
+          // geometry.translate(1, 1, 1)
           // Create a mesh and add it to the group
           const mesh = new THREE.Mesh(geometry, material)
+
+          mesh.position.z -= 10
 
           sMesh = mesh
 
@@ -50,14 +67,14 @@ const SVGTest = () => {
       const bBSP = new ThreeBSP(bMesh)
       const sBSP = new ThreeBSP(sMesh)
       const subBSP = bBSP.subtract(sBSP)
-      setMesh(subBSP.toMesh())
+      setMesh(sMesh)
     }
-  })
+  }, [svgData])
   if (!myMesh) return null
 
   return (
     <group>
-      <primitive object={myMesh} position={[0, 0, 0]}>
+      <primitive object={myMesh}>
         <meshStandardMaterial attach="material" color={'#acacac'} />
       </primitive>
     </group>

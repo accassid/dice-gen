@@ -13,7 +13,7 @@ type Props = {
 /**
  * This takes a font geometry and subtracts it from a box geometry
  */
-const SubtractedDie: React.FC<Props>  = ({baseMesh, faces}: Props) => {
+const SubtractedDie: React.FC<Props> = ({ baseMesh, faces }: Props) => {
   const [myMesh, setMesh] = useState(null)
   const [fontUrl] = useGlobalState('fontUrl')
   const [font, setFont] = useState<THREE.Font | null>(null)
@@ -39,7 +39,7 @@ const SubtractedDie: React.FC<Props>  = ({baseMesh, faces}: Props) => {
     meshes.forEach((numberMesh: Mesh, i: number) => {
       console.log(i)
       const numberBSP = new ThreeBSP(numberMesh)
-      subBSP = subBSP.subtract(numberBSP)
+      subBSP = subBSP.subtract(numberBSP) // Geometry has a merge method which we could try on all the faces and then subtract once
     })
     const subMesh = subBSP.toMesh()
     subMesh.material = new THREE.MeshStandardMaterial({ color: 0xacacac })

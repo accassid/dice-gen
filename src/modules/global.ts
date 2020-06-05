@@ -7,6 +7,7 @@ type InitialStateType = {
   scene: Scene | null
   fontUrl: string
   exporting: boolean
+  svgFile: File | null
 }
 const initialState: InitialStateType = {
   rightPanelActive: true,
@@ -14,6 +15,7 @@ const initialState: InitialStateType = {
   scene: null,
   fontUrl: '',
   exporting: false,
+  svgFile: null,
 }
 
 export const useGlobalState = createGlobalState(initialState).useGlobalState

@@ -16,6 +16,7 @@
     "antd": "^4.2.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-dropzone": "^11.0.1",
     "react-hooks-global-state": "^1.0.0",
     "react-scripts": "3.4.1",
     "react-three-fiber": "^4.1.4",

@@ -6,9 +6,10 @@ import FontDropdown from '../FontDropdown/FontDropdown'
 
 // Style
 import { RightPanelContainer } from './style'
-import Downloader from '../Downloader/Downloader'
 
 // Components
+import Downloader from '../Downloader/Downloader'
+import SVGDropzone from '../SVGDropzone/SVGDropzone'
 
 type Props = {}
 
@@ -19,6 +20,7 @@ const RightPanel: React.FC<Props> = () => {
     <RightPanelContainer mobileActive={rightPanelActiveMobile} active={rightPanelActive}>
       <FontDropdown />
       <Downloader />
+      <SVGDropzone />
     </RightPanelContainer>
   )
 }

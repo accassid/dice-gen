@@ -1,1 +1,1 @@
-declare module 'three-js-csg-es6';
+declare module 'three-js-csg-es6'
