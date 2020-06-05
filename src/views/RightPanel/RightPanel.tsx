@@ -6,7 +6,7 @@ import FontDropdown from '../FontDropdown/FontDropdown'
 
 // Style
 import { RightPanelContainer } from './style'
-import Downloader from "../Downloader/Downloader";
+import Downloader from '../Downloader/Downloader'
 
 // Components
 
@@ -18,7 +18,7 @@ const RightPanel: React.FC<Props> = () => {
   return (
     <RightPanelContainer mobileActive={rightPanelActiveMobile} active={rightPanelActive}>
       <FontDropdown />
-      <Downloader/>
+      <Downloader />
     </RightPanelContainer>
   )
 }

@@ -9,7 +9,7 @@ import Controls from '../Controls/Controls'
 // Style
 import { CanvasContainer } from './style'
 import FontTest from '../FontTest/FontTest'
-import Declarative from "../Declarative/Declarative";
+import Declarative from '../Declarative/Declarative'
 
 type Props = {}
 
@@ -19,12 +19,11 @@ const MainCanvas: React.FC<Props> = () => {
       <Canvas camera={{ position: [20, 30, 50] }}>
         <ambientLight />
         <pointLight position={[30, 20, 60]} />
-        {/*<Box size={20} />*/}
+        <Box size={20} />
         {/*<Suspense fallback={null}>*/}
-        {/*  /!*<FontTest />*!/*/}
-        {/*  <Declarative/>*/}
+        {/*  <FontTest />*/}
         {/*</Suspense>*/}
-        <Declarative/>
+        <Declarative />
         <axesHelper />
         <Grid />
         <Controls />

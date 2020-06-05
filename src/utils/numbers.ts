@@ -1,26 +1,26 @@
-import {Font, TextGeometry, Mesh} from "three";
+import { Font, TextGeometry, Mesh } from 'three'
 
 export const generateNumberObjects = (sides: number, font: Font): Array<Mesh> => {
   const numbers: Array<Mesh> = []
-  for (let i=1; i<sides+1; i++){
+  for (let i = 1; i < sides + 1; i++) {
     const config = {
       font,
       hAlign: 'center',
       size: 10,
       height: 2,
-      curveSegments: 8,
+      curveSegments: 6,
       bevelEnabled: false,
-      bevelThickness: 0.5,
-      bevelSize: 0.02,
-      bevelOffset: 0,
-      bevelSegments: 8,
+      bevelThickness: 1,
+      bevelSize: 1,
+      bevelOffset: 1,
+      bevelSegments: 3,
     }
     const geometry = new TextGeometry(`${i}`, config)
     geometry.center()
     const mesh = new Mesh(geometry)
-    switch(i){
+    switch (i) {
       case 1:
-        mesh.position.z += 9
+        mesh.position.z += 10
         break
       case 2:
         geometry.rotateY(-1.5708)

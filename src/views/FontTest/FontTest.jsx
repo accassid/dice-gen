@@ -18,11 +18,11 @@ const FontTest = () => {
       font,
       hAlign: 'center',
       size: 10,
-      height: 2,
+      height: 0,
       curveSegments: 32,
       bevelEnabled: false,
-      bevelThickness: 1,
-      bevelSize: .5,
+      bevelThickness: 0,
+      bevelSize: 0,
       bevelOffset: 0,
       bevelSegments: 8,
     }),
@@ -39,7 +39,7 @@ const FontTest = () => {
 
   if (!font) return null
   return (
-    <mesh position={[-5, 5, 9]}>
+    <mesh position={[0, 0, 0]}>
       <textGeometry attach="geometry" args={['0', config]} />
       <meshNormalMaterial attach="material" />
     </mesh>

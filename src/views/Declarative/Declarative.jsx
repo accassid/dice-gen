@@ -3,9 +3,9 @@ import { BoxGeometry, Mesh, TextGeometry } from 'three'
 import * as THREE from 'three'
 import { ThreeBSP } from 'three-js-csg-es6'
 import { useLoader } from 'react-three-fiber'
-import {generateNumberObjects} from "../../utils/numbers";
-import {useGlobalState} from "../../modules/global";
-import {TTFLoader} from "three/examples/jsm/loaders/TTFLoader";
+import { generateNumberObjects } from '../../utils/numbers'
+import { useGlobalState } from '../../modules/global'
+import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader'
 
 /**
  * This takes a font geometry and subtracts it from a box geometry
@@ -33,14 +33,14 @@ const Declarative = () => {
     bMesh.position.x = 0
     let subBSP = new ThreeBSP(bMesh)
 
-
-    meshes.forEach((numberMesh,i) => {
+    meshes.forEach((numberMesh, i) => {
       console.log(i)
       const numberBSP = new ThreeBSP(numberMesh)
       subBSP = subBSP.subtract(numberBSP)
     })
-    setMesh(subBSP.toMesh())
-
+    const subMesh = subBSP.toMesh()
+    subMesh.material = new THREE.MeshStandardMaterial({ color: 0xacacac })
+    setMesh(subMesh)
   }, [font])
 
   // TODO try using useref to get a reference to a react like mesh object and then subtract from that (box)
@@ -48,11 +48,7 @@ const Declarative = () => {
   if (!myMesh) return null
   return (
     <group>
-
-      <primitive object={myMesh} >
-        <meshStandardMaterial attach="material" color={'#acacac'} />
-      </primitive>
-
+      <primitive object={myMesh}>{/*<meshStandardMaterial attach="material" color={'#acacac'} />*/}</primitive>
     </group>
   )
 }
