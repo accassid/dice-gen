@@ -13,11 +13,15 @@ type Props = {}
  * https://dev.to/terrierscript/printing-3d-model-jsx-with-react-three-renderer-gd7
  * @constructor
  */
-const Downloader: React.FC<Props> = ({}: Props) => {
+const Downloader: React.FC<Props> = () => {
   const [scene] = useGlobalState('scene')
+  const setExporting = useGlobalState('exporting')[1]
 
   const download = (): void => {
     if (!scene) return
+
+    setExporting(true)
+
     const exporter = new STLExporter()
     const stlString = exporter.parse(scene)
     const element = document.createElement('a')
@@ -30,6 +34,7 @@ const Downloader: React.FC<Props> = ({}: Props) => {
     element.click()
 
     document.body.removeChild(element)
+    setExporting(false)
   }
 
   return <Button onClick={download}>Download</Button>
