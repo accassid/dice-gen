@@ -6,12 +6,14 @@ type InitialStateType = {
   rightPanelActiveMobile: boolean
   scene: Scene | null
   fontUrl: string
+  exporting: boolean
 }
 const initialState: InitialStateType = {
   rightPanelActive: true,
   rightPanelActiveMobile: false,
   scene: null,
   fontUrl: '',
+  exporting: false,
 }
 
 export const useGlobalState = createGlobalState(initialState).useGlobalState

@@ -1,19 +1,22 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { BoxGeometry, Mesh, TextGeometry } from 'three'
+import React, { useEffect, useState } from 'react'
+import { Mesh } from 'three'
 import * as THREE from 'three'
 import { ThreeBSP } from 'three-js-csg-es6'
-import { useLoader } from 'react-three-fiber'
-import { generateNumberObjects } from '../../utils/numbers'
-import { useGlobalState } from '../../modules/global'
+import { generateNumberObjects } from '../../../utils/numbers'
+import { useGlobalState } from '../../../modules/global'
 import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader'
 
+type Props = {
+  baseMesh: Mesh
+  faces: number
+}
 /**
  * This takes a font geometry and subtracts it from a box geometry
  */
-const Declarative = () => {
+const SubtractedDie: React.FC<Props>  = ({baseMesh, faces}: Props) => {
   const [myMesh, setMesh] = useState(null)
   const [fontUrl] = useGlobalState('fontUrl')
-  const [font, setFont] = useState(null)
+  const [font, setFont] = useState<THREE.Font | null>(null)
 
   useEffect(() => {
     if (fontUrl) {
@@ -25,15 +28,15 @@ const Declarative = () => {
 
   useEffect(() => {
     if (!font) return
-    const meshes = generateNumberObjects(6, font)
+    const meshes = generateNumberObjects(faces, font)
 
-    const bMesh = new Mesh(new BoxGeometry(20, 20, 20))
-    bMesh.position.z = 0
-    bMesh.position.y = 0
-    bMesh.position.x = 0
-    let subBSP = new ThreeBSP(bMesh)
+    baseMesh.position.z = 0
+    baseMesh.position.y = 0
+    baseMesh.position.x = 0
 
-    meshes.forEach((numberMesh, i) => {
+    let subBSP = new ThreeBSP(baseMesh)
+
+    meshes.forEach((numberMesh: Mesh, i: number) => {
       console.log(i)
       const numberBSP = new ThreeBSP(numberMesh)
       subBSP = subBSP.subtract(numberBSP)
@@ -41,9 +44,7 @@ const Declarative = () => {
     const subMesh = subBSP.toMesh()
     subMesh.material = new THREE.MeshStandardMaterial({ color: 0xacacac })
     setMesh(subMesh)
-  }, [font])
-
-  // TODO try using useref to get a reference to a react like mesh object and then subtract from that (box)
+  }, [font, baseMesh, faces])
 
   if (!myMesh) return null
   return (
@@ -53,4 +54,4 @@ const Declarative = () => {
   )
 }
 
-export default Declarative
+export default SubtractedDie
