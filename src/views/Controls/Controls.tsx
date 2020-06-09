@@ -16,12 +16,7 @@ extend({ OrbitControls })
  */
 const Controls: React.FC<Props> = () => {
   const orbit = useRef()
-  const { camera, gl, scene } = useThree()
-  const [globalScene, setScene] = useGlobalState('scene')
-
-  useEffect(() => {
-    if (scene && globalScene !== scene) setScene(scene)
-  }, [scene, globalScene, setScene])
+  const { camera, gl } = useThree()
 
   return (
     <orbitControls ref={orbit} args={[camera, gl.domElement]} enableDamping dampingFactor={0.1} rotateSpeed={0.1} />

@@ -1,5 +1,5 @@
 import { createGlobalState } from 'react-hooks-global-state'
-import { Scene } from 'three'
+import {Mesh, Scene} from 'three'
 import { SVGType } from '../models/svg'
 import { DEFAULT_FACE, DEFAULT_FACE_STATE, FaceStateType, FaceType } from '../models/face'
 import { Font } from 'three'
@@ -7,10 +7,10 @@ import { Font } from 'three'
 type InitialStateType = {
   rightPanelActive: boolean
   rightPanelActiveMobile: boolean
-  scene: Scene | null
   fontUrl: string
-  exporting: boolean
   svgFile: File | null
+
+  diePreview: Mesh | null
 
   globalFont: Font | null
   globalFontScale: number
@@ -20,10 +20,10 @@ type InitialStateType = {
 const initialState: InitialStateType = {
   rightPanelActive: true,
   rightPanelActiveMobile: false,
-  scene: null,
   fontUrl: '',
-  exporting: false,
   svgFile: null,
+
+  diePreview: null,
 
   globalFont: null,
   globalFontScale: 1,
@@ -31,5 +31,6 @@ const initialState: InitialStateType = {
 
   ...DEFAULT_FACE_STATE,
 }
-
-export const useGlobalState = createGlobalState(initialState).useGlobalState
+const globalState = createGlobalState(initialState)
+export const useGlobalState = globalState.useGlobalState
+export const getGlobalState = globalState.getGlobalState

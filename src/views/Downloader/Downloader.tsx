@@ -5,7 +5,8 @@ import { STLExporter } from 'three/examples/jsm/exporters/STLExporter'
 
 // Style
 import { Button } from 'antd'
-import { useGlobalState } from '../../modules/global'
+import {subtractSolid} from "../../utils/subtractSolid";
+import { Scene } from "three";
 
 type Props = {}
 
@@ -14,16 +15,14 @@ type Props = {}
  * @constructor
  */
 const Downloader: React.FC<Props> = () => {
-  const [scene] = useGlobalState('scene')
-  const setExporting = useGlobalState('exporting')[1]
 
   const download = (): void => {
-    if (!scene) return
-
-    setExporting(true)
+    const exportScene = new Scene()
+    const finalMesh = subtractSolid(6,20)
+    exportScene.add(finalMesh)
 
     const exporter = new STLExporter()
-    const stlString = exporter.parse(scene)
+    const stlString = exporter.parse(exportScene)
     const element = document.createElement('a')
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(stlString))
     element.setAttribute('download', 'test.stl')
@@ -34,7 +33,7 @@ const Downloader: React.FC<Props> = () => {
     element.click()
 
     document.body.removeChild(element)
-    setExporting(false)
+
   }
 
   return <Button onClick={download}>Download</Button>

@@ -8,18 +8,18 @@ import { Dropzone } from './style'
 type Props = {}
 
 const SVGDropzone: React.FC<Props> = ({}: Props) => {
-  const [file, setFile] = useGlobalState('svgFile')
+  const [file, setFile] = useGlobalState('globalSVG')
 
   const onDrop = useCallback(acceptedFiles => {
-    setFile(acceptedFiles[0])
+    setFile({...file, max: {scale: .7, rotation: 0, file: acceptedFiles[0]}})
   }, [])
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: '.svg' })
 
   return (
     <Dropzone {...getRootProps()}>
       <input {...getInputProps()} />
-      {file ? (
-        <p>{file.name}</p>
+      {file.max ? (
+        <p>{file.max.file.name}</p>
       ) : isDragActive ? (
         <p>Drop the files here ...</p>
       ) : (

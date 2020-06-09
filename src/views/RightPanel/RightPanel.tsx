@@ -10,6 +10,7 @@ import { RightPanelContainer } from './style'
 // Components
 import Downloader from '../Downloader/Downloader'
 import SVGDropzone from '../SVGDropzone/SVGDropzone'
+import PreviewButton from "../PreviewButton/PreviewButton";
 
 type Props = {}
 
@@ -21,6 +22,7 @@ const RightPanel: React.FC<Props> = () => {
       <FontDropdown />
       <Downloader />
       <SVGDropzone />
+      <PreviewButton/>
     </RightPanelContainer>
   )
 }

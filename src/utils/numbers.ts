@@ -50,34 +50,46 @@ export const generateNumberObjects = (sides: number, font: Font): Array<Mesh> =>
   return numbers
 }
 
-export const moveTextGeometry = (mesh: Mesh, face: number, size: number): void => {
+export const moveGeometryAndMesh = (mesh: Mesh, face: number, size: number, depth: number): void => {
   const geometry = mesh.geometry
-
+  geometry.center()
+  mesh.position.x = 0
+  mesh.position.y = 0
+  mesh.position.z = 0
+  const offset = size / 2 - depth/2
   switch (face) {
     case 1:
-      mesh.position.z += size / 2
+      mesh.position.z += offset
       break
     case 2:
-      geometry.rotateY(-1.5708)
-      geometry.rotateX(1.5708)
-      mesh.position.x -= size / 2
+      mesh.rotation.x = 1.5708
+      mesh.rotation.y = -1.5708
+      // geometry.rotateY(-1.5708)
+      // geometry.rotateX(1.5708)
+      mesh.position.x -= offset
       break
     case 3:
-      geometry.rotateX(-1.5708)
-      mesh.position.y += size / 2
+      mesh.rotation.x = -1.5708
+      // geometry.rotateX(-1.5708)
+      mesh.position.y += offset
       break
     case 4:
-      geometry.rotateX(1.5708)
-      mesh.position.y -= size / 2
+      mesh.rotation.x = 1.5708
+
+      // geometry.rotateX(1.5708)
+      mesh.position.y -= offset
       break
     case 5:
-      geometry.rotateY(1.5708)
-      geometry.rotateX(-1.5708)
-      mesh.position.x += size / 2
+      mesh.rotation.x = -1.5708
+      mesh.rotation.y = 1.5708
+      // geometry.rotateY(1.5708)
+      // geometry.rotateX(-1.5708)
+      mesh.position.x += offset
       break
     case 6:
-      mesh.position.z -= size / 2
-      geometry.rotateZ(3.14159)
+      mesh.rotation.z = 3.14159
+      mesh.position.z -= offset
+      // geometry.rotateZ(3.14159)
       break
   }
 }
