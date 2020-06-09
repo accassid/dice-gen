@@ -44,7 +44,9 @@ const SVGTest = () => {
             bevelEnabled: false,
           })
           geometry.center()
-          const scale = 7 / geometry.boundingBox.max.y // TODO Check if x is outside of the bounds as well
+          let scale = 1
+          if (geometry.boundingBox.max.x > geometry.boundingBox.max.y) scale = 7 / geometry.boundingBox.max.x
+          else scale = 7 / geometry.boundingBox.max.y
           geometry.scale(scale, scale, 1)
 
           geometry.rotateZ(3.14159)
