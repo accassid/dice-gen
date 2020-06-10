@@ -6,19 +6,30 @@ import FontDropdown from '../FontDropdown/FontDropdown'
 
 // Style
 import { RightPanelContainer } from './style'
-import Downloader from '../Downloader/Downloader'
 
 // Components
+import Downloader from '../Downloader/Downloader'
+import SVGDropzone from '../SVGDropzone/SVGDropzone'
+import PreviewButton from '../PreviewButton/PreviewButton'
 
 type Props = {}
 
 const RightPanel: React.FC<Props> = () => {
   const [rightPanelActive] = useGlobalState('rightPanelActive')
   const [rightPanelActiveMobile] = useGlobalState('rightPanelActiveMobile')
+  const [diePreview] = useGlobalState('diePreview')
   return (
     <RightPanelContainer mobileActive={rightPanelActiveMobile} active={rightPanelActive}>
-      <FontDropdown />
-      <Downloader />
+      {diePreview ? (
+        <PreviewButton close />
+      ) : (
+        <>
+          <FontDropdown />
+          <Downloader />
+          <SVGDropzone />
+          <PreviewButton />
+        </>
+      )}
     </RightPanelContainer>
   )
 }

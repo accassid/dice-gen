@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Components
-import D6 from "./D6/D6";
+import D6 from './D6/D6'
 
 type Props = {
   size: number
@@ -10,7 +10,7 @@ type Props = {
 const Die: React.FC<Props> = ({ size }: Props) => {
   return (
     <>
-      <D6 size={size}/>
+      <D6 size={size} />
     </>
   )
 }

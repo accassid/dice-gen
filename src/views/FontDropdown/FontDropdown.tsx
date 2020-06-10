@@ -7,6 +7,8 @@ import { FontType } from '../../models/font'
 import { Select } from 'antd'
 import { useGlobalState } from '../../modules/global'
 import { FontStyle } from './style'
+import { TTFLoader } from 'three/examples/jsm/loaders/TTFLoader'
+import * as THREE from 'three'
 
 const { Option } = Select
 
@@ -16,7 +18,7 @@ const FontDropdown: React.FC<Props> = () => {
   const [loading, setLoading] = useState(false)
   const [fonts, setFonts] = useState<Array<React.ReactNode>>([])
   const [fontMap, setFontMap] = useState<Record<string, string>>({})
-  const setFontUrl = useGlobalState('fontUrl')[1]
+  const setGlobalFont = useGlobalState('globalFont')[1]
 
   useEffect(() => {
     if (!loading && !fonts.length) {
@@ -48,7 +50,9 @@ const FontDropdown: React.FC<Props> = () => {
   }, [loading, fonts.length])
 
   const handleChange = (value: string): void => {
-    setFontUrl(fontMap[value])
+    const ttfLoader = new TTFLoader()
+    const fontLoader = new THREE.FontLoader()
+    ttfLoader.load(fontMap[value], fnt => setGlobalFont(fontLoader.parse(fnt)))
   }
 
   return (
