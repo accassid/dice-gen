@@ -5,8 +5,8 @@ import { STLExporter } from 'three/examples/jsm/exporters/STLExporter'
 
 // Style
 import { Button } from 'antd'
-import {subtractSolid} from "../../utils/subtractSolid";
-import { Scene } from "three";
+import { subtractSolid } from '../../utils/subtractSolid'
+import { Scene } from 'three'
 
 type Props = {}
 
@@ -15,10 +15,9 @@ type Props = {}
  * @constructor
  */
 const Downloader: React.FC<Props> = () => {
-
   const download = (): void => {
     const exportScene = new Scene()
-    const finalMesh = subtractSolid(6,20)
+    const finalMesh = subtractSolid(6, 20)
     exportScene.add(finalMesh)
 
     const exporter = new STLExporter()
@@ -33,7 +32,6 @@ const Downloader: React.FC<Props> = () => {
     element.click()
 
     document.body.removeChild(element)
-
   }
 
   return <Button onClick={download}>Download</Button>

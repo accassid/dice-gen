@@ -1,7 +1,7 @@
 import { createGlobalState } from 'react-hooks-global-state'
-import {Mesh, Scene} from 'three'
+import { Mesh } from 'three'
 import { SVGType } from '../models/svg'
-import { DEFAULT_FACE, DEFAULT_FACE_STATE, FaceStateType, FaceType } from '../models/face'
+import { DEFAULT_FACE_STATE, FaceStateType } from '../models/face'
 import { Font } from 'three'
 
 type InitialStateType = {

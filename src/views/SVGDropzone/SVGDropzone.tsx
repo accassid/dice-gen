@@ -7,12 +7,15 @@ import { Dropzone } from './style'
 
 type Props = {}
 
-const SVGDropzone: React.FC<Props> = ({}: Props) => {
+const SVGDropzone: React.FC<Props> = () => {
   const [file, setFile] = useGlobalState('globalSVG')
 
-  const onDrop = useCallback(acceptedFiles => {
-    setFile({...file, max: {scale: .7, rotation: 0, file: acceptedFiles[0]}})
-  }, [])
+  const onDrop = useCallback(
+    acceptedFiles => {
+      setFile({ ...file, max: { scale: 0.7, rotation: 0, file: acceptedFiles[0] } })
+    },
+    [file, setFile],
+  )
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: '.svg' })
 
   return (

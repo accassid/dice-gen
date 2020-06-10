@@ -1,8 +1,8 @@
-import {Mesh, BoxGeometry} from "three"
-import {getGlobalState} from "../modules/global"
-import {isFaceOption} from "../models/face"
+import { Mesh, BoxGeometry } from 'three'
+import { getGlobalState } from '../modules/global'
+import { isFaceOption } from '../models/face'
 import { ThreeBSP } from 'three-js-csg-es6'
-import * as THREE from "three";
+import * as THREE from 'three'
 
 // TODO these parameters could probably be fetched directly from the global state
 export const subtractSolid = (die: number, size: number): Mesh => {
@@ -18,7 +18,7 @@ export const subtractSolid = (die: number, size: number): Mesh => {
 
   let meshBSP = new ThreeBSP(mesh)
 
-  for (let i = 1; i<=die; i++){
+  for (let i = 1; i <= die; i++) {
     const key = `d${die}f${i}`
     if (!isFaceOption(key)) throw new Error(`Key "${key}" is not a valid die/face combination.`)
     const face = getGlobalState(key)

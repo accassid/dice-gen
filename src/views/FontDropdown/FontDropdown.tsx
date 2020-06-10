@@ -18,7 +18,6 @@ const FontDropdown: React.FC<Props> = () => {
   const [loading, setLoading] = useState(false)
   const [fonts, setFonts] = useState<Array<React.ReactNode>>([])
   const [fontMap, setFontMap] = useState<Record<string, string>>({})
-  const setFontUrl = useGlobalState('fontUrl')[1]
   const setGlobalFont = useGlobalState('globalFont')[1]
 
   useEffect(() => {

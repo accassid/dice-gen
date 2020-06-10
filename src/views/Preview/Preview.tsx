@@ -1,7 +1,5 @@
 import React from 'react'
-import {Button} from "antd";
-import {subtractSolid} from "../../utils/subtractSolid";
-import {useGlobalState} from "../../modules/global";
+import { useGlobalState } from '../../modules/global'
 
 type Props = {}
 
@@ -10,7 +8,7 @@ const Preview: React.FC<Props> = () => {
 
   if (!diePreview) return null
 
-  return <primitive object={diePreview}/>
+  return <primitive object={diePreview} />
 }
 
 export default Preview

@@ -56,7 +56,7 @@ export const moveGeometryAndMesh = (mesh: Mesh, face: number, size: number, dept
   mesh.position.x = 0
   mesh.position.y = 0
   mesh.position.z = 0
-  const offset = size / 2 - depth/2
+  const offset = size / 2 - depth / 2
   switch (face) {
     case 1:
       mesh.position.z += offset
