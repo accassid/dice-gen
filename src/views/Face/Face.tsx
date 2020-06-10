@@ -35,7 +35,7 @@ const Face: React.FC<Props> = ({ dieNum, faceNum }: Props) => {
   return (
     <mesh ref={meshRef}>
       {svg ? <SVGGeometry svg={svg} /> : <TextGeometry font={font} face={face} />}
-      <meshStandardMaterial attach="material" color={'#bababa'} />
+      <meshStandardMaterial attach="material" color={'#898989'} />
     </mesh>
   )
 }
