@@ -11,8 +11,8 @@ import { RightPanelContainer } from './style'
 import Downloader from '../Downloader/Downloader'
 import SVGDropzone from '../SVGDropzone/SVGDropzone'
 import PreviewButton from '../PreviewButton/PreviewButton'
-import ValueSlider from "./ValueSlider/ValueSlider";
-import DiceTabs from "./DiceTabs/DiceTabs";
+import ValueSlider from './ValueSlider/ValueSlider'
+import DiceTabs from './DiceTabs/DiceTabs'
 
 type Props = {}
 
@@ -26,10 +26,10 @@ const RightPanel: React.FC<Props> = () => {
         <PreviewButton close />
       ) : (
         <>
-          <DiceTabs/>
-          <ValueSlider label="Dice Size (mm):" stateKey="globalSize" min={1} max={50} step={1}/>
-          <ValueSlider label="Font Scale:" stateKey="globalFontScale" min={.1} max={1} step={.05}/>
-          <ValueSlider label="Symbol Depth (mm):" stateKey="globalDepth" min={.25} max={5} step={.25}/>
+          <DiceTabs />
+          <ValueSlider label="Dice Size (mm):" stateKey="globalSize" min={1} max={50} step={1} />
+          <ValueSlider label="Font Scale:" stateKey="globalFontScale" min={0.1} max={1} step={0.05} />
+          <ValueSlider label="Symbol Depth (mm):" stateKey="globalDepth" min={0.25} max={5} step={0.25} />
           <FontDropdown />
           <SVGDropzone />
           <Downloader />

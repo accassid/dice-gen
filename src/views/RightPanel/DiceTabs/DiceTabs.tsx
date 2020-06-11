@@ -1,9 +1,9 @@
 import React from 'react'
-import {useGlobalState} from "../../../modules/global";
+import { useGlobalState } from '../../../modules/global'
 
 // Style
 import { Tabs } from 'antd'
-import {isDiceType} from "../../../models/dice";
+import { isDiceType } from '../../../models/dice'
 
 const { TabPane } = Tabs
 

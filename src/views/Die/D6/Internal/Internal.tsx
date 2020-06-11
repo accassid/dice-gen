@@ -1,5 +1,5 @@
 import React from 'react'
-import {useGlobalState} from "../../../../modules/global";
+import { useGlobalState } from '../../../../modules/global'
 
 type Props = {
   size: number

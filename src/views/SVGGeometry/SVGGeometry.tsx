@@ -5,7 +5,7 @@ import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader'
 
 // Models
 import { SVGType } from '../../models/svg'
-import {useGlobalState} from "../../modules/global";
+import { useGlobalState } from '../../modules/global'
 
 type Props = {
   svg: SVGType
@@ -51,7 +51,7 @@ const SVGGeometry: React.FC<Props> = ({ svg }: Props) => {
         geometry.center()
         let scale = 1
         if (geometry.boundingBox) {
-          const targetMax = globalSize*svg.scale/2
+          const targetMax = (globalSize * svg.scale) / 2
           if (geometry.boundingBox.max.x > geometry.boundingBox.max.y) scale = targetMax / geometry.boundingBox.max.x
           else scale = targetMax / geometry.boundingBox.max.y
         }

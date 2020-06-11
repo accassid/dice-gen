@@ -1,11 +1,4 @@
-export type DiceType =
-  | 'd4'
-  | 'd6'
-  | 'd8'
-  | 'd10'
-  | 'd100'
-  | 'd12'
-  | 'd20'
+export type DiceType = 'd4' | 'd6' | 'd8' | 'd10' | 'd100' | 'd12' | 'd20'
 
 export const DICE_LIST = ['d4', 'd6', 'd8', 'd10', 'd100', 'd12', 'd20']
 
