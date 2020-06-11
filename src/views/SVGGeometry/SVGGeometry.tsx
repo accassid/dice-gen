@@ -5,6 +5,7 @@ import { SVGLoader, SVGResult } from 'three/examples/jsm/loaders/SVGLoader'
 
 // Models
 import { SVGType } from '../../models/svg'
+import {useGlobalState} from "../../modules/global";
 
 type Props = {
   svg: SVGType
@@ -16,6 +17,8 @@ type Props = {
 const SVGGeometry: React.FC<Props> = ({ svg }: Props) => {
   const [svgGeometry, setGeometry] = useState<Geometry | null>(null)
   const [svgData, setData] = useState<SVGResult | null>(null)
+  const [globalSize] = useGlobalState('globalSize')
+  const [globalDepth] = useGlobalState('globalDepth')
 
   useEffect(() => {
     if (svg) {
@@ -36,7 +39,7 @@ const SVGGeometry: React.FC<Props> = ({ svg }: Props) => {
         for (let j = 0; j < shapes.length; j++) {
           const shape = shapes[j]
           const partialGeometry = new THREE.ExtrudeGeometry(shape, {
-            depth: 1,
+            depth: globalDepth,
             bevelEnabled: false,
           })
           if (!geometry) geometry = partialGeometry
@@ -48,16 +51,16 @@ const SVGGeometry: React.FC<Props> = ({ svg }: Props) => {
         geometry.center()
         let scale = 1
         if (geometry.boundingBox) {
-          if (geometry.boundingBox.max.x > geometry.boundingBox.max.y) scale = 7 / geometry.boundingBox.max.x
-          // TODO Make this actually based on scale
-          else scale = 7 / geometry.boundingBox.max.y
+          const targetMax = globalSize*svg.scale/2
+          if (geometry.boundingBox.max.x > geometry.boundingBox.max.y) scale = targetMax / geometry.boundingBox.max.x
+          else scale = targetMax / geometry.boundingBox.max.y
         }
         geometry.scale(scale, scale, 1)
 
         setGeometry(geometry)
       }
     }
-  }, [svgData])
+  }, [svgData, globalSize, globalDepth, svg.scale])
 
   if (!svgGeometry) return <boxGeometry attach="geometry" args={[0.1, 0.1, 0.1]} />
 

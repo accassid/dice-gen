@@ -5,8 +5,10 @@ import { ThreeBSP } from 'three-js-csg-es6'
 import * as THREE from 'three'
 
 // TODO these parameters could probably be fetched directly from the global state
-export const subtractSolid = (die: number, size: number): Mesh => {
+export const subtractSolid = (die: number): Mesh => {
   let mesh = null
+
+  const size = getGlobalState('globalSize')
 
   if (die === 6) mesh = new Mesh(new BoxGeometry(size, size, size))
 

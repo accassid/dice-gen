@@ -11,7 +11,7 @@ const PreviewButton: React.FC<Props> = ({ close }: Props) => {
   const setDiePreview = useGlobalState('diePreview')[1]
   const preview = (): void => {
     if (close) setDiePreview(null)
-    else setDiePreview(subtractSolid(6, 20))
+    else setDiePreview(subtractSolid(6))
   }
 
   return <Button onClick={preview}>Solid Preview</Button>

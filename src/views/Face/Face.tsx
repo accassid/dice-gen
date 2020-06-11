@@ -1,10 +1,11 @@
-import React, { useRef, useEffect } from 'react'
+import React from 'react'
 import { useGlobalState } from '../../modules/global'
 import { isFaceOption } from '../../models/face'
 import { Mesh } from 'three'
 import { moveGeometryAndMesh } from '../../utils/numbers'
 import SVGGeometry from '../SVGGeometry/SVGGeometry'
 import TextGeometry from '../TextGeometry/TextGeometry'
+import { useUpdate } from "react-three-fiber"
 
 type Props = {
   dieNum: number
@@ -16,15 +17,13 @@ const Face: React.FC<Props> = ({ dieNum, faceNum }: Props) => {
   const [face, setFace] = useGlobalState(isFaceOption(key) ? key : 'd6f1')
   const [font] = useGlobalState('globalFont')
   const [globalSVG] = useGlobalState('globalSVG')
+  const [globalSize] = useGlobalState('globalSize')
+  const [globalDepth] = useGlobalState('globalDepth')
 
-  const meshRef = useRef<Mesh>(null)
-
-  useEffect(() => {
-    if (meshRef.current && meshRef.current !== face.ref) {
-      setFace({ ...face, ref: meshRef.current })
-    }
-    if (meshRef.current && meshRef.current.geometry) moveGeometryAndMesh(meshRef.current, faceNum, 20, 1)
-  })
+  const meshRef = useUpdate<Mesh>(self => {
+    setFace({...face, ref: self})
+    moveGeometryAndMesh(meshRef.current, faceNum, globalSize, globalDepth)
+  }, [font, globalSVG, globalSize, globalDepth])
 
   let svg = null
   if (face.svg) svg = face.svg

@@ -51,11 +51,10 @@ export const generateNumberObjects = (sides: number, font: Font): Array<Mesh> =>
 }
 
 export const moveGeometryAndMesh = (mesh: Mesh, face: number, size: number, depth: number): void => {
-  const geometry = mesh.geometry
-  geometry.center()
   mesh.position.x = 0
   mesh.position.y = 0
   mesh.position.z = 0
+  mesh.geometry.center()
   const offset = size / 2 - depth / 2
   switch (face) {
     case 1:
@@ -64,32 +63,25 @@ export const moveGeometryAndMesh = (mesh: Mesh, face: number, size: number, dept
     case 2:
       mesh.rotation.x = 1.5708
       mesh.rotation.y = -1.5708
-      // geometry.rotateY(-1.5708)
-      // geometry.rotateX(1.5708)
       mesh.position.x -= offset
       break
     case 3:
       mesh.rotation.x = -1.5708
-      // geometry.rotateX(-1.5708)
       mesh.position.y += offset
       break
     case 4:
       mesh.rotation.x = 1.5708
-
-      // geometry.rotateX(1.5708)
       mesh.position.y -= offset
       break
     case 5:
       mesh.rotation.x = -1.5708
       mesh.rotation.y = 1.5708
-      // geometry.rotateY(1.5708)
-      // geometry.rotateX(-1.5708)
+
       mesh.position.x += offset
       break
     case 6:
       mesh.rotation.z = 3.14159
       mesh.position.z -= offset
-      // geometry.rotateZ(3.14159)
       break
   }
 }

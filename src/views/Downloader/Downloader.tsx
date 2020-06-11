@@ -17,7 +17,7 @@ type Props = {}
 const Downloader: React.FC<Props> = () => {
   const download = (): void => {
     const exportScene = new Scene()
-    const finalMesh = subtractSolid(6, 20)
+    const finalMesh = subtractSolid(6)
     exportScene.add(finalMesh)
 
     const exporter = new STLExporter()
