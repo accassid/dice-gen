@@ -24,7 +24,7 @@ const Face: React.FC<Props> = ({ dieNum, faceNum }: Props) => {
   const meshRef = useUpdate<Mesh>(
     self => {
       setFace({ ...face, ref: self })
-      moveGeometryAndMesh(die, meshRef.current, faceNum, globalSize, globalDepth)
+      moveGeometryAndMesh(die, meshRef.current, faceNum, globalSize, globalDepth) // TODO should use self?
     },
     [font, globalSVG, globalSize, globalDepth],
   )

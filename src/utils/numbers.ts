@@ -1,4 +1,4 @@
-import { Font, TextGeometry, Mesh } from 'three'
+import { Font, TextGeometry, Mesh, Vector3 } from 'three'
 
 export const generateNumberObjects = (sides: number, font: Font): Array<Mesh> => {
   const numbers: Array<Mesh> = []
@@ -54,14 +54,19 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
   mesh.position.x = 0
   mesh.position.y = 0
   mesh.position.z = 0
+  const yAxis = new Vector3(0, 1, 0)
   mesh.geometry.center()
 
   if (die === 'd4') {
     const offset = size / 2 - depth / 2
     switch (face) {
       case 1:
-        mesh.rotation.x = 0.785398
-        mesh.rotation.z = 0.785398
+        mesh.rotation.x = 0
+        mesh.rotation.y = 0
+        mesh.rotation.z = 0
+        mesh.rotateX(-(Math.PI / 2 - Math.acos(1 / 3)))
+        mesh.rotateOnWorldAxis(yAxis, Math.PI / 3)
+        // mesh.rotation.y = -0.785398
         // mesh.position.z += offset
         break
       // case 2:
