@@ -13,7 +13,7 @@ const D4: React.FC<Props> = ({ size }: Props) => {
   const diePreview = useGlobalState('diePreview')[0]
   return (
     <>
-      {!diePreview && SIDES.map(side => <Face key={side} dieNum={6} faceNum={side} />)}
+      {!diePreview && SIDES.map(side => <Face key={side} dieNum={4} faceNum={side} />)}
       <Internal size={20} />
     </>
   )

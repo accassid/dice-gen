@@ -22,7 +22,7 @@ const MainCanvas: React.FC<Props> = () => {
         <Die size={20} />
         <Preview />
         <Suspense fallback={null}></Suspense>
-        <axesHelper />
+        <axesHelper args={[10]}/>
         <Grid />
         <Controls />
       </Canvas>
