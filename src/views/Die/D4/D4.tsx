@@ -8,7 +8,7 @@ type Props = {
   size: number
 }
 
-const SIDES = [1]
+const SIDES = [1,2,3,4]
 const D4: React.FC<Props> = ({ size }: Props) => {
   const diePreview = useGlobalState('diePreview')[0]
   return (

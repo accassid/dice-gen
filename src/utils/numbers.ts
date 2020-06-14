@@ -59,42 +59,41 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
   const xAxis = new Vector3(1,0,0)
   const zAxis = new Vector3(0,0,1)
   const sAxis = new Vector3(Math.sin(dihedral), Math.cos(dihedral), 0) // The vector from the origin to a side parallel with the z axis and 1 unit away
-  mesh.geometry.center()
+  // mesh.geometry.center()
   mesh.rotation.x = 0
   mesh.rotation.y = 0
   mesh.rotation.z = 0
   if (die === 'd4') {
-    const offset = size/(3*Math.sqrt(2)) - depth / 2
+    const offset = size/(3*Math.sqrt(2)) - depth / 2 +.01
+    const radialOffset = size/(Math.PI*Math.sqrt(2)) - depth / 2 +.1 // TODO this offset is not fully functional
     switch (face) {
       case 1:
-        // mesh.rotation.x = 0
-        // mesh.rotation.y = Math.PI/6
-        // mesh.rotation.z = 0
-        // mesh.rotateX(-(Math.PI / 2 - Math.acos(1 / 3)))
-        mesh.translateOnAxis(sAxis,offset)
+          mesh.rotation.y = Math.PI/6
+          mesh.position.y -= offset
+          break
+      case 2:
+        const rotationAxis2 = new Vector3(-Math.sqrt(3)/2,0,.5)
+        const translationAxis2 = new Vector3(-.5,Math.cos(dihedral),-Math.sqrt(3)/2)
+        mesh.translateOnAxis(translationAxis2,radialOffset)
+        mesh.rotateOnWorldAxis(xAxis, Math.PI)
+        mesh.rotateOnWorldAxis(yAxis, (Math.PI / 2))
+        mesh.rotateOnWorldAxis(rotationAxis2, Math.acos(1 / 3))
+        break
+      case 3:
+        const rotationAxis3 = new Vector3(Math.sqrt(3)/2,0,.5)
+        const translationAxis3 = new Vector3(-.5,Math.cos(dihedral),Math.sqrt(3)/2)
+        mesh.translateOnAxis(translationAxis3,radialOffset)
+        mesh.rotateOnWorldAxis(xAxis, Math.PI)
+        mesh.rotateOnWorldAxis(yAxis, (Math.PI / 2))
+        mesh.rotateOnWorldAxis(rotationAxis3, Math.acos(1 / 3))
+        break
+      case 4:
+        const translationAxis4 = new Vector3(Math.sin(dihedral), Math.cos(dihedral), 0) // The vector from the origin to a side parallel with the z axis and 1 unit away
+        mesh.translateOnAxis(translationAxis4,offset)
         mesh.rotateOnWorldAxis(xAxis, Math.PI)
         mesh.rotateOnWorldAxis(yAxis, (Math.PI / 2))
         mesh.rotateOnWorldAxis(zAxis, -Math.acos(1 / 3))
-
-        // mesh.translateY(offset)
-        // mesh.rotateX(Math.PI/2 + Math.acos(1 / 3))
-        // mesh.rotateOnWorldAxis(xAxis, -(Math.PI / 4))
-        // mesh.rotateX((Math.PI/5 - Math.acos(1 / 3)))
-        // mesh.rotation.y = -0.785398
-        // mesh.position.y -= offset
         break
-      // case 2:
-      //   mesh.rotation.y = Math.PI/6
-      //   mesh.position.y -= offset
-      //   break
-      // case 3:
-      //   mesh.rotation.x = -1.5708
-      //   mesh.position.y += offset
-      //   break
-      // case 4:
-      //   mesh.rotation.x = 1.5708
-      //   mesh.position.y -= offset
-      //   break
     }
   }
 

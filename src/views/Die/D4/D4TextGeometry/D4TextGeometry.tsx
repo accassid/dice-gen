@@ -8,7 +8,10 @@ type Props = {
 }
 
 const FACE_MAP: Record<string, [string, string, string]> = {
-  "1": ["1", "2", "3"]
+  "1": ["1", "2", "3"],
+  "2": ["3", "2", "4"],
+  "3": ["3", "4", "1"],
+  "4": ["4", "2", "1"],
 }
 
 const D4TextGeometry: React.FC<Props> = ({font, faceNum}: Props) => {
@@ -33,6 +36,7 @@ const D4TextGeometry: React.FC<Props> = ({font, faceNum}: Props) => {
 
 
   useEffect(() => {
+    console.log('updating')
     const numbers = FACE_MAP[`${faceNum}`]
     if (config) {
       const radius = globalSize/3
@@ -52,7 +56,7 @@ const D4TextGeometry: React.FC<Props> = ({font, faceNum}: Props) => {
       if (!geometry) throw new Error("There must be at least one number for the D4 face generator.")
       setGeometry(geometry)
     }
-  })
+  },[font, globalSize, globalFontScale, globalDepth])
 
   if (!geometry) return <boxGeometry attach="geometry" args={[0.1, 0.1, 0.1]} />
   return (
