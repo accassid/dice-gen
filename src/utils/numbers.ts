@@ -1,4 +1,4 @@
-import { Font, TextGeometry, Mesh, Vector3 } from 'three'
+import { Font, TextGeometry, Mesh } from 'three'
 
 export const generateNumberObjects = (sides: number, font: Font): Array<Mesh> => {
   const numbers: Array<Mesh> = []
@@ -54,45 +54,37 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
   mesh.position.x = 0
   mesh.position.y = 0
   mesh.position.z = 0
-  const dihedral = Math.acos(1/3)
-  const yAxis = new Vector3(0, 1, 0)
-  const xAxis = new Vector3(1,0,0)
-  const zAxis = new Vector3(0,0,1)
-  const sAxis = new Vector3(Math.sin(dihedral), Math.cos(dihedral), 0) // The vector from the origin to a side parallel with the z axis and 1 unit away
-  // mesh.geometry.center()
+
   mesh.rotation.x = 0
   mesh.rotation.y = 0
   mesh.rotation.z = 0
+
   if (die === 'd4') {
-    const offset = size/(3*Math.sqrt(2)) - depth / 2 +.01
-    const radialOffset = size/(Math.PI*Math.sqrt(2)) - depth / 2 +.1 // TODO this offset is not fully functional
+
+    // This is the x y or z offset for the points of intersection between the tetrahedron and an inscribed circle.
+    // The value was found by the distance equation for a vector using r of the inscribed circle as a distance, adding
+    // the depth/2 to the r.
+    const sWithDepth = (2*size-3*depth)/(6*Math.sqrt(3))
+
+    // This is a right angle minus the angle between the edge and face of a regular tetrahedron
+    const edgeFaceAngle = Math.PI/2 - Math.acos(1/Math.sqrt(3))
+
     switch (face) {
       case 1:
-          mesh.rotation.y = Math.PI/6
-          mesh.position.y -= offset
-          break
+        mesh.translateY(sWithDepth).translateX(-sWithDepth).translateZ(sWithDepth)
+        mesh.rotateY(-Math.PI/4).rotateX(-edgeFaceAngle).rotateZ(Math.PI)
+        break
       case 2:
-        const rotationAxis2 = new Vector3(-Math.sqrt(3)/2,0,.5)
-        const translationAxis2 = new Vector3(-.5,Math.cos(dihedral),-Math.sqrt(3)/2)
-        mesh.translateOnAxis(translationAxis2,radialOffset)
-        mesh.rotateOnWorldAxis(xAxis, Math.PI)
-        mesh.rotateOnWorldAxis(yAxis, (Math.PI / 2))
-        mesh.rotateOnWorldAxis(rotationAxis2, Math.acos(1 / 3))
+        mesh.translateY(sWithDepth).translateX(sWithDepth).translateZ(-sWithDepth)
+        mesh.rotateY(3*Math.PI/4).rotateX(-edgeFaceAngle).rotateZ(Math.PI)
         break
       case 3:
-        const rotationAxis3 = new Vector3(Math.sqrt(3)/2,0,.5)
-        const translationAxis3 = new Vector3(-.5,Math.cos(dihedral),Math.sqrt(3)/2)
-        mesh.translateOnAxis(translationAxis3,radialOffset)
-        mesh.rotateOnWorldAxis(xAxis, Math.PI)
-        mesh.rotateOnWorldAxis(yAxis, (Math.PI / 2))
-        mesh.rotateOnWorldAxis(rotationAxis3, Math.acos(1 / 3))
+        mesh.translateY(-sWithDepth).translateX(-sWithDepth).translateZ(-sWithDepth)
+        mesh.rotateY(-3*Math.PI/4).rotateX(edgeFaceAngle)
         break
       case 4:
-        const translationAxis4 = new Vector3(Math.sin(dihedral), Math.cos(dihedral), 0) // The vector from the origin to a side parallel with the z axis and 1 unit away
-        mesh.translateOnAxis(translationAxis4,offset)
-        mesh.rotateOnWorldAxis(xAxis, Math.PI)
-        mesh.rotateOnWorldAxis(yAxis, (Math.PI / 2))
-        mesh.rotateOnWorldAxis(zAxis, -Math.acos(1 / 3))
+        mesh.translateY(-sWithDepth).translateX(sWithDepth).translateZ(sWithDepth)
+        mesh.rotateY(Math.PI/4).rotateX(edgeFaceAngle)
         break
     }
   }

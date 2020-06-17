@@ -1,7 +1,7 @@
 import React from 'react'
 import { useGlobalState } from '../../modules/global'
 import { isFaceOption } from '../../models/face'
-import { Mesh } from 'three'
+import {DoubleSide, Mesh} from 'three'
 import { moveGeometryAndMesh } from '../../utils/numbers'
 import SVGGeometry from '../SVGGeometry/SVGGeometry'
 import TextGeometry from '../TextGeometry/TextGeometry'
@@ -25,7 +25,7 @@ const Face: React.FC<Props> = ({ dieNum, faceNum }: Props) => {
   const meshRef = useUpdate<Mesh>(
     self => {
       setFace({ ...face, ref: self })
-      moveGeometryAndMesh(die, meshRef.current, faceNum, globalSize, globalDepth) // TODO should use self?
+      moveGeometryAndMesh(die, self, faceNum, globalSize, globalDepth) // TODO should use self?
     },
     [font, globalSVG, globalSize, globalDepth],
   )
@@ -39,7 +39,7 @@ const Face: React.FC<Props> = ({ dieNum, faceNum }: Props) => {
   return (
     <mesh ref={meshRef}>
       {svg ? <SVGGeometry svg={svg} /> : dieNum === 4 ? <D4TextGeometry font={font} faceNum={faceNum}/> : <TextGeometry font={font} face={face} />}
-      <meshStandardMaterial attach="material" color={'#898989'} />
+      <meshStandardMaterial side={DoubleSide} attach="material" color={'#898989'} />
     </mesh>
   )
 }

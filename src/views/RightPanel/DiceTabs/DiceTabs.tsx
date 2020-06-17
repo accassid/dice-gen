@@ -9,7 +9,7 @@ const { TabPane } = Tabs
 
 type Props = {}
 
-const DiceTabs: React.FC<Props> = ({}: Props) => {
+const DiceTabs: React.FC<Props> = () => {
   const [die, setDie] = useGlobalState('die')
   const callback = (key: string): void => {
     if (isDiceType(key)) setDie(key)
