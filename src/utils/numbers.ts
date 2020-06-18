@@ -59,6 +59,8 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
   mesh.rotation.y = 0
   mesh.rotation.z = 0
 
+  if (die !== 'd4') mesh.geometry.center()
+
   if (die === 'd4') {
     // This is the x y or z offset for the points of intersection between the tetrahedron and an inscribed circle.
     // The value was found by the distance equation for a vector using r of the inscribed circle as a distance, adding
@@ -122,6 +124,58 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
       case 6:
         mesh.rotation.z = 3.14159
         mesh.position.z -= offset
+        break
+    }
+  }
+
+  if (die === 'd8') {
+    const dihedral = Math.acos(-1 / 3)
+    const facePlaneAngle = Math.PI / 2 - dihedral / 2
+    const sWithDepth = (2 * Math.sqrt(3) * size - 3 * depth) / (6 * Math.sqrt(3))
+    switch (face) {
+      case 1:
+        mesh.translateX(sWithDepth).translateY(sWithDepth).translateZ(sWithDepth)
+        mesh.rotateY(Math.PI / 4)
+        mesh.rotateX(-facePlaneAngle)
+        break
+      case 2:
+        mesh.translateX(sWithDepth).translateY(-sWithDepth).translateZ(sWithDepth)
+        mesh.rotateY(Math.PI / 4)
+        mesh.rotateX(facePlaneAngle)
+        mesh.rotateZ(Math.PI)
+        break
+      case 3:
+        mesh.translateX(-sWithDepth).translateY(-sWithDepth).translateZ(sWithDepth)
+        mesh.rotateY(-Math.PI / 4)
+        mesh.rotateX(facePlaneAngle)
+        mesh.rotateZ(Math.PI)
+        break
+      case 4:
+        mesh.translateX(-sWithDepth).translateY(sWithDepth).translateZ(sWithDepth)
+        mesh.rotateY(-Math.PI / 4)
+        mesh.rotateX(-facePlaneAngle)
+        break
+      case 5:
+        mesh.translateX(sWithDepth).translateY(-sWithDepth).translateZ(-sWithDepth)
+        mesh.rotateY((3 * Math.PI) / 4)
+        mesh.rotateX(facePlaneAngle)
+        mesh.rotateZ(Math.PI)
+        break
+      case 6:
+        mesh.translateX(sWithDepth).translateY(sWithDepth).translateZ(-sWithDepth)
+        mesh.rotateY((3 * Math.PI) / 4)
+        mesh.rotateX(-facePlaneAngle)
+        break
+      case 7:
+        mesh.translateX(-sWithDepth).translateY(sWithDepth).translateZ(-sWithDepth)
+        mesh.rotateY((-3 * Math.PI) / 4)
+        mesh.rotateX(-facePlaneAngle)
+        break
+      case 8:
+        mesh.translateX(-sWithDepth).translateY(-sWithDepth).translateZ(-sWithDepth)
+        mesh.rotateY((-3 * Math.PI) / 4)
+        mesh.rotateX(facePlaneAngle)
+        mesh.rotateZ(Math.PI)
         break
     }
   }
