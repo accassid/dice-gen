@@ -1,12 +1,12 @@
 import React from 'react'
 import { useGlobalState } from '../../modules/global'
 import { isFaceOption } from '../../models/face'
-import {DoubleSide, Mesh} from 'three'
+import { DoubleSide, Mesh } from 'three'
 import { moveGeometryAndMesh } from '../../utils/numbers'
 import SVGGeometry from '../SVGGeometry/SVGGeometry'
 import TextGeometry from '../TextGeometry/TextGeometry'
 import { useUpdate } from 'react-three-fiber'
-import D4TextGeometry from "../Die/D4/D4TextGeometry/D4TextGeometry";
+import D4FaceGeometry from '../Die/D4/D4TextGeometry/D4FaceGeometry'
 
 type Props = {
   dieNum: number
@@ -38,7 +38,13 @@ const Face: React.FC<Props> = ({ dieNum, faceNum }: Props) => {
 
   return (
     <mesh ref={meshRef}>
-      {svg ? <SVGGeometry svg={svg} /> : dieNum === 4 ? <D4TextGeometry font={font} faceNum={faceNum}/> : <TextGeometry font={font} face={face} />}
+      {dieNum === 4 ? (
+        <D4FaceGeometry font={font} faceNum={faceNum} />
+      ) : svg ? (
+        <SVGGeometry svg={svg} />
+      ) : (
+        <TextGeometry font={font} face={face} />
+      )}
       <meshStandardMaterial side={DoubleSide} attach="material" color={'#898989'} />
     </mesh>
   )

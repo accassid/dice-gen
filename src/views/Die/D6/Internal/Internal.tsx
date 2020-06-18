@@ -1,11 +1,9 @@
 import React from 'react'
 import { useGlobalState } from '../../../../modules/global'
 
-type Props = {
-  size: number
-}
+type Props = {}
 
-const Internal: React.FC<Props> = ({ size }: Props) => {
+const Internal: React.FC<Props> = () => {
   const [diePreview] = useGlobalState('diePreview')
   const [globalSize] = useGlobalState('globalSize')
   return (

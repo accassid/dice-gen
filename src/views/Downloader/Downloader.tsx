@@ -15,7 +15,6 @@ type Props = {}
  * @constructor
  */
 const Downloader: React.FC<Props> = () => {
-
   const download = (): void => {
     const exportScene = new Scene()
     const finalMesh = subtractSolid()
