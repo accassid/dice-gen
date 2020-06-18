@@ -1,10 +1,10 @@
 import React from 'react'
-import {GlobalStateKey, useGlobalState} from "../../../modules/global";
+import { GlobalStateKey, useGlobalState } from '../../../modules/global'
 
 // Style
 import { Slider, InputNumber, Row, Col } from 'antd'
-import {SliderValue} from "antd/es/slider";
-import {Label} from "./style";
+import { SliderValue } from 'antd/es/slider'
+import { Label } from './style'
 
 type Props = {
   stateKey: GlobalStateKey
@@ -14,11 +14,11 @@ type Props = {
   step: number
 }
 
-const ValueSlider: React.FC<Props> = ({stateKey, label, min, max, step}: Props) => {
+const ValueSlider: React.FC<Props> = ({ stateKey, label, min, max, step }: Props) => {
+  const [value, setValue] = useGlobalState(stateKey)
 
-  const [ value, setValue ] = useGlobalState(stateKey)
-
-  if (typeof value !== 'number') throw new Error(`The value from the GlobalState must be of type number. ${stateKey} is of type ${typeof stateKey}`)
+  if (typeof value !== 'number')
+    throw new Error(`The value from the GlobalState must be of type number. ${stateKey} is of type ${typeof stateKey}`)
 
   const onChange = (currentValue: SliderValue | number | string | undefined): void => {
     currentValue = Number(currentValue)
@@ -28,27 +28,14 @@ const ValueSlider: React.FC<Props> = ({stateKey, label, min, max, step}: Props) 
   return (
     <>
       <Row>
-       <Label>{label}</Label>
+        <Label>{label}</Label>
       </Row>
       <Row>
         <Col span={15}>
-          <Slider
-            min={min}
-            max={max}
-            step={step}
-            onChange={onChange}
-            value={value}
-          />
+          <Slider min={min} max={max} step={step} onChange={onChange} value={value} />
         </Col>
         <Col span={3}>
-          <InputNumber
-            min={min}
-            max={max}
-            step={step}
-            style={{ margin: '0 16px' }}
-            value={value}
-            onChange={onChange}
-          />
+          <InputNumber min={min} max={max} step={step} style={{ margin: '0 16px' }} value={value} onChange={onChange} />
         </Col>
       </Row>
     </>

@@ -50,38 +50,79 @@ export const generateNumberObjects = (sides: number, font: Font): Array<Mesh> =>
   return numbers
 }
 
-export const moveGeometryAndMesh = (mesh: Mesh, face: number, size: number, depth: number): void => {
+export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size: number, depth: number): void => {
   mesh.position.x = 0
   mesh.position.y = 0
   mesh.position.z = 0
-  mesh.geometry.center()
-  const offset = size / 2 - depth / 2
-  switch (face) {
-    case 1:
-      mesh.position.z += offset
-      break
-    case 2:
-      mesh.rotation.x = 1.5708
-      mesh.rotation.y = -1.5708
-      mesh.position.x -= offset
-      break
-    case 3:
-      mesh.rotation.x = -1.5708
-      mesh.position.y += offset
-      break
-    case 4:
-      mesh.rotation.x = 1.5708
-      mesh.position.y -= offset
-      break
-    case 5:
-      mesh.rotation.x = -1.5708
-      mesh.rotation.y = 1.5708
 
-      mesh.position.x += offset
-      break
-    case 6:
-      mesh.rotation.z = 3.14159
-      mesh.position.z -= offset
-      break
+  mesh.rotation.x = 0
+  mesh.rotation.y = 0
+  mesh.rotation.z = 0
+
+  if (die === 'd4') {
+    // This is the x y or z offset for the points of intersection between the tetrahedron and an inscribed circle.
+    // The value was found by the distance equation for a vector using r of the inscribed circle as a distance, adding
+    // the depth/2 to the r.
+    const sWithDepth = (2 * size - 3 * depth) / (6 * Math.sqrt(3))
+
+    // This is a right angle minus the angle between the edge and face of a regular tetrahedron
+    const edgeFaceAngle = Math.PI / 2 - Math.acos(1 / Math.sqrt(3))
+
+    switch (face) {
+      case 1:
+        mesh.translateY(sWithDepth).translateX(-sWithDepth).translateZ(sWithDepth)
+        mesh
+          .rotateY(-Math.PI / 4)
+          .rotateX(-edgeFaceAngle)
+          .rotateZ(Math.PI)
+        break
+      case 2:
+        mesh.translateY(sWithDepth).translateX(sWithDepth).translateZ(-sWithDepth)
+        mesh
+          .rotateY((3 * Math.PI) / 4)
+          .rotateX(-edgeFaceAngle)
+          .rotateZ(Math.PI)
+        break
+      case 3:
+        mesh.translateY(-sWithDepth).translateX(-sWithDepth).translateZ(-sWithDepth)
+        mesh.rotateY((-3 * Math.PI) / 4).rotateX(edgeFaceAngle)
+        break
+      case 4:
+        mesh.translateY(-sWithDepth).translateX(sWithDepth).translateZ(sWithDepth)
+        mesh.rotateY(Math.PI / 4).rotateX(edgeFaceAngle)
+        break
+    }
+  }
+
+  if (die === 'd6') {
+    const offset = size / 2 - depth / 2
+    switch (face) {
+      case 1:
+        mesh.position.z += offset
+        break
+      case 2:
+        mesh.rotation.x = 1.5708
+        mesh.rotation.y = -1.5708
+        mesh.position.x -= offset
+        break
+      case 3:
+        mesh.rotation.x = -1.5708
+        mesh.position.y += offset
+        break
+      case 4:
+        mesh.rotation.x = 1.5708
+        mesh.position.y -= offset
+        break
+      case 5:
+        mesh.rotation.x = -1.5708
+        mesh.rotation.y = 1.5708
+
+        mesh.position.x += offset
+        break
+      case 6:
+        mesh.rotation.z = 3.14159
+        mesh.position.z -= offset
+        break
+    }
   }
 }

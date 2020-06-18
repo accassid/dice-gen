@@ -1,5 +1,7 @@
+import { SVGResult } from 'three/examples/jsm/loaders/SVGLoader'
+
 export type SVGType = {
-  file: File
+  data: SVGResult
   scale: number
   rotation: number
 }

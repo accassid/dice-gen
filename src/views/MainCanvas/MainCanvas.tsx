@@ -19,10 +19,10 @@ const MainCanvas: React.FC<Props> = () => {
       <Canvas camera={{ position: [20, 30, 50] }}>
         <ambientLight />
         <pointLight position={[30, 20, 60]} />
-        <Die size={20} />
+        <Die />
         <Preview />
         <Suspense fallback={null}></Suspense>
-        <axesHelper />
+        <axesHelper args={[10]} />
         <Grid />
         <Controls />
       </Canvas>
