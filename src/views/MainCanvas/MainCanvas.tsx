@@ -19,6 +19,7 @@ const MainCanvas: React.FC<Props> = () => {
       <Canvas camera={{ position: [20, 30, 50] }}>
         <ambientLight />
         <pointLight position={[30, 20, 60]} />
+        <pointLight position={[-60, -20, 0]} />
         <Die />
         <Preview />
         <Suspense fallback={null}></Suspense>

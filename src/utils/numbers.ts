@@ -179,4 +179,80 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
         break
     }
   }
+
+  if (die === 'd12') {
+    const inRadius = size*(1.11351/1.40125) - depth/2 + 0.01
+    const rotationOffset = Math.PI/6 // Some faces do not line up with the initial rotation of the geometry, this just rotates 30 degrees to reset
+    const hexRotation = Math.PI/3 // One sixth of a rotation around the dodecahedron which when rotating by the inradius lands you on faces
+    const pentaOffset = Math.PI/2 - 2*Math.PI/5 // Some faces start offset in the pentagon, this just rotates by the exterior angle to reset
+    const pentaRotation = 2*Math.PI/5 // One fifth of the rotation around the inside of a face (a pentagon)
+    const flip = Math.PI
+    const correction = 0.03 // For some reason when rotating be the radius six times around the inscribed circle, the rotation gets off by this small amount
+    switch (face) {
+      case 1:
+        mesh.rotateY(rotationOffset + 3*hexRotation + correction)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(-pentaOffset)
+        break
+      case 2:
+        mesh.rotateX(2*hexRotation + correction)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ( flip + 2*pentaRotation)
+        break
+      case 3:
+        mesh.rotateZ(rotationOffset + 3*hexRotation + correction)
+        mesh.translateX(inRadius)
+        mesh.rotateX( pentaRotation)
+        mesh.rotateY(Math.PI/2)
+        break
+      case 4:
+        mesh.rotateZ(rotationOffset + 2*hexRotation - correction)
+        mesh.translateX(inRadius)
+        mesh.rotateX(flip - pentaRotation)
+        mesh.rotateY(Math.PI/2)
+        break
+      case 5:
+        mesh.rotateX(4*hexRotation - correction)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ( 3*pentaRotation)
+        break
+      case 6:
+        mesh.rotateY(rotationOffset + 2*hexRotation - correction)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(pentaOffset + pentaRotation)
+        break
+      case 7:
+        mesh.rotateY(rotationOffset + 5*hexRotation - correction)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(pentaOffset + pentaRotation )
+        break
+      case 8:
+        mesh.rotateX(hexRotation - correction)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(  2* pentaRotation)
+        break
+      case 9:
+        mesh.rotateZ(rotationOffset - hexRotation - correction)
+        mesh.translateX(inRadius)
+        mesh.rotateX(flip + pentaRotation)
+        mesh.rotateY(Math.PI/2)
+        break
+      case 10:
+        mesh.rotateZ(rotationOffset + correction)
+        mesh.translateX(inRadius)
+        mesh.rotateX(-pentaRotation)
+        mesh.rotateY(Math.PI/2)
+        break
+      case 11:
+        mesh.rotateX(5*hexRotation + correction)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ( flip + 3*pentaRotation)
+        break
+      case 12:
+        mesh.rotateY(rotationOffset + correction)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(-pentaOffset)
+        break
+    }
+  }
 }
