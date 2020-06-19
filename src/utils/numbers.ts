@@ -255,4 +255,134 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
         break
     }
   }
+
+
+  if (die === 'd20') {
+    const inRadius = (0.75576/0.95105)*size - depth/2 + 0.01
+    const dihedral = Math.acos(-Math.sqrt(5)/3)
+    const dihedralOffset = Math.PI/2 - dihedral/2 // 90 degrees minus half of the dihedral for the vertical faces
+
+    const triOffset = Math.PI/6 // Used when rotating a number on a face to align it with the equilateral triangle
+    const triRotation = 2*Math.PI/3 // Rotate by 60 degrees for rotating a face in the triangle
+
+    const flip = Math.PI
+
+    const estimatedZOffset = dihedral/2 - 0.025 // This Z rotation seems to align the face for all the faces that require both X and Y rotations
+    const estimatedXRotation = Math.PI/5.1 // This X rotation seems to align the face for all the faces that require both X and Y rotations
+
+    switch (face) {
+      case 1:
+        mesh.rotateY(Math.PI/2 - dihedral/2 + Math.PI )
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(triOffset +triRotation)
+        break
+      case 2:
+        mesh.rotateY(-dihedralOffset)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(-triOffset +triRotation)
+        break
+      case 3:
+        mesh.rotateY(-Math.PI/4 + Math.PI)
+        mesh.rotateX(estimatedXRotation)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(-estimatedZOffset + Math.PI/2 + triRotation)
+        break
+      case 4:
+        mesh.rotateX(-Math.PI/2 + dihedralOffset)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(flip - triRotation)
+        break
+      case 5:
+        mesh.rotateY(-Math.PI/2)
+        mesh.rotateX( -dihedralOffset)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(-triRotation)
+        break
+      case 6:
+        mesh.rotateY(Math.PI/2)
+        mesh.rotateX( -dihedralOffset)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(-triRotation)
+        break
+      case 7:
+        mesh.rotateY(Math.PI/4 + Math.PI)
+        mesh.rotateX(estimatedXRotation)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(estimatedZOffset - Math.PI/2 -triRotation )
+        break
+      case 8:
+        mesh.rotateY(Math.PI/4)
+        mesh.rotateX(estimatedXRotation)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(estimatedZOffset - Math.PI/2 -triRotation )
+        break
+      case 9:
+        mesh.rotateY(-Math.PI/4 + Math.PI)
+        mesh.rotateX(-estimatedXRotation)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(estimatedZOffset + Math.PI/2 - triRotation )
+        break
+      case 10:
+        mesh.rotateX(Math.PI/2 - dihedralOffset)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(triRotation)
+        break
+      case 11:
+        mesh.rotateX(-Math.PI/2 - dihedralOffset)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(-triRotation)
+        break
+      case 12:
+        mesh.rotateY(-Math.PI/4)
+        mesh.rotateX(estimatedXRotation)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(-estimatedZOffset + Math.PI/2 + triRotation)
+        break
+      case 13:
+        mesh.rotateY(Math.PI/4 + Math.PI)
+        mesh.rotateX(-estimatedXRotation)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(-estimatedZOffset - Math.PI/2 + triRotation)
+        break
+      case 14:
+        mesh.rotateY(Math.PI/4)
+        mesh.rotateX(-estimatedXRotation)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(-estimatedZOffset - Math.PI/2 + triRotation)
+        break
+      case 15:
+        mesh.rotateY(-Math.PI/2)
+        mesh.rotateX( dihedralOffset)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(flip + triRotation)
+        break
+      case 16:
+        mesh.rotateY(Math.PI/2)
+        mesh.rotateX( dihedralOffset)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(flip + triRotation)
+        break
+      case 18:
+        mesh.rotateY(-Math.PI/4)
+        mesh.rotateX(-estimatedXRotation)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(estimatedZOffset + Math.PI/2 - triRotation)
+        break
+      case 17:
+        mesh.rotateX(-Math.PI/2 + dihedralOffset + Math.PI)
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(flip + triRotation)
+        break
+      case 19:
+        mesh.rotateY(Math.PI/2 + dihedral/2  )
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(flip + triOffset -triRotation)
+        break
+      case 20:
+        mesh.rotateY(dihedralOffset )
+        mesh.translateZ(inRadius)
+        mesh.rotateZ(triOffset)
+        break
+    }
+  }
 }

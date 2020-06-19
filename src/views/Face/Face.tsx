@@ -6,7 +6,7 @@ import { moveGeometryAndMesh } from '../../utils/numbers'
 import SVGGeometry from '../SVGGeometry/SVGGeometry'
 import TextGeometry from '../TextGeometry/TextGeometry'
 import { useUpdate } from 'react-three-fiber'
-import D4FaceGeometry from '../Die/D4/D4TextGeometry/D4FaceGeometry'
+import D4FaceGeometry from '../Die/D4/D4FaceGeometry/D4FaceGeometry'
 
 type Props = {
   dieNum: number

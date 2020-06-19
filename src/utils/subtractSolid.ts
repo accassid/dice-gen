@@ -1,4 +1,11 @@
-import {Mesh, BoxGeometry, TetrahedronGeometry, OctahedronGeometry, DodecahedronGeometry} from 'three'
+import {
+  Mesh,
+  BoxGeometry,
+  TetrahedronGeometry,
+  OctahedronGeometry,
+  DodecahedronGeometry,
+  IcosahedronGeometry
+} from 'three'
 import { getGlobalState } from '../modules/global'
 import { isFaceOption } from '../models/face'
 import { ThreeBSP } from 'three-js-csg-es6'
@@ -24,6 +31,9 @@ export const subtractSolid = (die?: string): Mesh => {
   } else if (die === 'd12') {
     dieNumber = 12
     mesh = new Mesh(new DodecahedronGeometry(size))
+  } else if (die === 'd20') {
+    dieNumber = 20
+    mesh = new Mesh(new IcosahedronGeometry(size))
   }
 
   if (!mesh) throw new Error(`D${die} has not been programmed into the subtractSolid function.`)

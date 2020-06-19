@@ -1,11 +1,12 @@
 import { Geometry, ExtrudeGeometry } from 'three'
 import { SVGType } from '../models/svg'
 
-export const createSVGGeometry = (svg: SVGType, depth: number, size: number, die?: number): Geometry => {
+export const createSVGGeometry = (svg: SVGType, depth: number, size: number, die?: string): Geometry => {
   let geometry: Geometry = new Geometry()
 
   let dieScale = 1
-  if (die === 4) dieScale = 0.25
+  if (die === 'd4') dieScale = 0.25
+  if (die === 'd20') dieScale = 0.6
 
   for (let i = 0; i < svg.data.paths.length; i++) {
     const path = svg.data.paths[i]

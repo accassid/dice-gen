@@ -6,6 +6,7 @@ import D8 from './D8/D8'
 import D6 from './D6/D6'
 import D4 from './D4/D4'
 import { useGlobalState } from '../../modules/global'
+import D20 from "./D20/D20";
 
 type Props = {}
 
@@ -17,6 +18,7 @@ const Die: React.FC<Props> = () => {
       {currentDie === 'd6' && <D6 />}
       {currentDie === 'd8' && <D8 />}
       {currentDie === 'd12' && <D12/>}
+      {currentDie === 'd20' && <D20/>}
     </>
   )
 }
