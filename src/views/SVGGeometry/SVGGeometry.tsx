@@ -17,15 +17,16 @@ const SVGGeometry: React.FC<Props> = ({ svg }: Props) => {
   const [svgGeometry, setGeometry] = useState<Geometry | null>(null)
   const [globalSize] = useGlobalState('globalSize')
   const [globalDepth] = useGlobalState('globalDepth')
+  const [die] = useGlobalState('die')
 
   // const svgData = useLoader(SVGLoader, '/star.svg')
 
   useEffect(() => {
     if (svg.data) {
-      const geometry = createSVGGeometry(svg, globalDepth, globalSize)
+      const geometry = createSVGGeometry(svg, globalDepth, globalSize, die)
       if (geometry) setGeometry(geometry)
     }
-  }, [globalSize, globalDepth, svg])
+  }, [globalSize, globalDepth, svg, die])
 
   if (!svgGeometry) return <boxGeometry attach="geometry" args={[0.1, 0.1, 0.1]} />
 

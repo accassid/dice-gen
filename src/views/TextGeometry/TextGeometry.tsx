@@ -13,18 +13,18 @@ const TextGeometry: React.FC<Props> = ({ font, face }: Props) => {
   const [globalSize] = useGlobalState('globalSize')
   const [globalFontScale] = useGlobalState('globalFontScale')
   const [globalDepth] = useGlobalState('globalDepth')
+  const [die] = useGlobalState('die')
   const geometryRef = useUpdate(
     (self: Geometry) => {
       self.center()
     },
     [globalFontScale, globalSize, globalDepth],
   )
-
   if (!font) return <geometry attach="geometry" />
   const config = {
     font,
     hAlign: 'center',
-    size: globalSize * globalFontScale,
+    size: globalSize * globalFontScale * (die === 'd20' ? .5 : 1),
     height: globalDepth + 0.02,
     curveSegments: 6,
     bevelEnabled: false,
