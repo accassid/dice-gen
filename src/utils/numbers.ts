@@ -1,4 +1,5 @@
-import { Font, TextGeometry, Mesh } from 'three'
+import { Font, TextGeometry, Mesh, Vector3, Line3 } from 'three'
+import {PentagonalTrapezohedron} from "../models/pentagonalTrapezohedron";
 
 export const generateNumberObjects = (sides: number, font: Font): Array<Mesh> => {
   const numbers: Array<Mesh> = []
@@ -177,6 +178,35 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
         mesh.rotateX(facePlaneAngle)
         mesh.rotateZ(Math.PI)
         break
+    }
+  }
+
+  if (die === 'd10') {
+    const pt = new PentagonalTrapezohedron(20)
+    switch (face) {
+      case 1:
+        const top = pt.vertices[8]
+        const bottom = pt.vertices[10]
+        const left = pt.vertices[5]
+        const right = pt.vertices[4]
+        top.subVectors(top, bottom)
+        const faceAngle = top.angleTo(new Vector3(-1,0,0)) // TODO Could possibly store all these operations in the new Geometry class?
+        const horizontal = new Line3(left, right)
+        const vertical = new Line3(bottom, top)
+        const bottomMid = new Vector3()
+        const topMid = new Vector3()
+        const verticalMid = new Line3(horizontal.getCenter(bottomMid), vertical.getCenter(topMid))
+        let midPoint = new Vector3()
+        midPoint = verticalMid.getCenter(midPoint)
+        const radius = new Line3(new Vector3(0,0,0), bottomMid)
+        const distance = radius.distance()
+        midPoint.normalize()
+        bottomMid.normalize()
+        mesh.translateOnAxis(bottomMid, distance)
+        mesh.rotateZ(Math.PI/2 - faceAngle)
+        mesh.rotateY(Math.PI/2)
+        break
+
     }
   }
 

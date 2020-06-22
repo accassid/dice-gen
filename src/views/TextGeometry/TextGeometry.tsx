@@ -20,7 +20,7 @@ const TextGeometry: React.FC<Props> = ({ font, face }: Props) => {
     },
     [globalFontScale, globalSize, globalDepth],
   )
-  if (!font) return <geometry attach="geometry" />
+  if (!font) return <planeGeometry args={[5,5]} attach="geometry" />
   const config = {
     font,
     hAlign: 'center',
