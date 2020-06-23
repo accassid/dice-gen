@@ -183,30 +183,92 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
 
   if (die === 'd10') {
     const pt = new PentagonalTrapezohedron(20)
+    const top = pt.vertices[8]
+    const bottom = pt.vertices[10]
+    const left = pt.vertices[5]
+    const right = pt.vertices[4]
+    const adjustedTop = new Vector3()
+    adjustedTop.subVectors(top, bottom)
+    const faceAngle = adjustedTop.angleTo(new Vector3(-1,0,0)) // TODO Could possibly store all these operations in the new Geometry class?
+    const horizontal = new Line3(left, right)
+    const vertical = new Line3(bottom, top)
+    const bottomMid = new Vector3()
+    const topMid = new Vector3()
+    const verticalMid = new Line3(horizontal.getCenter(bottomMid), vertical.getCenter(topMid))
+    let midPoint = new Vector3()
+    midPoint = verticalMid.getCenter(midPoint)
+    const radius = new Line3(new Vector3(0,0,0), midPoint)
+    const distance = radius.distance() - depth/2
+    midPoint.normalize()
+    bottomMid.normalize()
+
+    const pentaRotation = 2*Math.PI/5
+    const pentaOffset = pentaRotation/2
     switch (face) {
       case 1:
-        const top = pt.vertices[8]
-        const bottom = pt.vertices[10]
-        const left = pt.vertices[5]
-        const right = pt.vertices[4]
-        top.subVectors(top, bottom)
-        const faceAngle = top.angleTo(new Vector3(-1,0,0)) // TODO Could possibly store all these operations in the new Geometry class?
-        const horizontal = new Line3(left, right)
-        const vertical = new Line3(bottom, top)
-        const bottomMid = new Vector3()
-        const topMid = new Vector3()
-        const verticalMid = new Line3(horizontal.getCenter(bottomMid), vertical.getCenter(topMid))
-        let midPoint = new Vector3()
-        midPoint = verticalMid.getCenter(midPoint)
-        const radius = new Line3(new Vector3(0,0,0), bottomMid)
-        const distance = radius.distance()
-        midPoint.normalize()
-        bottomMid.normalize()
-        mesh.translateOnAxis(bottomMid, distance)
+        mesh.translateOnAxis(midPoint, distance)
         mesh.rotateZ(Math.PI/2 - faceAngle)
-        mesh.rotateY(Math.PI/2)
+        mesh.rotateY(-Math.PI/2)
         break
-
+      case 2:
+        mesh.rotateY(pentaOffset + 3 * pentaRotation)
+        mesh.rotateX(Math.PI)
+        mesh.translateOnAxis(midPoint, distance)
+        mesh.rotateZ(Math.PI/2 - faceAngle)
+        mesh.rotateY(-Math.PI/2)
+        break
+      case 3:
+        mesh.rotateY(2*pentaRotation)
+        mesh.translateOnAxis(midPoint, distance)
+        mesh.rotateZ(Math.PI/2 - faceAngle)
+        mesh.rotateY(-Math.PI/2)
+        break
+      case 4:
+        mesh.rotateY(pentaOffset)
+        mesh.rotateX(Math.PI)
+        mesh.translateOnAxis(midPoint, distance)
+        mesh.rotateZ(Math.PI/2 - faceAngle)
+        mesh.rotateY(-Math.PI/2)
+        break
+      case 5:
+        mesh.rotateY(3*pentaRotation)
+        mesh.translateOnAxis(midPoint, distance)
+        mesh.rotateZ(Math.PI/2 - faceAngle)
+        mesh.rotateY(-Math.PI/2)
+        break
+      case 6:
+        mesh.rotateY(pentaOffset + 4 * pentaRotation)
+        mesh.rotateX(Math.PI)
+        mesh.translateOnAxis(midPoint, distance)
+        mesh.rotateZ(Math.PI/2 - faceAngle)
+        mesh.rotateY(-Math.PI/2)
+        break
+      case 7:
+        mesh.rotateY(pentaRotation)
+        mesh.translateOnAxis(midPoint, distance)
+        mesh.rotateZ(Math.PI/2 - faceAngle)
+        mesh.rotateY(-Math.PI/2)
+        break
+      case 8:
+        mesh.rotateY(pentaOffset + 2 * pentaRotation)
+        mesh.rotateX(Math.PI)
+        mesh.translateOnAxis(midPoint, distance)
+        mesh.rotateZ(Math.PI/2 - faceAngle)
+        mesh.rotateY(-Math.PI/2)
+        break
+      case 9:
+        mesh.rotateY(4*pentaRotation)
+        mesh.translateOnAxis(midPoint, distance)
+        mesh.rotateZ(Math.PI/2 - faceAngle)
+        mesh.rotateY(-Math.PI/2)
+        break
+      case 0:
+        mesh.rotateY(pentaOffset + pentaRotation)
+        mesh.rotateX(Math.PI)
+        mesh.translateOnAxis(midPoint, distance)
+        mesh.rotateZ(Math.PI/2 - faceAngle)
+        mesh.rotateY(-Math.PI/2)
+        break
     }
   }
 
