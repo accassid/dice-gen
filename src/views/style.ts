@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
   #root {
@@ -14,4 +14,8 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
     overflow: hidden;
   }
+`
+
+export const Spacer = styled.div<{height?: number}>`
+  height: ${(props): number => props.height ? props.height : 15}px;
 `

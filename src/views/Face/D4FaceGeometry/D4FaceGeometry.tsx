@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Font, TextGeometry, TextGeometryParameters, Geometry } from 'three'
-import { useGlobalState } from '../../../../modules/global'
-import { createSVGGeometry } from '../../../../utils/createSVGGeometry'
+import { useGlobalState } from '../../../modules/global'
+import { createSVGGeometry } from '../../../utils/createSVGGeometry'
 
 type Props = {
   font: Font | null
   faceNum: number
+  dieFontScale: number
+  dieScale: number
 }
 
 const FACE_MAP: Record<string, [string, string, string]> = {
@@ -15,12 +17,13 @@ const FACE_MAP: Record<string, [string, string, string]> = {
   '4': ['4', '3', '1'],
 }
 
-const D4FaceGeometry: React.FC<Props> = ({ font, faceNum }: Props) => {
+const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieScale }: Props) => {
   const [geometry, setGeometry] = useState<Geometry>(new Geometry())
   const [globalSize] = useGlobalState('globalSize')
   const [globalFontScale] = useGlobalState('globalFontScale')
   const [globalDepth] = useGlobalState('globalDepth')
   const [globalSVG] = useGlobalState('globalSVG')
+  const [d4RadiusScale] = useGlobalState('d4RadiusScale')
 
   useEffect(() => {
     let config: null | TextGeometryParameters = null
@@ -28,7 +31,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum }: Props) => {
     if (font)
       config = {
         font,
-        size: (globalSize / 4) * globalFontScale,
+        size: (globalSize / 2) * globalFontScale * dieScale * dieFontScale,
         height: globalDepth + 0.02,
         curveSegments: 6,
         bevelEnabled: false,
@@ -37,15 +40,15 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum }: Props) => {
         bevelOffset: 0,
         bevelSegments: 8,
       }
-
     const numbers = FACE_MAP[`${faceNum}`]
-    const radius = globalSize / 3
+    if (!numbers) return
+    const radius = (globalSize / 2) * d4RadiusScale
     let rotation = 0
     let geometry: Geometry = new Geometry()
     for (let i = 0; i < numbers.length; i++) {
       const text = numbers[i]
       let currentGeometry = new Geometry()
-      if (text === '4' && globalSVG.max) currentGeometry = createSVGGeometry(globalSVG.max, globalDepth, globalSize, 'd4')
+      if (text === '4' && globalSVG.max) currentGeometry = createSVGGeometry(globalSVG.max, globalDepth, globalSize, 'd4', dieScale)
       else if (config) currentGeometry = new TextGeometry(text, config)
       currentGeometry.center()
       currentGeometry.translate(0, radius, 0)
@@ -57,7 +60,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum }: Props) => {
     if (!geometry) throw new Error('There must be at least one number for the D4 face generator.')
 
     setGeometry(geometry)
-  }, [font, globalSize, globalFontScale, globalDepth, faceNum, globalSVG])
+  }, [font, globalSize, globalFontScale, globalDepth, faceNum, globalSVG, d4RadiusScale, dieFontScale, dieScale])
 
   return <primitive object={geometry} attach="geometry" />
 }

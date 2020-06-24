@@ -10,13 +10,18 @@ import { getGlobalState } from '../modules/global'
 import { isFaceOption } from '../models/face'
 import { ThreeBSP } from 'three-js-csg-es6'
 import * as THREE from 'three'
-import {PentagonalTrapezohedron} from "../models/pentagonalTrapezohedron";
+import {PentagonalTrapezohedronGeometry} from "../models/pentagonalTrapezohedron";
+import {isDiceOption} from "../models/dice";
 
 export const subtractSolid = (die?: string): Mesh => {
   let mesh = null
 
-  const size = getGlobalState('globalSize')
+  const globalSize = getGlobalState('globalSize')
   if (!die) die = getGlobalState('die')
+  const dieScaleKey = die+'Scale'
+  if (!isDiceOption(dieScaleKey)) throw new Error(die + " does not have state keys for scale.")
+  const dieScale = getGlobalState(dieScaleKey)
+  const size = globalSize*dieScale
 
   let dieNumber = 4
 
@@ -31,7 +36,7 @@ export const subtractSolid = (die?: string): Mesh => {
     mesh = new Mesh(new OctahedronGeometry(size))
   }else if (die === 'd10') {
     dieNumber = 10
-    mesh = new Mesh(new PentagonalTrapezohedron(size))
+    mesh = new Mesh(new PentagonalTrapezohedronGeometry(size, getGlobalState('d10Height')))
   }else if (die === 'd12') {
     dieNumber = 12
     mesh = new Mesh(new DodecahedronGeometry(size))

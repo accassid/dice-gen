@@ -1,12 +1,13 @@
 import { Geometry, ExtrudeGeometry } from 'three'
 import { SVGType } from '../models/svg'
 
-export const createSVGGeometry = (svg: SVGType, depth: number, size: number, die?: string): Geometry => {
+export const createSVGGeometry = (svg: SVGType, depth: number, size: number, die: string, dieScale: number): Geometry => {
   let geometry: Geometry = new Geometry()
 
-  let dieScale = 1
-  if (die === 'd4') dieScale = 0.25
-  if (die === 'd20') dieScale = 0.6
+  let dieSVGScale = 1
+  if (die === 'd4') dieSVGScale = 0.25
+  if (die === 'd10' || die === 'd100') dieSVGScale = 0.5
+  if (die === 'd20') dieSVGScale = 0.6
 
   for (let i = 0; i < svg.data.paths.length; i++) {
     const path = svg.data.paths[i]
@@ -27,7 +28,7 @@ export const createSVGGeometry = (svg: SVGType, depth: number, size: number, die
     geometry.rotateZ(Math.PI)
     let scale = 1
     if (geometry.boundingBox) {
-      const targetMax = (size * svg.scale * dieScale) / 2
+      const targetMax = (size * dieScale * svg.scale * dieSVGScale) / 2
       if (geometry.boundingBox.max.x > geometry.boundingBox.max.y) scale = targetMax / geometry.boundingBox.max.x
       else scale = targetMax / geometry.boundingBox.max.y
     }

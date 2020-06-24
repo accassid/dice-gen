@@ -1,7 +1,6 @@
 import React from 'react'
 import PageWrapper from '../PageWrapper/PageWrapper'
 import MainCanvas from '../MainCanvas/MainCanvas'
-import 'antd/dist/antd.css'
 
 import { GlobalStyle } from '../style'
 

@@ -1,5 +1,5 @@
 import { Font, TextGeometry, Mesh, Vector3, Line3 } from 'three'
-import {PentagonalTrapezohedron} from "../models/pentagonalTrapezohedron";
+import {PentagonalTrapezohedronGeometry} from "../models/pentagonalTrapezohedron";
 
 export const generateNumberObjects = (sides: number, font: Font): Array<Mesh> => {
   const numbers: Array<Mesh> = []
@@ -51,7 +51,7 @@ export const generateNumberObjects = (sides: number, font: Font): Array<Mesh> =>
   return numbers
 }
 
-export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size: number, depth: number): void => {
+export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size: number, dieScale: number, depth: number, d10Height: number): void => {
   mesh.position.x = 0
   mesh.position.y = 0
   mesh.position.z = 0
@@ -60,13 +60,15 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
   mesh.rotation.y = 0
   mesh.rotation.z = 0
 
+  const scaledSize = size * dieScale
+
   if (die !== 'd4') mesh.geometry.center()
 
   if (die === 'd4') {
     // This is the x y or z offset for the points of intersection between the tetrahedron and an inscribed circle.
     // The value was found by the distance equation for a vector using r of the inscribed circle as a distance, adding
     // the depth/2 to the r.
-    const sWithDepth = (2 * size - 3 * depth) / (6 * Math.sqrt(3))
+    const sWithDepth = (2 * scaledSize - 3 * depth) / (6 * Math.sqrt(3))
 
     // This is a right angle minus the angle between the edge and face of a regular tetrahedron
     const edgeFaceAngle = Math.PI / 2 - Math.acos(1 / Math.sqrt(3))
@@ -98,7 +100,7 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
   }
 
   if (die === 'd6') {
-    const offset = size / 2 - depth / 2
+    const offset = scaledSize / 2 - depth / 2
     switch (face) {
       case 1:
         mesh.position.z += offset
@@ -132,7 +134,7 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
   if (die === 'd8') {
     const dihedral = Math.acos(-1 / 3)
     const facePlaneAngle = Math.PI / 2 - dihedral / 2
-    const sWithDepth = (2 * Math.sqrt(3) * size - 3 * depth) / (6 * Math.sqrt(3))
+    const sWithDepth = (2 * Math.sqrt(3) * scaledSize - 3 * depth) / (6 * Math.sqrt(3))
     switch (face) {
       case 1:
         mesh.translateX(sWithDepth).translateY(sWithDepth).translateZ(sWithDepth)
@@ -182,7 +184,7 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
   }
 
   if (die === 'd10') {
-    const pt = new PentagonalTrapezohedron(20)
+    const pt = new PentagonalTrapezohedronGeometry(scaledSize, d10Height)
     const top = pt.vertices[8]
     const bottom = pt.vertices[10]
     const left = pt.vertices[5]
@@ -273,7 +275,7 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
   }
 
   if (die === 'd12') {
-    const inRadius = size*(1.11351/1.40125) - depth/2 + 0.01
+    const inRadius = scaledSize*(1.11351/1.40125) - depth/2 + 0.01
     const rotationOffset = Math.PI/6 // Some faces do not line up with the initial rotation of the geometry, this just rotates 30 degrees to reset
     const hexRotation = Math.PI/3 // One sixth of a rotation around the dodecahedron which when rotating by the inradius lands you on faces
     const pentaOffset = Math.PI/2 - 2*Math.PI/5 // Some faces start offset in the pentagon, this just rotates by the exterior angle to reset
@@ -350,7 +352,7 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
 
 
   if (die === 'd20') {
-    const inRadius = (0.75576/0.95105)*size - depth/2 + 0.01
+    const inRadius = (0.75576/0.95105)*scaledSize - depth/2 + 0.01
     const dihedral = Math.acos(-Math.sqrt(5)/3)
     const dihedralOffset = Math.PI/2 - dihedral/2 // 90 degrees minus half of the dihedral for the vertical faces
 
