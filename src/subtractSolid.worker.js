@@ -1,7 +1,11 @@
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-undef */
+// https://github.com/webpack-contrib/worker-loader
 export default () => {
   self.addEventListener('message', e => {
     // eslint-disable-line no-restricted-globals
     if (!e) return
+    importScripts('../node_modules/three/Three.js')
 
     const users = []
 

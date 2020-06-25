@@ -3,7 +3,7 @@ import { Button } from 'antd'
 import { subtractSolid } from '../../utils/subtractSolid'
 import { useGlobalState } from '../../modules/global'
 import WebWorker from '../../workerSetup'
-import subtractionWorker from '../../subtractionWorker'
+import subtractionWorker from '../../subtractSolid.worker'
 
 type Props = {
   close?: boolean
