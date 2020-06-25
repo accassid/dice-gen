@@ -1,24 +1,29 @@
 import React from 'react'
+import { useGlobalState } from '../../modules/global'
 
 // Components
-import D12 from "./D12/D12";
-import D8 from './D8/D8'
-import D6 from './D6/D6'
-import D4 from './D4/D4'
-import { useGlobalState } from '../../modules/global'
-import D20 from "./D20/D20";
+import Internal from "./Internal/Internal";
+import Face from "../Face/Face";
+
+// Models
+import {DICE_FACE_LISTS, isDiceOption} from "../../models/dice";
 
 type Props = {}
 
 const Die: React.FC<Props> = () => {
-  const [currentDie] = useGlobalState('die')
+
+  const [die] = useGlobalState('die')
+  const diePreview = useGlobalState('diePreview')[0]
+  const sides = DICE_FACE_LISTS[die]
+
+  const dieScaleKey = die+'Scale'
+  if (!isDiceOption(dieScaleKey)) throw new Error(`${die}Scale is not a valid key in the global state.`)
+  const [dieScale] = useGlobalState(dieScaleKey)
+
   return (
     <>
-      {currentDie === 'd4' && <D4 />}
-      {currentDie === 'd6' && <D6 />}
-      {currentDie === 'd8' && <D8 />}
-      {currentDie === 'd12' && <D12/>}
-      {currentDie === 'd20' && <D20/>}
+      {!diePreview && sides.map(side => <Face key={side} faceNum={side} dieScale={dieScale} die={die}/>)}
+      <Internal dieScale={dieScale}/>
     </>
   )
 }

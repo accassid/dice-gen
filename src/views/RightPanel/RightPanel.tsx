@@ -5,7 +5,8 @@ import { useGlobalState } from '../../modules/global'
 import FontDropdown from '../FontDropdown/FontDropdown'
 
 // Style
-import { RightPanelContainer } from './style'
+import { RightPanelContainer, SectionContainer, ButtonContainer } from './style'
+import { Spacer } from "../style";
 
 // Components
 import Downloader from '../Downloader/Downloader'
@@ -26,14 +27,21 @@ const RightPanel: React.FC<Props> = () => {
         <PreviewButton close />
       ) : (
         <>
+          <h2>Global Settings:</h2>
+          <SectionContainer>
+            <FontDropdown />
+            <Spacer/>
+            <ValueSlider label="Dice Size (mm):" stateKey="globalSize" min={1} max={50} step={1} />
+            <ValueSlider label="Font Scale:" stateKey="globalFontScale" min={0.1} max={1} step={0.05} />
+            <ValueSlider label="Symbol Depth (mm):" stateKey="globalDepth" min={0.25} max={5} step={0.25} />
+            <SVGDropzone />
+          </SectionContainer>
+          <h2>Die Settings:</h2>
           <DiceTabs />
-          <ValueSlider label="Dice Size (mm):" stateKey="globalSize" min={1} max={50} step={1} />
-          <ValueSlider label="Font Scale:" stateKey="globalFontScale" min={0.1} max={1} step={0.05} />
-          <ValueSlider label="Symbol Depth (mm):" stateKey="globalDepth" min={0.25} max={5} step={0.25} />
-          <FontDropdown />
-          <SVGDropzone />
-          <Downloader />
-          <PreviewButton />
+          <ButtonContainer>
+            <PreviewButton />
+            <Downloader />
+          </ButtonContainer>
         </>
       )}
     </RightPanelContainer>

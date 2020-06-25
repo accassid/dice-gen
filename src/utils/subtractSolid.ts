@@ -4,18 +4,24 @@ import {
   TetrahedronGeometry,
   OctahedronGeometry,
   DodecahedronGeometry,
-  IcosahedronGeometry
+  IcosahedronGeometry, Geometry
 } from 'three'
 import { getGlobalState } from '../modules/global'
 import { isFaceOption } from '../models/face'
 import { ThreeBSP } from 'three-js-csg-es6'
 import * as THREE from 'three'
+import {PentagonalTrapezohedronGeometry} from "../models/pentagonalTrapezohedron";
+import {isDiceOption} from "../models/dice";
 
 export const subtractSolid = (die?: string): Mesh => {
   let mesh = null
 
-  const size = getGlobalState('globalSize')
+  const globalSize = getGlobalState('globalSize')
   if (!die) die = getGlobalState('die')
+  const dieScaleKey = die+'Scale'
+  if (!isDiceOption(dieScaleKey)) throw new Error(die + " does not have state keys for scale.")
+  const dieScale = getGlobalState(dieScaleKey)
+  const size = globalSize*dieScale
 
   let dieNumber = 4
 
@@ -28,7 +34,10 @@ export const subtractSolid = (die?: string): Mesh => {
   } else if (die === 'd8') {
     dieNumber = 8
     mesh = new Mesh(new OctahedronGeometry(size))
-  } else if (die === 'd12') {
+  }else if (die === 'd10' || die === 'd100') {
+    dieNumber = 10
+    mesh = new Mesh(new PentagonalTrapezohedronGeometry(size, getGlobalState('d10Height')))
+  }else if (die === 'd12') {
     dieNumber = 12
     mesh = new Mesh(new DodecahedronGeometry(size))
   } else if (die === 'd20') {
@@ -45,11 +54,13 @@ export const subtractSolid = (die?: string): Mesh => {
   let meshBSP = new ThreeBSP(mesh)
 
   for (let i = 1; i <= dieNumber; i++) {
-    const key = `d${dieNumber}f${i}`
+    let key = `${die}f${i}`
+    if (key === 'd10f10') key = 'd10f0'
+    if (key === 'd100f10') key = 'd100f0'
     if (!isFaceOption(key)) throw new Error(`Key "${key}" is not a valid die/face combination.`)
     const face = getGlobalState(key)
     const faceMesh = face.ref
-    if (!faceMesh) continue
+    if (!faceMesh || (faceMesh.geometry instanceof Geometry && !faceMesh.geometry.faces.length)) continue
     const faceBSP = new ThreeBSP(faceMesh)
     meshBSP = meshBSP.subtract(faceBSP)
   }

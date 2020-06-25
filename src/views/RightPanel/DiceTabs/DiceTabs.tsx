@@ -3,11 +3,21 @@ import { useGlobalState } from '../../../modules/global'
 
 // Style
 import { Tabs } from 'antd'
-import { isDiceType } from '../../../models/dice'
+import { SectionContainer } from "../style";
+
+// Models
+import { DICE_LIST } from "../../../models/dice";
+import {isDiceOption, isDiceType} from '../../../models/dice'
+
+// Components
+import ValueSlider from "../ValueSlider/ValueSlider";
+import ValueCheckbox from "../ValueCheckbox/ValueCheckbox";
 
 const { TabPane } = Tabs
 
 type Props = {}
+
+
 
 const DiceTabs: React.FC<Props> = () => {
   const [die, setDie] = useGlobalState('die')
@@ -16,27 +26,24 @@ const DiceTabs: React.FC<Props> = () => {
   }
   return (
     <Tabs activeKey={die} onChange={callback}>
-      <TabPane tab="D4" key="d4">
-        D4
-      </TabPane>
-      <TabPane tab="D6" key="d6">
-        D6
-      </TabPane>
-      <TabPane tab="D8" key="d8">
-        D8
-      </TabPane>
-      <TabPane tab="D10" key="d10">
-        D10
-      </TabPane>
-      <TabPane tab="D100" key="d100">
-        D100
-      </TabPane>
-      <TabPane tab="D12" key="d12">
-        D12
-      </TabPane>
-      <TabPane tab="D20" key="d20">
-        D20
-      </TabPane>
+      {DICE_LIST.map(die => {
+        const scaleKey = die+"Scale"
+        const scaleFontKey = die+"FontScale"
+        if (!isDiceOption(scaleKey) || !isDiceOption(scaleFontKey)) return null
+        const d4RadiusKey = die === 'd4' ? 'd4RadiusScale' : null
+        const d10HeightKey = (die === 'd10' || die === 'd100') ? 'd10Height' : null
+        const d100FontVerticalKey = die === 'd100' ? 'd100FontVertical' : null
+        return (
+          <TabPane tab={die.toUpperCase()} key={die}>
+            <SectionContainer>
+              <ValueSlider stateKey={scaleKey} label={`${die.toUpperCase()} Scale`} min={.25} max={2} step={.05}/>
+              <ValueSlider stateKey={scaleFontKey} label={`${die.toUpperCase()} Font Scale`} min={.25} max={2} step={.05}/>
+              {d4RadiusKey && <ValueSlider stateKey={d4RadiusKey} label="D4 Face Radius" min={.25} max={1.5} step={.05}/>}
+              {d10HeightKey && <ValueSlider stateKey={d10HeightKey} label="D10 Height" min={.25} max={2} step={.05}/>}
+              {d100FontVerticalKey && <ValueCheckbox stateKey={d100FontVerticalKey} label="D100 Font Vertical"/>}
+            </SectionContainer>
+          </TabPane>
+      )})}
     </Tabs>
   )
 }

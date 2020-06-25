@@ -3,7 +3,7 @@ import { Mesh } from 'three'
 import { SVGType } from '../models/svg'
 import { DEFAULT_FACE_STATE, FaceStateType } from '../models/face'
 import { Font } from 'three'
-import { DiceType } from '../models/dice'
+import {DEFAULT_DICE_OPTIONS, DiceOptions, DiceType} from '../models/dice'
 
 export type GlobalStateType = {
   rightPanelActive: boolean
@@ -20,7 +20,7 @@ export type GlobalStateType = {
   globalSize: number
   globalDepth: number
   globalSVG: Record<string, SVGType>
-} & FaceStateType
+} & FaceStateType & DiceOptions
 
 export type GlobalStateKey = keyof GlobalStateType
 
@@ -30,7 +30,7 @@ const initialState: GlobalStateType = {
   fontUrl: '',
   svgFile: null,
 
-  die: 'd20',
+  die: 'd100',
 
   diePreview: null,
 
@@ -41,6 +41,7 @@ const initialState: GlobalStateType = {
   globalSVG: {},
 
   ...DEFAULT_FACE_STATE,
+  ...DEFAULT_DICE_OPTIONS,
 }
 const globalState = createGlobalState(initialState)
 export const useGlobalState = globalState.useGlobalState

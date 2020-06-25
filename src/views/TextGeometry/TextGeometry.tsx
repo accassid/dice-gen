@@ -7,24 +7,26 @@ import { useUpdate } from 'react-three-fiber'
 type Props = {
   font: Font | null
   face: FaceType
+  dieFontScale: number
+  dieScale: number
 }
 
-const TextGeometry: React.FC<Props> = ({ font, face }: Props) => {
+const TextGeometry: React.FC<Props> = ({ font, face, dieFontScale, dieScale }: Props) => {
   const [globalSize] = useGlobalState('globalSize')
   const [globalFontScale] = useGlobalState('globalFontScale')
   const [globalDepth] = useGlobalState('globalDepth')
-  const [die] = useGlobalState('die')
+
   const geometryRef = useUpdate(
     (self: Geometry) => {
       self.center()
     },
-    [globalFontScale, globalSize, globalDepth],
+    [globalFontScale, globalSize, globalDepth, dieFontScale, dieScale],
   )
   if (!font) return <geometry attach="geometry" />
   const config = {
     font,
     hAlign: 'center',
-    size: globalSize * globalFontScale * (die === 'd20' ? .5 : 1),
+    size: globalSize * globalFontScale * dieFontScale * dieScale,
     height: globalDepth + 0.02,
     curveSegments: 6,
     bevelEnabled: false,

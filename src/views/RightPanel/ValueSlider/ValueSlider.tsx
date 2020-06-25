@@ -4,7 +4,6 @@ import { GlobalStateKey, useGlobalState } from '../../../modules/global'
 // Style
 import { Slider, InputNumber, Row, Col } from 'antd'
 import { SliderValue } from 'antd/es/slider'
-import { Label } from './style'
 
 type Props = {
   stateKey: GlobalStateKey
@@ -28,7 +27,7 @@ const ValueSlider: React.FC<Props> = ({ stateKey, label, min, max, step }: Props
   return (
     <>
       <Row>
-        <Label>{label}</Label>
+        <h4>{label}</h4>
       </Row>
       <Row>
         <Col span={15}>
