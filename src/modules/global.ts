@@ -20,6 +20,9 @@ export type GlobalStateType = {
   globalSize: number
   globalDepth: number
   globalSVG: Record<string, SVGType>
+
+  loadingDice: null | {current: number; max: number}
+  loadingFaces: null | {current: number; max: number}
 } & FaceStateType & DiceOptions
 
 export type GlobalStateKey = keyof GlobalStateType
@@ -40,9 +43,13 @@ const initialState: GlobalStateType = {
   globalDepth: 1,
   globalSVG: {},
 
+  loadingDice: null,
+  loadingFaces: null,
+
   ...DEFAULT_FACE_STATE,
   ...DEFAULT_DICE_OPTIONS,
 }
 const globalState = createGlobalState(initialState)
 export const useGlobalState = globalState.useGlobalState
 export const getGlobalState = globalState.getGlobalState
+export const setGlobalState = globalState.setGlobalState

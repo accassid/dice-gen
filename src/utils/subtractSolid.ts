@@ -6,14 +6,20 @@ import {
   DodecahedronGeometry,
   IcosahedronGeometry, Geometry
 } from 'three'
-import { getGlobalState } from '../modules/global'
+import { getGlobalState, setGlobalState } from '../modules/global'
 import { isFaceOption } from '../models/face'
 import { ThreeBSP } from 'three-js-csg-es6'
 import * as THREE from 'three'
 import {PentagonalTrapezohedronGeometry} from "../models/pentagonalTrapezohedron";
 import {isDiceOption} from "../models/dice";
+import { job, start, stop } from 'microjob'
 
-export const subtractSolid = (die?: string): Mesh => {
+async function setProgress(bar: 'loadingDice' | 'loadingFaces', current: number, max: number) {
+  console.log('yo')
+  setGlobalState(bar,{current, max})
+}
+
+export async function subtractSolid(die?: string): Promise<Mesh> {
   let mesh = null
 
   const globalSize = getGlobalState('globalSize')
@@ -53,7 +59,12 @@ export const subtractSolid = (die?: string): Mesh => {
 
   let meshBSP = new ThreeBSP(mesh)
 
+  const loadingDice = getGlobalState('loadingDice')
+  if (!loadingDice) await setProgress('loadingDice', 1, 1)
+  else await setProgress("loadingDice", loadingDice.current+1,  loadingDice.max)
+
   for (let i = 1; i <= dieNumber; i++) {
+    await setProgress('loadingFaces', i, dieNumber)
     let key = `${die}f${i}`
     if (key === 'd10f10') key = 'd10f0'
     if (key === 'd100f10') key = 'd100f0'
@@ -67,4 +78,27 @@ export const subtractSolid = (die?: string): Mesh => {
   mesh = meshBSP.toMesh()
   mesh.material = new THREE.MeshStandardMaterial({ color: 0xacacac })
   return mesh
+}
+
+export async function test(): Promise<number> {
+  try {
+    await start()
+
+    const res = await job(() => {
+      let i = 0;
+      for (i = 0; i < 1000000; i++) {
+        console.log(i)
+      }
+      return i;
+    })
+
+    console.log(res)
+
+    }catch (err) {
+      console.error(err);
+    } finally {
+      // shutdown worker pool
+      await stop();
+    }
+    return 1
 }
