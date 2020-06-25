@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useGlobalState } from '../../modules/global'
 import { isFaceOption } from '../../models/face'
 import { DoubleSide, Mesh } from 'three'
@@ -12,17 +12,19 @@ import {isDiceOption} from "../../models/dice";
 type Props = {
   faceNum: number
   dieScale: number
+  die: string
 }
 
-const Face: React.FC<Props> = ({ faceNum, dieScale }: Props) => {
-  const [die] = useGlobalState('die')
+const Face: React.FC<Props> = ({ faceNum, dieScale, die }: Props) => {
   const key = `${die}f${faceNum}`
-  const [face, setFace] = useGlobalState(isFaceOption(key) ? key : 'd6f1')
+  if(!isFaceOption(key)) throw new Error(`${key} is not a valid face key in the global state.`)
+  const [face, setFace] = useGlobalState(key)
   const [font] = useGlobalState('globalFont')
   const [globalSVG] = useGlobalState('globalSVG')
   const [globalSize] = useGlobalState('globalSize')
   const [globalDepth] = useGlobalState('globalDepth')
   const [d10Height] = useGlobalState('d10Height')
+  const [d100FontVertical] = useGlobalState('d100FontVertical')
   const fontScaleKey = die+'FontScale'
   if (!isDiceOption(fontScaleKey)) throw new Error(`${die}FontScale was not fount as a dice option key for the global state`)
   const [dieFontScale] = useGlobalState(fontScaleKey)
@@ -30,10 +32,12 @@ const Face: React.FC<Props> = ({ faceNum, dieScale }: Props) => {
   const meshRef = useUpdate<Mesh>(
     self => {
       setFace({ ...face, ref: self })
-      moveGeometryAndMesh(die, self, faceNum, globalSize, dieScale, globalDepth, d10Height)
-    },
-    [font, globalSVG, globalSize, globalDepth, d10Height, dieFontScale, die, dieScale],
+    }, []
   )
+
+  useEffect(() => {
+    moveGeometryAndMesh(die, meshRef.current, faceNum, globalSize, dieScale, globalDepth, d10Height, d100FontVertical)
+  }, [font, globalSVG, globalSize, globalDepth, d10Height, die, dieScale, d100FontVertical, meshRef, faceNum])
 
   let svg = null
   if (face.svg) svg = face.svg

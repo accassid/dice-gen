@@ -11,6 +11,7 @@ import {isDiceOption, isDiceType} from '../../../models/dice'
 
 // Components
 import ValueSlider from "../ValueSlider/ValueSlider";
+import ValueCheckbox from "../ValueCheckbox/ValueCheckbox";
 
 const { TabPane } = Tabs
 
@@ -31,6 +32,7 @@ const DiceTabs: React.FC<Props> = () => {
         if (!isDiceOption(scaleKey) || !isDiceOption(scaleFontKey)) return null
         const d4RadiusKey = die === 'd4' ? 'd4RadiusScale' : null
         const d10HeightKey = (die === 'd10' || die === 'd100') ? 'd10Height' : null
+        const d100FontVerticalKey = die === 'd100' ? 'd100FontVertical' : null
         return (
           <TabPane tab={die.toUpperCase()} key={die}>
             <SectionContainer>
@@ -38,6 +40,7 @@ const DiceTabs: React.FC<Props> = () => {
               <ValueSlider stateKey={scaleFontKey} label={`${die.toUpperCase()} Font Scale`} min={.25} max={2} step={.05}/>
               {d4RadiusKey && <ValueSlider stateKey={d4RadiusKey} label="D4 Face Radius" min={.25} max={1.5} step={.05}/>}
               {d10HeightKey && <ValueSlider stateKey={d10HeightKey} label="D10 Height" min={.25} max={2} step={.05}/>}
+              {d100FontVerticalKey && <ValueCheckbox stateKey={d100FontVerticalKey} label="D100 Font Vertical"/>}
             </SectionContainer>
           </TabPane>
       )})}

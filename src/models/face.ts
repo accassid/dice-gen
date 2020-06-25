@@ -108,6 +108,17 @@ export type FaceStateType = {
   d10f9: FaceType
   d10f0: FaceType
 
+  d100f1: FaceType
+  d100f2: FaceType
+  d100f3: FaceType
+  d100f4: FaceType
+  d100f5: FaceType
+  d100f6: FaceType
+  d100f7: FaceType
+  d100f8: FaceType
+  d100f9: FaceType
+  d100f0: FaceType
+
   d12f1: FaceType
   d12f2: FaceType
   d12f3: FaceType
@@ -176,6 +187,17 @@ export const DEFAULT_FACE_STATE: FaceStateType = {
   d10f9: { ...DEFAULT_FACE, text: '9' },
   d10f0: { ...DEFAULT_FACE, text: '0' },
 
+  d100f1: { ...DEFAULT_FACE, text: '10' },
+  d100f2: { ...DEFAULT_FACE, text: '20' },
+  d100f3: { ...DEFAULT_FACE, text: '30' },
+  d100f4: { ...DEFAULT_FACE, text: '40' },
+  d100f5: { ...DEFAULT_FACE, text: '50' },
+  d100f6: { ...DEFAULT_FACE, text: '60' },
+  d100f7: { ...DEFAULT_FACE, text: '70' },
+  d100f8: { ...DEFAULT_FACE, text: '80' },
+  d100f9: { ...DEFAULT_FACE, text: '90' },
+  d100f0: { ...DEFAULT_FACE, text: '00' },
+
   d12f1: { ...DEFAULT_FACE, text: '1' },
   d12f2: { ...DEFAULT_FACE, text: '2' },
   d12f3: { ...DEFAULT_FACE, text: '3' },
@@ -243,6 +265,17 @@ export const FACE_OPTION_LIST = [
   'd10f8',
   'd10f9',
   'd10f0',
+
+  'd100f1',
+  'd100f2',
+  'd100f3',
+  'd100f4',
+  'd100f5',
+  'd100f6',
+  'd100f7',
+  'd100f8',
+  'd100f9',
+  'd100f0',
 
   'd12f1',
   'd12f2',

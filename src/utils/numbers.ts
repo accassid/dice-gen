@@ -51,7 +51,7 @@ export const generateNumberObjects = (sides: number, font: Font): Array<Mesh> =>
   return numbers
 }
 
-export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size: number, dieScale: number, depth: number, d10Height: number): void => {
+export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size: number, dieScale: number, depth: number, d10Height: number, d100FontVertical: number): void => {
   mesh.position.x = 0
   mesh.position.y = 0
   mesh.position.z = 0
@@ -183,7 +183,7 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
     }
   }
 
-  if (die === 'd10') {
+  if (die === 'd10' || die === 'd100') {
     const pt = new PentagonalTrapezohedronGeometry(scaledSize, d10Height)
     const top = pt.vertices[8]
     const bottom = pt.vertices[10]
@@ -272,6 +272,7 @@ export const moveGeometryAndMesh = (die: string, mesh: Mesh, face: number, size:
         mesh.rotateY(-Math.PI/2)
         break
     }
+    if (die === 'd100' && d100FontVertical) mesh.rotateZ(Math.PI/2)
   }
 
   if (die === 'd12') {

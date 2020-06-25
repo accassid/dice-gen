@@ -34,7 +34,7 @@ export const subtractSolid = (die?: string): Mesh => {
   } else if (die === 'd8') {
     dieNumber = 8
     mesh = new Mesh(new OctahedronGeometry(size))
-  }else if (die === 'd10') {
+  }else if (die === 'd10' || die === 'd100') {
     dieNumber = 10
     mesh = new Mesh(new PentagonalTrapezohedronGeometry(size, getGlobalState('d10Height')))
   }else if (die === 'd12') {
@@ -54,8 +54,9 @@ export const subtractSolid = (die?: string): Mesh => {
   let meshBSP = new ThreeBSP(mesh)
 
   for (let i = 1; i <= dieNumber; i++) {
-    let key = `d${dieNumber}f${i}`
+    let key = `${die}f${i}`
     if (key === 'd10f10') key = 'd10f0'
+    if (key === 'd100f10') key = 'd100f0'
     if (!isFaceOption(key)) throw new Error(`Key "${key}" is not a valid die/face combination.`)
     const face = getGlobalState(key)
     const faceMesh = face.ref

@@ -23,6 +23,7 @@ export type DiceOptions = {
 
   d100Scale: number
   d100FontScale: number
+  d100FontVertical: number
 
   d12Scale: number
   d12FontScale: number
@@ -47,7 +48,8 @@ export const DEFAULT_DICE_OPTIONS = {
   d10Height: .6,
 
   d100Scale: 1,
-  d100FontScale: 1,
+  d100FontScale: .4,
+  d100FontVertical: 0,
 
   d12Scale: 1,
   d12FontScale: 1,
@@ -65,7 +67,7 @@ export const DICE_FACE_LISTS = {
   'd6': [1,2,3,4,5,6],
   'd8': [1,2,3,4,5,6,7,8],
   'd10': [1,2,3,4,5,6,7,8,9,0],
-  'd100': [10,20,30,40,50,60,70,80,90,0],
+  'd100': [1,2,3,4,5,6,7,8,9,0],
   'd12': [1,2,3,4,5,6,7,8,9,10,11,12],
   'd20': [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
 }
