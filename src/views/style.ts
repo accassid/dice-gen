@@ -16,6 +16,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 `
 
-export const Spacer = styled.div<{height?: number}>`
-  height: ${(props): number => props.height ? props.height : 15}px;
+export const Spacer = styled.div<{ height?: number }>`
+  height: ${(props): number => (props.height ? props.height : 15)}px;
 `

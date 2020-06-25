@@ -4,7 +4,7 @@ export const RightPanelContainer = styled.div<{ active: boolean; mobileActive: b
   margin: 50px 10px 10px 10px;
   height: auto;
   width: 300px;
-  background-color: rgba(28,28,28,0.9);
+  background-color: rgba(28, 28, 28, 0.9);
   position: absolute;
   right: ${(props): string => (props.active ? '0' : '-310px')};
   top: 0;

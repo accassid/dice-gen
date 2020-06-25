@@ -1,7 +1,13 @@
 import { Geometry, ExtrudeGeometry } from 'three'
 import { SVGType } from '../models/svg'
 
-export const createSVGGeometry = (svg: SVGType, depth: number, size: number, die: string, dieScale: number): Geometry => {
+export const createSVGGeometry = (
+  svg: SVGType,
+  depth: number,
+  size: number,
+  die: string,
+  dieScale: number,
+): Geometry => {
   let geometry: Geometry = new Geometry()
 
   let dieSVGScale = 1

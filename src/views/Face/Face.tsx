@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useGlobalState } from '../../modules/global'
 import { isFaceOption } from '../../models/face'
 import { DoubleSide, Mesh } from 'three'
@@ -7,7 +7,7 @@ import SVGGeometry from '../SVGGeometry/SVGGeometry'
 import TextGeometry from '../TextGeometry/TextGeometry'
 import { useUpdate } from 'react-three-fiber'
 import D4FaceGeometry from './D4FaceGeometry/D4FaceGeometry'
-import {isDiceOption} from "../../models/dice";
+import { isDiceOption } from '../../models/dice'
 
 type Props = {
   faceNum: number
@@ -17,7 +17,7 @@ type Props = {
 
 const Face: React.FC<Props> = ({ faceNum, dieScale, die }: Props) => {
   const key = `${die}f${faceNum}`
-  if(!isFaceOption(key)) throw new Error(`${key} is not a valid face key in the global state.`)
+  if (!isFaceOption(key)) throw new Error(`${key} is not a valid face key in the global state.`)
   const [face, setFace] = useGlobalState(key)
   const [font] = useGlobalState('globalFont')
   const [globalSVG] = useGlobalState('globalSVG')
@@ -25,15 +25,14 @@ const Face: React.FC<Props> = ({ faceNum, dieScale, die }: Props) => {
   const [globalDepth] = useGlobalState('globalDepth')
   const [d10Height] = useGlobalState('d10Height')
   const [d100FontVertical] = useGlobalState('d100FontVertical')
-  const fontScaleKey = die+'FontScale'
-  if (!isDiceOption(fontScaleKey)) throw new Error(`${die}FontScale was not fount as a dice option key for the global state`)
+  const fontScaleKey = die + 'FontScale'
+  if (!isDiceOption(fontScaleKey))
+    throw new Error(`${die}FontScale was not fount as a dice option key for the global state`)
   const [dieFontScale] = useGlobalState(fontScaleKey)
 
-  const meshRef = useUpdate<Mesh>(
-    self => {
-      setFace({ ...face, ref: self })
-    }, []
-  )
+  const meshRef = useUpdate<Mesh>(self => {
+    setFace({ ...face, ref: self })
+  }, [])
 
   useEffect(() => {
     moveGeometryAndMesh(die, meshRef.current, faceNum, globalSize, dieScale, globalDepth, d10Height, d100FontVertical)
@@ -48,11 +47,11 @@ const Face: React.FC<Props> = ({ faceNum, dieScale, die }: Props) => {
   return (
     <mesh ref={meshRef}>
       {die === 'd4' ? (
-        <D4FaceGeometry font={font} faceNum={faceNum} dieFontScale={dieFontScale} dieScale={dieScale}/>
+        <D4FaceGeometry font={font} faceNum={faceNum} dieFontScale={dieFontScale} dieScale={dieScale} />
       ) : svg ? (
-        <SVGGeometry svg={svg} dieScale={dieScale}/>
+        <SVGGeometry svg={svg} dieScale={dieScale} />
       ) : (
-        <TextGeometry font={font} face={face} dieFontScale={dieFontScale} dieScale={dieScale}/>
+        <TextGeometry font={font} face={face} dieFontScale={dieFontScale} dieScale={dieScale} />
       )}
       <meshStandardMaterial side={DoubleSide} attach="material" color={'#898989'} />
     </mesh>

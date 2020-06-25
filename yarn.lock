@@ -7035,11 +7035,6 @@ microevent.ts@~0.1.1:
   resolved "https://registry.yarnpkg.com/microevent.ts/-/microevent.ts-0.1.1.tgz#70b09b83f43df5172d0205a63025bce0f7357fa0"
   integrity sha512-jo1OfR4TaEwd5HOrt5+tAZ9mqT4jmpNAusXtyfNzqVm9uiSYFZlKM1wYL4oU7azZW/PxQW53wM0S6OR1JHNa2g==
 
-microjob@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/microjob/-/microjob-0.7.0.tgz#0bc98820018402722509f93f7d1fe6084d5d5ba3"
-  integrity sha512-ofDpqaVEv67ymCYdCE8eIVMCJY0H/hAtGxYmi1pXjtNkLOM0UUuUDshA1YLdVFwPwwt5+SW9EbBtSfsNokf+PA==
-
 micromatch@^3.1.10, micromatch@^3.1.4:
   version "3.1.10"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-3.1.10.tgz#70859bc95c9840952f359a068a3fc49f9ecfac23"

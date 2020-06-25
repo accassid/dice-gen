@@ -1,17 +1,17 @@
 import React from 'react'
-import {GlobalStateKey, useGlobalState} from "../../../modules/global";
+import { GlobalStateKey, useGlobalState } from '../../../modules/global'
 
 // Style
-import {Checkbox, Row} from "antd";
+import { Checkbox, Row } from 'antd'
 
-import { CheckboxChangeEvent } from "antd/es/checkbox";
+import { CheckboxChangeEvent } from 'antd/es/checkbox'
 
 type Props = {
   stateKey: GlobalStateKey
   label: string
 }
 
-const ValueCheckbox: React.FC<Props> = ({stateKey, label}: Props) => {
+const ValueCheckbox: React.FC<Props> = ({ stateKey, label }: Props) => {
   const [value, setValue] = useGlobalState(stateKey)
 
   if (typeof value !== 'number')
