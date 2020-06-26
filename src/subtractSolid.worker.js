@@ -2,37 +2,16 @@
 /* eslint-disable no-undef */
 // https://github.com/webpack-contrib/worker-loader
 
-
-
-// export default () => {
-//   self.addEventListener('message', e => {
-//     // eslint-disable-line no-restricted-globals
-//     if (!e) return
-//     // importScripts('../node_modules/three/Three.js')
-//     console.log(e.data)
-//     const users = []
-//
-//     const userDetails = {
-//       name: 'Jane Doe',
-//       email: 'jane.doe@gmail.com',
-//       id: 1,
-//     }
-//
-//     for (let i = 0; i < 100000; i++) {
-//       userDetails.id = i++
-//       userDetails.dateJoined = Date.now()
-//
-//       users.push(userDetails)
-//     }
-//
-//     postMessage(users)
-//   })
-// }
-
+import {Mesh, BoxGeometry} from "three";
+import { ThreeBSP } from 'three-js-csg-es6'
 
 // self.onmessage = ({data}) => {
 //   self.postMessage(data);
 // };
 
-  self.addEventListener('message', (event) => console.log(event))
+  self.addEventListener('message', (event) => {
+    console.log(event.data)
+    const shapeMesh = Object.assign(new Mesh, event.data.shapeMesh)
+    console.log(shapeMesh)
+  })
   // postMessage(1)

@@ -30,11 +30,12 @@ const PreviewButton: React.FC<Props> = ({ close }: Props) => {
 
     // else subtractSolid().then(mesh => setDiePreview(mesh))
     if (worker) {
-      console.log('sending')
-      worker.postMessage('hello')
+      // console.log('sending')
+      // worker.postMessage(new BoxGeometry(3,3,3))
       worker.addEventListener('message', event => {
         console.log(event.data)
       })
+      subtractSolid(worker)
     }
     console.log('Done')
   }

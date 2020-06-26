@@ -19,7 +19,7 @@ async function setProgress(bar: 'loadingDice' | 'loadingFaces', current: number,
   setGlobalState(bar, { current, max })
 }
 
-export async function subtractSolid(die?: string): Promise<Mesh> {
+export function subtractSolid(worker: Worker, die?: string): void {
   let mesh = null
 
   const globalSize = getGlobalState('globalSize')
@@ -57,14 +57,14 @@ export async function subtractSolid(die?: string): Promise<Mesh> {
   mesh.position.y = 0
   mesh.position.z = 0
 
-  let meshBSP = new ThreeBSP(mesh)
+  // let meshBSP = new ThreeBSP(mesh)
 
-  const loadingDice = getGlobalState('loadingDice')
-  if (!loadingDice) await setProgress('loadingDice', 1, 1)
-  else await setProgress('loadingDice', loadingDice.current + 1, loadingDice.max)
-
+  // const loadingDice = getGlobalState('loadingDice')
+  // if (!loadingDice) await setProgress('loadingDice', 1, 1)
+  // else await setProgress('loadingDice', loadingDice.current + 1, loadingDice.max)
+  const faceMeshes = []
   for (let i = 1; i <= dieNumber; i++) {
-    await setProgress('loadingFaces', i, dieNumber)
+    // await setProgress('loadingFaces', i, dieNumber)
     let key = `${die}f${i}`
     if (key === 'd10f10') key = 'd10f0'
     if (key === 'd100f10') key = 'd100f0'
@@ -72,10 +72,25 @@ export async function subtractSolid(die?: string): Promise<Mesh> {
     const face = getGlobalState(key)
     const faceMesh = face.ref
     if (!faceMesh || (faceMesh.geometry instanceof Geometry && !faceMesh.geometry.faces.length)) continue
-    const faceBSP = new ThreeBSP(faceMesh)
-    meshBSP = meshBSP.subtract(faceBSP)
+    // const faceBSP = new ThreeBSP(faceMesh)
+    // meshBSP = meshBSP.subtract(faceBSP)
+    faceMeshes.push(face.ref)
   }
-  mesh = meshBSP.toMesh()
-  mesh.material = new THREE.MeshStandardMaterial({ color: 0xacacac })
-  return mesh
+  const cloneClass = (input) => {
+    const obj = {}
+    for (const key in input){
+      if (typeof input[key] === 'function') continue
+      else if (typeof input[key] !== 'object') obj[key] = input[key]
+      else obj[key] = cloneClass(input[key])
+      // obj[key] = input[key]
+    }
+    return obj
+  }
+  const test = cloneClass(mesh)
+
+  console.log(test)
+  worker.postMessage({shapeMesh: test})
+  // mesh = meshBSP.toMesh()
+  // mesh.material = new THREE.MeshStandardMaterial({ color: 0xacacac })
+  // return mesh
 }
