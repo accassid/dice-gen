@@ -3,8 +3,13 @@ import { Button } from 'antd'
 import { subtractSolid } from '../../utils/subtractSolid'
 import { useGlobalState } from '../../modules/global'
 import WebWorker from '../../workerSetup'
-import subtractionWorker from '../../subtractSolid.worker'
+import {BoxGeometry} from "three";
+// eslint-disable-next-line
+// @ts-ignore
+import Worker from '../../subtractSolid.worker'
 
+
+//   import Worker from 'worker-loader!./subtractSolid.worker.js'
 type Props = {
   close?: boolean
 }
@@ -25,7 +30,8 @@ const PreviewButton: React.FC<Props> = ({ close }: Props) => {
 
     // else subtractSolid().then(mesh => setDiePreview(mesh))
     if (worker) {
-      worker.postMessage('Hello')
+      console.log('sending')
+      worker.postMessage('hello')
       worker.addEventListener('message', event => {
         console.log(event.data)
       })
@@ -34,7 +40,7 @@ const PreviewButton: React.FC<Props> = ({ close }: Props) => {
   }
 
   useEffect(() => {
-    if (!worker) setWorker(new WebWorker(subtractionWorker))
+    if (!worker) setWorker(new Worker())
   })
 
   return <Button onClick={preview}>Solid Preview</Button>
