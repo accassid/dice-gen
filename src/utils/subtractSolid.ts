@@ -13,6 +13,7 @@ import { ThreeBSP } from 'three-js-csg-es6'
 import * as THREE from 'three'
 import { PentagonalTrapezohedronGeometry } from '../models/pentagonalTrapezohedron'
 import { isDiceOption } from '../models/dice'
+import { meshToPassableObject } from '../models/geometryGenerator'
 
 async function setProgress(bar: 'loadingDice' | 'loadingFaces', current: number, max: number) {
   console.log('yo')
@@ -62,7 +63,7 @@ export function subtractSolid(worker: Worker, die?: string): void {
   // const loadingDice = getGlobalState('loadingDice')
   // if (!loadingDice) await setProgress('loadingDice', 1, 1)
   // else await setProgress('loadingDice', loadingDice.current + 1, loadingDice.max)
-  const faceMeshes = []
+  const faces = []
   for (let i = 1; i <= dieNumber; i++) {
     // await setProgress('loadingFaces', i, dieNumber)
     let key = `${die}f${i}`
@@ -74,11 +75,11 @@ export function subtractSolid(worker: Worker, die?: string): void {
     if (!faceMesh || (faceMesh.geometry instanceof Geometry && !faceMesh.geometry.faces.length)) continue
     // const faceBSP = new ThreeBSP(faceMesh)
     // meshBSP = meshBSP.subtract(faceBSP)
-    faceMeshes.push(face.ref)
+    faces.push(meshToPassableObject(face.ref))
   }
-  const cloneClass = (input) => {
+  const cloneClass = input => {
     const obj = {}
-    for (const key in input){
+    for (const key in input) {
       if (typeof input[key] === 'function') continue
       else if (typeof input[key] !== 'object') obj[key] = input[key]
       else obj[key] = cloneClass(input[key])
@@ -86,10 +87,8 @@ export function subtractSolid(worker: Worker, die?: string): void {
     }
     return obj
   }
-  const test = cloneClass(mesh)
 
-  console.log(test)
-  worker.postMessage({shapeMesh: test})
+  worker.postMessage({ shape: meshToPassableObject(mesh), faces })
   // mesh = meshBSP.toMesh()
   // mesh.material = new THREE.MeshStandardMaterial({ color: 0xacacac })
   // return mesh

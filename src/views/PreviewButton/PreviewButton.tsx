@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Button } from 'antd'
 import { subtractSolid } from '../../utils/subtractSolid'
 import { useGlobalState } from '../../modules/global'
+import { ThreeBSP, Node } from 'three-js-csg-es6'
 import WebWorker from '../../workerSetup'
-import {BoxGeometry} from "three";
+import { BoxGeometry, Geometry, Mesh, MeshStandardMaterial } from 'three'
 // eslint-disable-next-line
 // @ts-ignore
 import Worker from '../../subtractSolid.worker'
-
+import { GeometryGenerator } from '../../models/geometryGenerator'
 
 //   import Worker from 'worker-loader!./subtractSolid.worker.js'
 type Props = {
@@ -20,24 +21,21 @@ const PreviewButton: React.FC<Props> = ({ close }: Props) => {
   const [loadingDice, setLoadingDice] = useGlobalState('loadingDice')
   const [loadingFaces, setLoadingFaces] = useGlobalState('loadingFaces')
   const preview = (): void => {
-    // if (close) setDiePreview(null)
-    // else {
-    //   setLoadingFaces({current: 1, max: 10})
-    //   setLoadingDice({current: 1, max: 1})
-    //   setTimeout(() => subtractSolid().then(mesh => setDiePreview(mesh)), 2000)
-    //
-    // }
-
-    // else subtractSolid().then(mesh => setDiePreview(mesh))
-    if (worker) {
-      // console.log('sending')
-      // worker.postMessage(new BoxGeometry(3,3,3))
-      worker.addEventListener('message', event => {
-        console.log(event.data)
-      })
-      subtractSolid(worker)
+    if (close || !worker) {
+      setDiePreview(null)
+      return
     }
-    console.log('Done')
+
+    worker.addEventListener('message', event => {
+      // console.log(event.data)
+      const geometry = new GeometryGenerator(event.data)
+      // console.log(geometry)
+      const mesh = new Mesh(geometry)
+      mesh.material = new MeshStandardMaterial({ color: 0xacacac })
+      setDiePreview(mesh)
+    })
+
+    subtractSolid(worker)
   }
 
   useEffect(() => {
