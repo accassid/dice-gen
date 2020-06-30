@@ -10,12 +10,16 @@ self.addEventListener('message', event => {
   const geometry = new GeometryGenerator(shape)
 
   let bsp = new ThreeBSP(geometry)
-
+  let currentFace = 0
   faces.forEach(face => {
+    self.postMessage({current: currentFace, max: faces.length})
     const faceBSP = new ThreeBSP(new GeometryGenerator(face))
     bsp = bsp.subtract(faceBSP)
+    currentFace++
   })
+  self.postMessage({current: currentFace, max: faces.length})
+
   const mesh = bsp.toMesh()
 
-  self.postMessage(meshToPassableObject(mesh))
+  self.postMessage({passableGeometry: meshToPassableObject(mesh)})
 })

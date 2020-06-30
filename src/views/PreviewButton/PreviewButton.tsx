@@ -23,15 +23,27 @@ const PreviewButton: React.FC<Props> = ({ close }: Props) => {
       setDiePreview(null)
       return
     }
+    setLoadingDice({current: 1, max: 1})
+
     const newWorker = new Worker()
     setWorker(newWorker)
 
     newWorker.addEventListener('message', event => {
-      const geometry = new GeometryGenerator(event.data)
-      const mesh = new Mesh(geometry)
-      mesh.material = new MeshStandardMaterial({ color: 0xacacac })
-      setDiePreview(mesh)
-      newWorker.terminate()
+      const {current, max, passableGeometry} = event.data
+
+      if (typeof current === 'number' && typeof max === 'number') {
+        setLoadingFaces({current, max})
+      }
+
+      if (passableGeometry) {
+        const geometry = new GeometryGenerator(passableGeometry)
+        const mesh = new Mesh(geometry)
+        mesh.material = new MeshStandardMaterial({color: 0xacacac})
+        setDiePreview(mesh)
+        newWorker.terminate()
+        setLoadingFaces(null)
+        setLoadingDice(null)
+      }
     })
 
     subtractSolid(newWorker)
