@@ -30,9 +30,12 @@ const Face: React.FC<Props> = ({ faceNum, dieScale, die }: Props) => {
     throw new Error(`${die}FontScale was not fount as a dice option key for the global state`)
   const [dieFontScale] = useGlobalState(fontScaleKey)
 
-  const meshRef = useUpdate<Mesh>(self => {
-    setFace({ ...getGlobalState(key), ref: self })
-  }, [key])
+  const meshRef = useUpdate<Mesh>(
+    self => {
+      setFace({ ...getGlobalState(key), ref: self })
+    },
+    [key],
+  )
 
   useEffect(() => {
     moveGeometryAndMesh(die, meshRef.current, faceNum, globalSize, dieScale, globalDepth, d10Height, d100FontVertical)

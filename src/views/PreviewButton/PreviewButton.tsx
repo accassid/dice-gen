@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button } from 'antd'
 import { subtractSolid } from '../../utils/subtractSolid'
 import { useGlobalState } from '../../modules/global'
-import { ThreeBSP, Node } from 'three-js-csg-es6'
-import WebWorker from '../../workerSetup'
-import { BoxGeometry, Geometry, Mesh, MeshStandardMaterial } from 'three'
+import { Mesh, MeshStandardMaterial } from 'three'
 // eslint-disable-next-line
 // @ts-ignore
 import Worker from '../../subtractSolid.worker'
@@ -21,26 +19,27 @@ const PreviewButton: React.FC<Props> = ({ close }: Props) => {
   const [loadingDice, setLoadingDice] = useGlobalState('loadingDice')
   const [loadingFaces, setLoadingFaces] = useGlobalState('loadingFaces')
   const preview = (): void => {
-    if (close || !worker) {
+    if (close) {
       setDiePreview(null)
       return
     }
+    const newWorker = new Worker()
+    setWorker(newWorker)
 
-    worker.addEventListener('message', event => {
-      // console.log(event.data)
+    newWorker.addEventListener('message', event => {
       const geometry = new GeometryGenerator(event.data)
-      // console.log(geometry)
       const mesh = new Mesh(geometry)
       mesh.material = new MeshStandardMaterial({ color: 0xacacac })
       setDiePreview(mesh)
+      newWorker.terminate()
     })
 
-    subtractSolid(worker)
+    subtractSolid(newWorker)
   }
 
-  useEffect(() => {
-    if (!worker) setWorker(new Worker())
-  })
+  // useEffect(() => {
+  //   if (!worker) setWorker(new Worker())
+  // })
 
   return <Button onClick={preview}>Solid Preview</Button>
 }
