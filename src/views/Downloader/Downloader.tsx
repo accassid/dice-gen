@@ -1,12 +1,15 @@
 import React from 'react'
 
-// Libraries
-import { STLExporter } from 'three/examples/jsm/exporters/STLExporter'
-
 // Style
 import { Button } from 'antd'
 import { subtractSolid } from '../../utils/subtractSolid'
-import { Scene } from 'three'
+import {GeometryGenerator} from "../../models/geometryGenerator";
+import {useGlobalState} from "../../modules/global";
+import {download, generateSTL} from "../../utils/downloader";
+
+// eslint-disable-next-line
+// @ts-ignore
+import Worker from "../../subtractSolid.worker";
 
 type Props = {}
 
@@ -15,26 +18,34 @@ type Props = {}
  * @constructor
  */
 const Downloader: React.FC<Props> = () => {
-  const download = (): void => {
-    const exportScene = new Scene()
-    // const finalMesh = subtractSolid()
-    // exportScene.add(finalMesh)
+  const setLoadingDice = useGlobalState('loadingDice')[1]
+  const setLoadingFaces = useGlobalState('loadingFaces')[1]
 
-    const exporter = new STLExporter()
-    const stlString = exporter.parse(exportScene)
-    const element = document.createElement('a')
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(stlString))
-    element.setAttribute('download', 'test.stl')
+  const handleDownload = (): void => {
+    setLoadingDice({current: 1, max: 1})
 
-    element.style.display = 'none'
-    document.body.appendChild(element)
+    const newWorker = new Worker()
 
-    element.click()
+    newWorker.addEventListener('message', event => {
+      const {current, max, passableGeometry} = event.data
 
-    document.body.removeChild(element)
+      if (typeof current === 'number' && typeof max === 'number') {
+        setLoadingFaces({current, max})
+      }
+
+      if (passableGeometry) {
+        const geometry = new GeometryGenerator(passableGeometry)
+        newWorker.terminate()
+        download([generateSTL(geometry)])
+        setLoadingFaces(null)
+        setLoadingDice(null)
+      }
+    })
+
+    subtractSolid(newWorker)
   }
 
-  return <Button onClick={download}>Download</Button>
+  return <Button onClick={handleDownload}>Download</Button>
 }
 
 export default Downloader

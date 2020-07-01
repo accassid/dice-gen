@@ -26,5 +26,6 @@ export const ButtonContainer = styled.div`
   bottom: 0;
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   padding: 10px;
 `

@@ -15,7 +15,6 @@ type Props = {
 
 const PreviewButton: React.FC<Props> = ({ close }: Props) => {
   const setDiePreview = useGlobalState('diePreview')[1]
-  const [worker, setWorker] = useState(null)
   const [loadingDice, setLoadingDice] = useGlobalState('loadingDice')
   const [loadingFaces, setLoadingFaces] = useGlobalState('loadingFaces')
   const preview = (): void => {
@@ -26,7 +25,6 @@ const PreviewButton: React.FC<Props> = ({ close }: Props) => {
     setLoadingDice({current: 1, max: 1})
 
     const newWorker = new Worker()
-    setWorker(newWorker)
 
     newWorker.addEventListener('message', event => {
       const {current, max, passableGeometry} = event.data

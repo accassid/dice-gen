@@ -7,27 +7,20 @@ import {
   IcosahedronGeometry,
   Geometry,
 } from 'three'
-import { getGlobalState, setGlobalState } from '../modules/global'
+import { getGlobalState } from '../modules/global'
 import { isFaceOption } from '../models/face'
-import { ThreeBSP } from 'three-js-csg-es6'
-import * as THREE from 'three'
 import { PentagonalTrapezohedronGeometry } from '../models/pentagonalTrapezohedron'
 import { isDiceOption } from '../models/dice'
 import { meshToPassableObject } from '../models/geometryGenerator'
 
-async function setProgress(bar: 'loadingDice' | 'loadingFaces', current: number, max: number) {
-  console.log('yo')
-  setGlobalState(bar, { current, max })
-}
-
 export function subtractSolid(worker: Worker, die?: string): void {
   let mesh = null
 
-  const globalSize = getGlobalState('globalSize')
-  if (!die) die = getGlobalState('die')
+  const globalSize = getGlobalState().globalSize
+  if (!die) die = getGlobalState().die
   const dieScaleKey = die + 'Scale'
   if (!isDiceOption(dieScaleKey)) throw new Error(die + ' does not have state keys for scale.')
-  const dieScale = getGlobalState(dieScaleKey)
+  const dieScale = getGlobalState()[dieScaleKey]
   const size = globalSize * dieScale
 
   let dieNumber = 4
@@ -43,7 +36,7 @@ export function subtractSolid(worker: Worker, die?: string): void {
     mesh = new Mesh(new OctahedronGeometry(size))
   } else if (die === 'd10' || die === 'd100') {
     dieNumber = 10
-    mesh = new Mesh(new PentagonalTrapezohedronGeometry(size, getGlobalState('d10Height')))
+    mesh = new Mesh(new PentagonalTrapezohedronGeometry(size, getGlobalState().d10Height))
   } else if (die === 'd12') {
     dieNumber = 12
     mesh = new Mesh(new DodecahedronGeometry(size))
@@ -70,7 +63,7 @@ export function subtractSolid(worker: Worker, die?: string): void {
     if (key === 'd10f10') key = 'd10f0'
     if (key === 'd100f10') key = 'd100f0'
     if (!isFaceOption(key)) throw new Error(`Key "${key}" is not a valid die/face combination.`)
-    const face = getGlobalState(key)
+    const face = getGlobalState()[key]
     const faceMesh = face.ref
     if (!faceMesh || (faceMesh.geometry instanceof Geometry && !faceMesh.geometry.faces.length)) continue
     // const faceBSP = new ThreeBSP(faceMesh)

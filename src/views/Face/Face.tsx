@@ -32,7 +32,7 @@ const Face: React.FC<Props> = ({ faceNum, dieScale, die }: Props) => {
 
   const meshRef = useUpdate<Mesh>(
     self => {
-      setFace({ ...getGlobalState(key), ref: self })
+      setFace({ ...getGlobalState()[key], ref: self })
     },
     [key],
   )

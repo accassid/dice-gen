@@ -14,6 +14,7 @@ import SVGDropzone from '../SVGDropzone/SVGDropzone'
 import PreviewButton from '../PreviewButton/PreviewButton'
 import ValueSlider from './ValueSlider/ValueSlider'
 import DiceTabs from './DiceTabs/DiceTabs'
+import MassDownloader from "../MassDownloader/MassDownloader";
 
 type Props = {}
 
@@ -41,6 +42,7 @@ const RightPanel: React.FC<Props> = () => {
           <ButtonContainer>
             <PreviewButton />
             <Downloader />
+            <MassDownloader />
           </ButtonContainer>
         </>
       )}
