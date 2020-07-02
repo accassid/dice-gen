@@ -1,8 +1,15 @@
 import { BufferGeometry, Face3, Geometry, Matrix4, Mesh, Vector3 } from 'three'
 
+export type PassableObjectType = {
+  vertices: Array<{ x: number; y: number; z: number }>
+  faces: Array<{ a: number; b: number; c: number; normal: { x: number; y: number; z: number } }>
+  matrix: { elements: Array<number> }
+}
+
 export class GeometryGenerator extends Geometry {
-  constructor(passableObject) {
+  constructor(passableObject: PassableObjectType) {
     super()
+    if (!passableObject) return
     const { vertices, faces, matrix } = passableObject
     vertices.forEach(vertex => {
       const vector = new Vector3(vertex.x, vertex.y, vertex.z)

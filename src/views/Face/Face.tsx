@@ -33,12 +33,14 @@ const Face: React.FC<Props> = ({ faceNum, dieScale, die }: Props) => {
   const meshRef = useUpdate<Mesh>(
     self => {
       setFace({ ...getGlobalState()[key], ref: self })
+      self.name = ''
     },
     [key],
   )
 
   useEffect(() => {
     moveGeometryAndMesh(die, meshRef.current, faceNum, globalSize, dieScale, globalDepth, d10Height, d100FontVertical)
+    meshRef.current.name = 'rendered'
   }, [font, globalSVG, globalSize, globalDepth, d10Height, die, dieScale, d100FontVertical, meshRef, faceNum])
 
   let svg = null

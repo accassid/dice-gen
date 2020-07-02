@@ -1,11 +1,11 @@
-import {Geometry, Mesh, MeshStandardMaterial, Scene} from "three";
-import {STLExporter} from "three/examples/jsm/exporters/STLExporter";
-import JSZip from "jszip";
+import { Geometry, Mesh, MeshStandardMaterial, Scene } from 'three'
+import { STLExporter } from 'three/examples/jsm/exporters/STLExporter'
+import JSZip from 'jszip'
 
 export const generateSTL = (geometry: Geometry): string => {
   const exportScene = new Scene()
   const mesh = new Mesh(geometry)
-  mesh.material = new MeshStandardMaterial({color: 0xacacac})
+  mesh.material = new MeshStandardMaterial({ color: 0xacacac })
   exportScene.add(mesh)
 
   const exporter = new STLExporter()
@@ -14,15 +14,15 @@ export const generateSTL = (geometry: Geometry): string => {
   return stlString
 }
 
-export const download = (fileStrings: Array<string>): void => {
+export const download = (fileStrings: Record<string, string>, callback?: Function): void => {
   const zip = new JSZip()
-  fileStrings.forEach((fileString,i) => {
-    zip.file(`die${i+1}.stl`, fileString)
-  })
-  zip.generateAsync({type : "base64"}).then(result => {
+  for (const name in fileStrings) {
+    zip.file(`${name}.stl`, fileStrings[name])
+  }
+  zip.generateAsync({ type: 'base64' }).then(result => {
     const element = document.createElement('a')
     element.setAttribute('href', 'data:application/zip;base64,' + result)
-    element.setAttribute('download', 'test.zip')
+    element.setAttribute('download', `diceGen${new Date(Date.now()).toISOString()}.zip`)
 
     element.style.display = 'none'
     document.body.appendChild(element)
@@ -30,5 +30,7 @@ export const download = (fileStrings: Array<string>): void => {
     element.click()
 
     document.body.removeChild(element)
+
+    callback && callback()
   })
 }

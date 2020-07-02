@@ -28,9 +28,9 @@
     "worker-loader": "^2.0.0"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'"
   },
@@ -58,8 +58,7 @@
     "eslint-plugin-react": "^7.19.0",
     "husky": "^4.2.5",
     "prettier": "^2.0.5",
-    "pretty-quick": "^2.0.1",
-    "react-app-rewired": "^2.1.6"
+    "pretty-quick": "^2.0.1"
   },
   "husky": {
     "hooks": {

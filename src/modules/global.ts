@@ -1,10 +1,10 @@
-import {createGlobalState, createStore} from 'react-hooks-global-state'
+import { createStore } from 'react-hooks-global-state'
 import { Mesh } from 'three'
 import { SVGType } from '../models/svg'
 import { DEFAULT_FACE_STATE, FaceStateType } from '../models/face'
 import { Font } from 'three'
 import { DEFAULT_DICE_OPTIONS, DiceOptions, DiceType } from '../models/dice'
-import {reducer} from "./reducer";
+import { reducer } from './reducer'
 
 export type GlobalStateType = {
   rightPanelActive: boolean
