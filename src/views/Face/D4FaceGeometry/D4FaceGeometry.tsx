@@ -48,7 +48,8 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieScale
     for (let i = 0; i < numbers.length; i++) {
       const text = numbers[i]
       let currentGeometry = new Geometry()
-      if (text === '4' && globalSVG.max) currentGeometry = createSVGGeometry(globalSVG.max, globalDepth, globalSize, 'd4', dieScale)
+      if (text === '4' && globalSVG.max)
+        currentGeometry = createSVGGeometry(globalSVG.max, globalDepth, globalSize, 'd4', dieScale)
       else if (config) currentGeometry = new TextGeometry(text, config)
       currentGeometry.center()
       currentGeometry.translate(0, radius, 0)
