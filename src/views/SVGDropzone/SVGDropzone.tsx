@@ -1,40 +1,36 @@
 import React, { useCallback, useState } from 'react'
 import { useGlobalState } from '../../modules/global'
-import { useDropzone } from 'react-dropzone'
-
+import { Upload } from 'antd'
 // Style
 import { Dropzone } from './style'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
+import {RcFile} from "antd/es/upload";
+
+const { Dragger } = Upload
 
 type Props = {}
 
 const SVGDropzone: React.FC<Props> = () => {
   const [globalSVG, setGlobalSVG] = useGlobalState('globalSVG')
-  const [file, setFile] = useState<File | null>(null)
+  const [file, setFile] = useState<RcFile | null>(null)
 
   const onDrop = useCallback(
-    acceptedFiles => {
+    (file: RcFile) => {
       const loader = new SVGLoader()
-      loader.load(URL.createObjectURL(acceptedFiles[0]), data =>
+      loader.load(URL.createObjectURL(file), data =>
         setGlobalSVG({ ...globalSVG, max: { scale: 0.7, rotation: 0, data: data } }),
       )
-      setFile(acceptedFiles[0])
+      setFile(file)
+      return true
     },
     [globalSVG, setGlobalSVG],
   )
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: '.svg' })
+  // const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: '.svg' })
 
   return (
-    <Dropzone {...getRootProps()}>
-      <input {...getInputProps()} />
-      {file ? (
-        <p>{file.name}</p>
-      ) : isDragActive ? (
-        <p>Drop the files here ...</p>
-      ) : (
-        <p>Drag an SVG file here, or click to select a file.</p>
-      )}
-    </Dropzone>
+    <Dragger showUploadList={false} accept={'.svg'} fileList={file ? [file] : []} name="file" multiple={false} beforeUpload={onDrop}>
+     <p>{file ? file.name : 'Drop here.'}</p>
+    </Dragger>
   )
 }
 
