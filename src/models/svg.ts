@@ -5,3 +5,8 @@ export type SVGType = {
   scale: number
   rotation: number
 }
+export const DEFAULT_SVG = {
+  data: null,
+  scale: 1,
+  rotation: 0,
+}
