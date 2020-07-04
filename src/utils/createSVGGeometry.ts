@@ -11,7 +11,7 @@ export const createSVGGeometry = (
   let geometry: Geometry = new Geometry()
 
   let dieSVGScale = 1
-  if (die === 'd4') dieSVGScale = 0.25
+  if (die === 'd4') dieSVGScale = 0.4
   if (die === 'd10' || die === 'd100') dieSVGScale = 0.5
   if (die === 'd20') dieSVGScale = 0.6
 
@@ -31,7 +31,7 @@ export const createSVGGeometry = (
 
   if (geometry) {
     geometry.center()
-    geometry.rotateZ(Math.PI)
+    geometry.rotateZ(Math.PI - svg.rotation*Math.PI/180)
     let scale = 1
     if (geometry.boundingBox) {
       const targetMax = (size * dieScale * svg.scale * dieSVGScale) / 2

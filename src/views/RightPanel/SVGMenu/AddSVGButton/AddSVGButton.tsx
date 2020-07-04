@@ -7,7 +7,7 @@ import {DEFAULT_SVG} from "../../../../models/svg";
 
 type Props = {}
 
-const AddSVGButton: React.FC<Props> = ({}: Props) => {
+const AddSVGButton: React.FC<Props> = () => {
 
   const [globalSVG, setGlobalSVG] = useGlobalState('globalSVG')
 

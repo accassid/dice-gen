@@ -10,7 +10,6 @@ import { Spacer } from '../style'
 
 // Components
 import Downloader from '../Downloader/Downloader'
-import SVGDropzone from '../SVGDropzone/SVGDropzone'
 import PreviewButton from '../PreviewButton/PreviewButton'
 import ValueSlider from './ValueSlider/ValueSlider'
 import DiceTabs from './DiceTabs/DiceTabs'

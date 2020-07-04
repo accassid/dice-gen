@@ -7,6 +7,6 @@ export type SVGType = {
 }
 export const DEFAULT_SVG = {
   data: null,
-  scale: 1,
+  scale: .7,
   rotation: 0,
 }
