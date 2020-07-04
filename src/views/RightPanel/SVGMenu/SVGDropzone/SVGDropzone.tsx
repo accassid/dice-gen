@@ -2,14 +2,14 @@ import React, { useCallback, useState } from 'react'
 import { useGlobalState } from '../../../../modules/global'
 // Style
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
-import {RcFile} from "antd/es/upload";
-import {StyledDragger} from "./style";
+import { RcFile } from 'antd/es/upload'
+import { StyledDragger } from './style'
 
 type Props = {
   name: string
 }
 
-const SVGDropzone: React.FC<Props> = ({name}: Props) => {
+const SVGDropzone: React.FC<Props> = ({ name }: Props) => {
   const [globalSVG, setGlobalSVG] = useGlobalState('globalSVG')
   const [file, setFile] = useState<RcFile | null>(null)
 
@@ -26,8 +26,14 @@ const SVGDropzone: React.FC<Props> = ({name}: Props) => {
   )
 
   return (
-    <StyledDragger showUploadList={false} accept={'.svg'} fileList={file ? [file] : []} name="file" multiple={false} beforeUpload={onDrop}>
-     <p>{file ? file.name : 'Click or drag.'}</p>
+    <StyledDragger
+      showUploadList={false}
+      accept={'.svg'}
+      fileList={file ? [file] : []}
+      name="file"
+      multiple={false}
+      beforeUpload={onDrop}>
+      <p>{file ? file.name : 'Click or drag.'}</p>
     </StyledDragger>
   )
 }

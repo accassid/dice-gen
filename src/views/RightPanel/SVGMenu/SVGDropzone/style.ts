@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {Upload} from "antd";
+import { Upload } from 'antd'
 const { Dragger } = Upload
 
 export const StyledDragger = styled(Dragger)`

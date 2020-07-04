@@ -31,7 +31,7 @@ export const createSVGGeometry = (
 
   if (geometry) {
     geometry.center()
-    geometry.rotateZ(Math.PI - svg.rotation*Math.PI/180)
+    geometry.rotateZ(Math.PI - (svg.rotation * Math.PI) / 180)
     let scale = 1
     if (geometry.boundingBox) {
       const targetMax = (size * dieScale * svg.scale * dieSVGScale) / 2

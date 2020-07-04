@@ -43,7 +43,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieScale
       }
     const numbers = FACE_MAP[`${faceNum}`]
     if (!numbers) return
-    const radius = (globalSize*d4Scale / 2) * d4RadiusScale
+    const radius = ((globalSize * d4Scale) / 2) * d4RadiusScale
     let rotation = 0
     let geometry: Geometry = new Geometry()
     for (let i = 0; i < numbers.length; i++) {
@@ -54,10 +54,9 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieScale
       if (text === '4') svg = globalSVG.max ? globalSVG.max : svg
       if (text === '1') svg = globalSVG.min ? globalSVG.min : svg
 
-      if (svg){
+      if (svg) {
         if (svg.data) currentGeometry = createSVGGeometry(svg, globalDepth, globalSize, 'd4', dieScale)
-      }
-      else if (config) currentGeometry = new TextGeometry(text, config)
+      } else if (config) currentGeometry = new TextGeometry(text, config)
 
       currentGeometry.center()
       currentGeometry.translate(0, radius, 0)
@@ -71,7 +70,18 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieScale
     if (!geometry) throw new Error('There must be at least one number for the D4 face generator.')
 
     setGeometry(geometry)
-  }, [font, globalSize, globalFontScale, globalDepth, faceNum, globalSVG, d4RadiusScale, dieFontScale, dieScale, d4Scale])
+  }, [
+    font,
+    globalSize,
+    globalFontScale,
+    globalDepth,
+    faceNum,
+    globalSVG,
+    d4RadiusScale,
+    dieFontScale,
+    dieScale,
+    d4Scale,
+  ])
 
   return <primitive object={geometry} attach="geometry" />
 }

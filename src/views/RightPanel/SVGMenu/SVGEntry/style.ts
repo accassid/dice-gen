@@ -1,9 +1,9 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const SVGCard = styled.div`
   padding: 10px;
   width: 100%;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   position: relative;
   margin-bottom: 5px;
 `

@@ -15,27 +15,27 @@ export const RightPanelContainer = styled.div<{ active: boolean; mobileActive: b
   @media (max-width: 500px) {
     right: ${(props): string => (props.mobileActive ? '0' : '-310px')};
   }
-  ::-webkit-scrollbar{
-    -webkit-appearance:none;
-    width:10px;
-    height:10px
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
   }
-  ::-webkit-scrollbar-track{
-    background:rgba(255,255,255,0.1);
-    border-radius:0
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0;
   }
-  ::-webkit-scrollbar-thumb{
-    cursor:pointer;
-    border-radius:5px;
-    background:rgba(255,255,255,0.25);
-    -webkit-transition:color .2s ease;
-    transition:color .2s ease
+  ::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.25);
+    -webkit-transition: color 0.2s ease;
+    transition: color 0.2s ease;
   }
-  ::-webkit-scrollbar-thumb:window-inactive{
-    background:rgba(255,255,255,0.15)
+  ::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255, 255, 255, 0.15);
   }
-  ::-webkit-scrollbar-thumb:hover{
-    background:rgba(128,135,139,.8)
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 135, 139, 0.8);
   }
 `
 
