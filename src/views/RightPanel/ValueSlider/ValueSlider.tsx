@@ -30,7 +30,7 @@ const ValueSlider: React.FC<Props> = ({ stateKey, label, min, max, step }: Props
         <h4>{label}</h4>
       </Row>
       <Row>
-        <Col span={15}>
+        <Col span={14}>
           <Slider min={min} max={max} step={step} onChange={onChange} value={value} />
         </Col>
         <Col span={3}>

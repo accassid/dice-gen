@@ -17,7 +17,6 @@
     "jszip": "^3.5.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-dropzone": "^11.0.1",
     "react-hooks-global-state": "^1.0.0",
     "react-scripts": "3.4.1",
     "react-three-fiber": "^4.1.4",
@@ -32,7 +31,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint 'src/**/*.{js,ts,tsx}'"
+    "lint": "eslint \"src/**/*.{js,ts,tsx}\""
   },
   "eslintConfig": {
     "extends": "react-app"

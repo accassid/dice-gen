@@ -11,13 +11,37 @@ export const RightPanelContainer = styled.div<{ active: boolean; mobileActive: b
   bottom: 0;
   z-index: 1;
   transition: right 0.25s ease-in-out;
+  overflow-y: auto;
   @media (max-width: 500px) {
     right: ${(props): string => (props.mobileActive ? '0' : '-310px')};
+  }
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+  }
+  ::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.25);
+    -webkit-transition: color 0.2s ease;
+    transition: color 0.2s ease;
+  }
+  ::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255, 255, 255, 0.15);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 135, 139, 0.8);
   }
 `
 
 export const SectionContainer = styled.div`
   padding: 10px;
+  width: 100%;
 `
 
 export const ButtonContainer = styled.div`
