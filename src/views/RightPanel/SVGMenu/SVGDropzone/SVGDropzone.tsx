@@ -4,6 +4,11 @@ import { useGlobalState } from '../../../../modules/global'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader'
 import { RcFile } from 'antd/es/upload'
 import { StyledDragger } from './style'
+import loadSvg from 'load-svg'
+import svgMesh3d from 'svg-mesh-3d'
+import { parse } from 'extract-svg-path'
+import reindex from 'mesh-reindex'
+import unindex from 'unindex-mesh'
 
 type Props = {
   name: string
@@ -15,10 +20,21 @@ const SVGDropzone: React.FC<Props> = ({ name }: Props) => {
 
   const onDrop = useCallback(
     (file: RcFile) => {
-      const loader = new SVGLoader()
-      loader.load(URL.createObjectURL(file), data =>
-        setGlobalSVG({ ...globalSVG, [name]: { ...globalSVG[name], data: data } }),
-      )
+      // const loader = new SVGLoader()
+      // loader.load(URL.createObjectURL(file), data =>
+      //   setGlobalSVG({ ...globalSVG, [name]: { ...globalSVG[name], data: data } }),
+      // )
+      loadSvg(URL.createObjectURL(file), (error, svg) => {
+        if (error) throw error
+        console.log('here')
+        const svgPath = parse(svg)
+        let mesh = svgMesh3d(svgPath, {
+          delaunay: true,
+          scale: 4,
+        })
+        mesh = reindex(unindex(mesh.positions, mesh.cells))
+        setGlobalSVG({ ...globalSVG, [name]: { ...globalSVG[name], primitiveMesh: mesh } })
+      })
       setFile(file)
       return true
     },

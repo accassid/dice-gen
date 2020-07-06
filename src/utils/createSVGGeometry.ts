@@ -1,5 +1,7 @@
-import { Geometry, ExtrudeGeometry } from 'three'
+import {Geometry, ExtrudeGeometry, Vector3, Face3} from 'three'
 import { SVGType } from '../models/svg'
+import complex from 'three-simplicial-complex'
+import * as THREE from 'three'
 
 export const createSVGGeometry = (
   svg: SVGType,
@@ -15,19 +17,47 @@ export const createSVGGeometry = (
   if (die === 'd10' || die === 'd100') dieSVGScale = 0.5
   if (die === 'd20') dieSVGScale = 0.6
 
-  for (let i = 0; i < svg.data.paths.length; i++) {
-    const path = svg.data.paths[i]
-    const shapes = path.toShapes(true, false)
-    for (let j = 0; j < shapes.length; j++) {
-      const shape = shapes[j]
-      const partialGeometry = new ExtrudeGeometry(shape, {
-        depth: depth,
-        bevelEnabled: false,
-      })
-      if (!geometry) geometry = partialGeometry
-      else geometry.merge(partialGeometry)
-    }
+  // for (let i = 0; i < svg.data.paths.length; i++) {
+  //   const path = svg.data.paths[i]
+  //   const shapes = path.toShapes(true, false)
+  //   for (let j = 0; j < shapes.length; j++) {
+  //     const shape = shapes[j]
+  //     const partialGeometry = new ExtrudeGeometry(shape, {
+  //       depth: depth,
+  //       bevelEnabled: false,
+  //     })
+  //     if (!geometry) geometry = partialGeometry
+  //     else geometry.merge(partialGeometry)
+  //   }
+  // }
+  console.log(svg.primitiveMesh)
+  const Complex = complex(THREE)
+
+  geometry = Complex(svg.primitiveMesh)
+  console.log(geometry)
+
+  const faces2 = geometry.faces.slice()
+  const originalLength = geometry.vertices.length
+  const vertices2 = geometry.vertices.slice()
+
+  geometry.vertices.forEach(vector => {
+    vertices2.push(new Vector3(vector.x, vector.y, -1))
+  })
+  geometry.vertices = vertices2
+
+
+  geometry.faces.forEach(face => {
+    faces2.push(new Face3(face.a+originalLength, face.b+originalLength, face.c+originalLength))
+  })
+  geometry.faces = faces2
+
+  for (let i =0; i< originalLength-1; i++){
+    geometry.faces.push(new Face3(i, i+originalLength, i+originalLength+1))
+    geometry.faces.push(new Face3(i, i+1, i+originalLength+1))
   }
+
+  geometry.computeFaceNormals()
+  geometry.computeBoundingSphere()
 
   if (geometry) {
     geometry.center()
