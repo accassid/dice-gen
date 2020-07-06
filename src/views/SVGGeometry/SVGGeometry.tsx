@@ -23,7 +23,7 @@ const SVGGeometry: React.FC<Props> = ({ svg, dieScale }: Props) => {
   // const svgData = useLoader(SVGLoader, '/star.svg')
 
   useEffect(() => {
-    if (svg.data) {
+    if (svg.data || svg.primitiveMesh) {
       const geometry = createSVGGeometry(svg, globalDepth, globalSize, die, dieScale)
       if (geometry) setGeometry(geometry)
     }

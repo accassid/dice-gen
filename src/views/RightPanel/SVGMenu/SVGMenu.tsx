@@ -10,7 +10,6 @@ const { Panel } = Collapse
 type Props = {}
 
 const SVGMenu: React.FC<Props> = () => {
-
   const [globalSVG] = useGlobalState('globalSVG')
 
   return (

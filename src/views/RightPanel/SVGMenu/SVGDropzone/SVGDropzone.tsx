@@ -9,6 +9,8 @@ import svgMesh3d from 'svg-mesh-3d'
 import { parse } from 'extract-svg-path'
 import reindex from 'mesh-reindex'
 import unindex from 'unindex-mesh'
+import mergeVertices from 'merge-vertices'
+import removeDegenerateCells from 'remove-degenerate-cells'
 
 type Props = {
   name: string
@@ -30,9 +32,12 @@ const SVGDropzone: React.FC<Props> = ({ name }: Props) => {
         const svgPath = parse(svg)
         let mesh = svgMesh3d(svgPath, {
           delaunay: true,
-          scale: 4,
+          simplify: 0.25,
+          normalize: false,
         })
         mesh = reindex(unindex(mesh.positions, mesh.cells))
+        mesh = mergeVertices(mesh.cells, mesh.positions)
+
         setGlobalSVG({ ...globalSVG, [name]: { ...globalSVG[name], primitiveMesh: mesh } })
       })
       setFile(file)
