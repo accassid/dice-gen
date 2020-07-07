@@ -28,11 +28,10 @@ const SVGDropzone: React.FC<Props> = ({ name }: Props) => {
       // )
       loadSvg(URL.createObjectURL(file), (error, svg) => {
         if (error) throw error
-        console.log('here')
         const svgPath = parse(svg)
         let mesh = svgMesh3d(svgPath, {
           delaunay: true,
-          simplify: 0.25,
+          simplify: svgPath.length/10000,
           normalize: false,
         })
         mesh = reindex(unindex(mesh.positions, mesh.cells))

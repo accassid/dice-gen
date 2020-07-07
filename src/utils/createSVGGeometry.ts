@@ -41,6 +41,7 @@ export const createSVGGeometry = (
   const originalLength = geometry.vertices.length
   const vertices2 = geometry.vertices.slice()
 
+  // Create shapes from the faces of the complex geometry which will later be extruded
   const shapes = []
   geometry.faces.forEach(face => {
     const ax = geometry.vertices[face.a].x
@@ -53,93 +54,103 @@ export const createSVGGeometry = (
     const cy = geometry.vertices[face.c].y
     shapes.push(new Shape([new Vector2(ax, ay), new Vector2(bx, by), new Vector2(cx, cy)]))
   })
-  geometry = new Geometry()
-  let bspGeometry = null
+
+
+  const facesFormRect = (face1: Face3, face2: Face3): boolean => {
+    if(!face1.normal.equals(face2.normal)) return false
+    const union = new Set([...[face1.a, face1.b, face1.c], ...[face2.a, face2.b, face2.c]])
+    return union.size > 1
+  }
+  const getRectString = (face1: Face3, face2: Face3, vertices: Array<Vector3>): string => {
+    const vertexList = [face1.a, face1.b, face1.c]
+    if (vertexList.indexOf(face2.a) < 0) vertexList.push(face2.a)
+    else if (vertexList.indexOf(face2.b) < 0) vertexList.push(face2.b)
+    else if (vertexList.indexOf(face2.c) < 0) vertexList.push(face2.c)
+    const vertexStringList = vertexList.map(index => `${vertices[index].x},${vertices[index].y},${vertices[index].z}`)
+    return vertexStringList.sort().join(':')
+  }
+  const getFaceString = (face: Face3, vertices: Array<Vector3>): string => {
+    const vertexList = [face.a, face.b, face.c]
+    const vertexStringList = vertexList.map(index => `${vertices[index].x},${vertices[index].y},${vertices[index].z}`)
+    return vertexStringList.sort().join(':')
+  }
+
+  geometry = null
+  // let bspGeometry = null
+  const rectMap = {}
   for (let j = 0; j < shapes.length; j++) {
     const shape = shapes[j]
     const partialGeometry = new ExtrudeGeometry(shape, {
       depth: depth,
       bevelEnabled: false,
     })
-    if (!bspGeometry) bspGeometry = new ThreeBSP(partialGeometry)
+
+    const possibleFaces = []
+    partialGeometry.computeFaceNormals()
+    partialGeometry.faces.forEach(face => {
+      if (face.normal.z !== 0) return
+      let found = false
+      for (let i = 0; i< possibleFaces.length; i++){
+        if (facesFormRect(face, possibleFaces[i])){
+          const rectString = getRectString(face, possibleFaces[i], partialGeometry.vertices)
+          const face1String = getFaceString(face, partialGeometry.vertices)
+          const face2String = getFaceString(possibleFaces[i], partialGeometry.vertices)
+          if (rectMap[rectString]) {
+            rectMap[rectString].push(face1String)
+            rectMap[rectString].push(face2String)
+          }
+          else rectMap[rectString] = [face1String, face2String]
+          possibleFaces.splice(i, 1)
+          found = true
+          break
+        }
+      }
+      if (!found) possibleFaces.push(face)
+    })
+    if (!geometry)  {
+      // bspGeometry = new ThreeBSP(partialGeometry)
+      geometry = partialGeometry
+    }
     else {
-      const bspPartial = new ThreeBSP(partialGeometry)
-      bspGeometry = bspGeometry.union(bspPartial)
+      // const bspPartial = new ThreeBSP(partialGeometry)
+      // bspGeometry = bspGeometry.union(bspPartial)
+      geometry.merge(partialGeometry)
     }
   }
-  geometry = bspGeometry.toGeometry()
+  const faceLists: Array<Array<Face3>> = Object.values(rectMap)
+  console.log('Total', faceLists.length)
+  console.log('Duplicated', faceLists.filter(list => list.length > 2).length)
+  // geometry = bspGeometry.toGeometry()
   geometry.mergeVertices()
-  const faceMap: Record<string, Array<Face3>> = {}
-  geometry.faces.forEach(face => {
-    const key = [face.a, face.b, face.c].sort().join(',')
-    if (faceMap[key]) faceMap[key].push(face)
-    else faceMap[key] = [face]
-  })
-  console.log(Object.values(faceMap))
-
-  const segmentMap = {}
-
-  // geometry.vertices.forEach(vector => {
-  //   vertices2.push(new Vector3(vector.x, vector.y, -1))
-  // })
-  // geometry.vertices = vertices2
-  //
-  //
+  // const faceMap: Record<string, Array<Face3>> = {}
   // geometry.faces.forEach(face => {
-  //   const sides = [[face.a, face.b].sort().join(','), [face.b, face.c].sort().join(','), [face.c, face.a].sort().join(',')]
-  //   sides.forEach(side => {
-  //     if(segmentMap[side]) segmentMap[side] = segmentMap[side]+1
-  //     else segmentMap[side] = 1
-  //   })
-  //   // face.normal = new Vector3(0 , 0, 1)
-  //   // face.vertexNormals = [new Vector3(0 , 0, 1), new Vector3(0 , 0, 1), new Vector3(0 , 0, 1)]
-  //   faces2.push(new Face3(face.a+originalLength, face.b+originalLength, face.c+originalLength))
-  // })
-  // console.log('Initial length', Object.keys(segmentMap).length)
-  // for (const key in segmentMap){
-  //   if (segmentMap[key] > 1) {
-  //     console.log('yo')
-  //     delete segmentMap[key]
-  //   }
-  // }
-  // console.log('Only edges length', Object.keys(segmentMap).length)
-  // console.log("Vertices length", originalLength)
-  // console.log(segmentMap)
-  // geometry.faces = faces2
-
-  // for (const key in segmentMap){
-  //   const split = key.split(',')
-  //   const a = Number(split[0])
-  //   const b = Number(split[1])
-  //   const a1 = a + originalLength
-  //   const b1 = b + originalLength
-  //   geometry.faces.push(new Face3(a, b, b1))
-  //   geometry.faces.push(new Face3(b1, a1, a))
-  // }
+  //   const keys = [[face.a, face.b].sort().join(','), [face.b, face.c].sort().join(','), [face.c, face.a].sort().join(',')]
   //
-  // const holeMap = {}
-  // geometry.faces.forEach(face => {
-  //   const sides = [[face.a, face.b].sort().join(','), [face.b, face.c].sort().join(','), [face.c, face.a].sort().join(',')]
-  //   sides.forEach(side => {
-  //     if(holeMap[side]) holeMap[side] += 1
-  //     else holeMap[side] = 1
+  //   keys.forEach(key => {
+  //     if (faceMap[key]) faceMap[key].push(face)
+  //     else faceMap[key] = [face]
   //   })
   // })
-  //
-  // console.log('Initial hole map', Object.keys(holeMap).length)
-  // for (const key in holeMap){
-  //   if (holeMap[key] > 1) delete holeMap[key]
-  // }
-  // console.log('Final hole map', Object.keys(holeMap).length)
-  //
-  // geometry.normalize()
-  // console.log(geometry.faces[0].normal)
-  // geometry.computeBoundingSphere()
-  // geometry.computeMorphNormals()
+
+
+
+
+  console.log('before', geometry.faces.length)
+  for (const key in rectMap) {
+    const faceList = rectMap[key]
+    if (faceList.length > 2){
+      faceList.forEach(face => {
+        geometry.faces = geometry.faces.filter(geometryFace => face !== getFaceString(geometryFace, geometry.vertices)) // TODO do this operation as we're processing the partial geometries
+      })
+    }
+  }
+  console.log('after', geometry.faces.length)
+
 
   if (geometry) {
     geometry.center()
-    geometry.rotateZ(Math.PI - (svg.rotation * Math.PI) / 180)
+    // geometry.rotateY(Math.PI)
+    geometry.rotateZ( (svg.rotation * Math.PI) / 180)
     let scale = 1
     if (geometry.boundingBox) {
       const targetMax = (size * dieScale * svg.scale * dieSVGScale) / 2
