@@ -55,7 +55,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieScale
       if (text === '1') svg = globalSVG.min ? globalSVG.min : svg
 
       if (svg) {
-        if (svg.data) currentGeometry = createSVGGeometry(svg, globalDepth, globalSize, 'd4', dieScale)
+        if (svg.primitiveMesh) currentGeometry = createSVGGeometry(svg, globalDepth, globalSize, 'd4', dieScale)
       } else if (config) currentGeometry = new TextGeometry(text, config)
 
       currentGeometry.center()

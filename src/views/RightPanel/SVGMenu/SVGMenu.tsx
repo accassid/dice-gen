@@ -12,8 +12,6 @@ type Props = {}
 const SVGMenu: React.FC<Props> = () => {
   const [globalSVG] = useGlobalState('globalSVG')
 
-  console.log(globalSVG)
-
   return (
     <Collapse>
       <Panel key={1} header="SVGs">
