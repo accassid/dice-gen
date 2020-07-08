@@ -7306,11 +7306,6 @@ merge2@^1.2.3:
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.3.0.tgz#5b366ee83b2f1582c48f87e47cf1a9352103ca81"
   integrity sha512-2j4DAdlBOkiSZIsaXk4mTE3sRS02yBHAtfy127xRV3bQUFqXkjHCHLW6Scv7DwNRbIWNHH8zpnz9zMaKXIdvYw==
 
-mesh-reindex@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/mesh-reindex/-/mesh-reindex-1.0.0.tgz#8ce915b3ffb37beb85450cc2be8101bf8063495e"
-  integrity sha1-jOkVs/+ze+uFRQzCvoEBv4BjSV4=
-
 methods@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
@@ -10079,11 +10074,6 @@ relateurl@^0.2.7:
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
 
-remove-degenerate-cells@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/remove-degenerate-cells/-/remove-degenerate-cells-1.0.0.tgz#f7484024a90ac41b0de405d4014632a6edaf3f11"
-  integrity sha1-90hAJKkKxBsN5AXUAUYypu2vPxE=
-
 remove-trailing-separator@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/remove-trailing-separator/-/remove-trailing-separator-1.1.0.tgz#c24bce2a283adad5bc3f58e0d48249b92379d8ef"
@@ -11628,11 +11618,6 @@ unicode-property-aliases-ecmascript@^1.0.4:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/unicode-property-aliases-ecmascript/-/unicode-property-aliases-ecmascript-1.1.0.tgz#dd57a99f6207bedff4628abefb94c50db941c8f4"
   integrity sha512-PqSoPh/pWetQ2phoj5RLiaqIk4kCNwoV3CI+LfGmWLKI3rE3kl1h59XpX2BjgDrmbxD9ARtQobPGU1SguCYuQg==
-
-unindex-mesh@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/unindex-mesh/-/unindex-mesh-2.0.0.tgz#7d1da6af2d4a7971f246a3c89d5103ed735994cd"
-  integrity sha1-fR2mry1KeXHyRqPInVED7XNZlM0=
 
 union-find@^1.0.2:
   version "1.0.2"
