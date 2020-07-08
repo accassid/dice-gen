@@ -45,11 +45,26 @@ export const SectionContainer = styled.div`
 `
 
 export const ButtonContainer = styled.div`
-  position: absolute;
-  width: 100%;
+  position: fixed;
+  width: 300px;
   bottom: 0;
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  padding: 10px;
+  padding-bottom: 10px;
+`
+
+export const ActionButton = styled.div<{ color?: string }>`
+  background-color: ${(props): string => (props.color ? props.color : '#000')};
+  font-size: 110%;
+  flex: 1 1 auto;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 5px;
+  cursor: pointer;
+  transition: opacity ease-in-out 0.25s;
+  &:hover {
+    opacity: 0.85;
+  }
 `

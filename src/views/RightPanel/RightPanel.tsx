@@ -9,11 +9,11 @@ import { RightPanelContainer, SectionContainer, ButtonContainer } from './style'
 import { Spacer } from '../style'
 
 // Components
-import Downloader from '../Downloader/Downloader'
-import PreviewButton from '../PreviewButton/PreviewButton'
+import Downloader from './Downloader/Downloader'
+import PreviewButton from './PreviewButton/PreviewButton'
 import ValueSlider from './ValueSlider/ValueSlider'
 import DiceTabs from './DiceTabs/DiceTabs'
-import MassDownloader from '../MassDownloader/MassDownloader'
+import MassDownloader from './MassDownloader/MassDownloader'
 import SVGMenu from './SVGMenu/SVGMenu'
 
 type Props = {}
