@@ -97,7 +97,7 @@ const MassDownloader: React.FC<Props> = () => {
           </Row>
         ))}
       </Modal>
-      <ActionButton color={'#146273'} onClick={(): void => setOpen(true)}>
+      <ActionButton rgbColor={'20,98,115'} onClick={(): void => setOpen(true)}>
         Download Set
       </ActionButton>
     </>

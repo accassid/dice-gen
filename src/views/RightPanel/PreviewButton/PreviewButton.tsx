@@ -50,7 +50,7 @@ const PreviewButton: React.FC<Props> = ({ close }: Props) => {
   // })
 
   return (
-    <ActionButton color={'#ae8a09'} onClick={preview}>
+    <ActionButton rgbColor={'170,157,45'} onClick={preview}>
       {diePreview ? 'Close Preview' : 'Solid Preview'}
     </ActionButton>
   )

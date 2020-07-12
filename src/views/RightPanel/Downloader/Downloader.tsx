@@ -45,7 +45,7 @@ const Downloader: React.FC<Props> = () => {
   }
 
   return (
-    <ActionButton color={'#3e7754'} onClick={handleDownload}>
+    <ActionButton rgbColor={'62,119,84'} onClick={handleDownload}>
       Download
     </ActionButton>
   )

@@ -52,8 +52,8 @@ export const ButtonContainer = styled.div`
   padding-bottom: 10px;
 `
 
-export const ActionButton = styled.div<{ color?: string }>`
-  background-color: ${(props): string => (props.color ? props.color : '#000')};
+export const ActionButton = styled.div<{ rgbColor?: string }>`
+  background-color: ${(props): string => props.rgbColor ? `rgba(${props.rgbColor}, .6)` : `rgba(0,0,0,0.6)`};
   font-size: 110%;
   flex: 1 1 auto;
   height: 50px;
@@ -63,8 +63,8 @@ export const ActionButton = styled.div<{ color?: string }>`
   text-align: center;
   padding: 5px;
   cursor: pointer;
-  transition: opacity ease-in-out 0.25s;
+  transition: background-color ease-in-out 0.25s;
   &:hover {
-    opacity: 0.85;
+    background-color: ${(props): string => props.rgbColor ? `rgba(${props.rgbColor}, 1)` : `rgba(0,0,0,1)`};
   }
 `
