@@ -53,7 +53,7 @@ export const ButtonContainer = styled.div`
 `
 
 export const ActionButton = styled.div<{ rgbColor?: string }>`
-  background-color: ${(props): string => props.rgbColor ? `rgba(${props.rgbColor}, .6)` : `rgba(0,0,0,0.6)`};
+  background-color: ${(props): string => (props.rgbColor ? `rgba(${props.rgbColor}, .6)` : `rgba(0,0,0,0.6)`)};
   font-size: 110%;
   flex: 1 1 auto;
   height: 50px;
@@ -65,6 +65,6 @@ export const ActionButton = styled.div<{ rgbColor?: string }>`
   cursor: pointer;
   transition: background-color ease-in-out 0.25s;
   &:hover {
-    background-color: ${(props): string => props.rgbColor ? `rgba(${props.rgbColor}, 1)` : `rgba(0,0,0,1)`};
+    background-color: ${(props): string => (props.rgbColor ? `rgba(${props.rgbColor}, 1)` : `rgba(0,0,0,1)`)};
   }
 `
