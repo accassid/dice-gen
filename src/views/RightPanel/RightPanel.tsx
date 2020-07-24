@@ -28,7 +28,7 @@ const RightPanel: React.FC<Props> = () => {
         <PreviewButton close />
       ) : (
         <>
-          <h2>Global Settings:</h2>
+          <h2>&nbsp;Global Settings:</h2>
           <SectionContainer>
             <FontDropdown />
             <Spacer />
@@ -37,7 +37,7 @@ const RightPanel: React.FC<Props> = () => {
             <ValueSlider label="Symbol Depth (mm):" stateKey="globalDepth" min={0.25} max={5} step={0.25} />
             <SVGMenu />
           </SectionContainer>
-          <h2>Die Settings:</h2>
+          <h2>&nbsp;Die Settings:</h2>
           <DiceTabs />
           <ButtonContainer>
             <PreviewButton />
