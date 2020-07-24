@@ -9,11 +9,11 @@ import { RightPanelContainer, SectionContainer, ButtonContainer } from './style'
 import { Spacer } from '../style'
 
 // Components
-import Downloader from '../Downloader/Downloader'
-import PreviewButton from '../PreviewButton/PreviewButton'
+import Downloader from './Downloader/Downloader'
+import PreviewButton from './PreviewButton/PreviewButton'
 import ValueSlider from './ValueSlider/ValueSlider'
 import DiceTabs from './DiceTabs/DiceTabs'
-import MassDownloader from '../MassDownloader/MassDownloader'
+import MassDownloader from './MassDownloader/MassDownloader'
 import SVGMenu from './SVGMenu/SVGMenu'
 
 type Props = {}
@@ -28,7 +28,7 @@ const RightPanel: React.FC<Props> = () => {
         <PreviewButton close />
       ) : (
         <>
-          <h2>Global Settings:</h2>
+          <h2>&nbsp;Global Settings:</h2>
           <SectionContainer>
             <FontDropdown />
             <Spacer />
@@ -37,7 +37,7 @@ const RightPanel: React.FC<Props> = () => {
             <ValueSlider label="Symbol Depth (mm):" stateKey="globalDepth" min={0.25} max={5} step={0.25} />
             <SVGMenu />
           </SectionContainer>
-          <h2>Die Settings:</h2>
+          <h2>&nbsp;Die Settings:</h2>
           <DiceTabs />
           <ButtonContainer>
             <PreviewButton />

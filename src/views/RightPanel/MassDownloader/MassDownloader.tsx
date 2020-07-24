@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Checkbox, Modal, Row } from 'antd'
-import { dispatch, getGlobalState, useGlobalState } from '../../modules/global'
+import { Checkbox, Modal, Row } from 'antd'
+import { dispatch, getGlobalState, useGlobalState } from '../../../modules/global'
 
-import Worker from 'worker-loader!../../subtractSolid.worker' // eslint-disable-line import/no-webpack-loader-syntax
+import Worker from 'worker-loader!../../../subtractSolid.worker' // eslint-disable-line import/no-webpack-loader-syntax
 
-import { GeometryGenerator } from '../../models/geometryGenerator'
-import { download, generateSTL } from '../../utils/downloader'
-import { subtractSolid } from '../../utils/subtractSolid'
-import { DiceType } from '../../models/dice'
-import { resetFaceRefs } from '../../modules/actions'
+import { GeometryGenerator } from '../../../models/geometryGenerator'
+import { download, generateSTL } from '../../../utils/downloader'
+import { subtractSolid } from '../../../utils/subtractSolid'
+import { DiceType } from '../../../models/dice'
+import { resetFaceRefs } from '../../../modules/actions'
 import { CheckboxChangeEvent } from 'antd/es/checkbox'
+import { ActionButton } from '../style'
 
 type Props = {}
 
@@ -96,7 +97,9 @@ const MassDownloader: React.FC<Props> = () => {
           </Row>
         ))}
       </Modal>
-      <Button onClick={(): void => setOpen(true)}>Download Set</Button>
+      <ActionButton rgbColor={'20,98,115'} onClick={(): void => setOpen(true)}>
+        Download Set
+      </ActionButton>
     </>
   )
 }

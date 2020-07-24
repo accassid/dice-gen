@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const RightPanelContainer = styled.div<{ active: boolean; mobileActive: boolean }>`
-  margin: 50px 10px 10px 10px;
+  margin: 50px 10px 60px 10px;
   height: auto;
   width: 300px;
   background-color: rgba(28, 28, 28, 0.9);
@@ -45,11 +45,26 @@ export const SectionContainer = styled.div`
 `
 
 export const ButtonContainer = styled.div`
-  position: absolute;
-  width: 100%;
+  position: fixed;
+  width: 300px;
   bottom: 0;
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  padding: 10px;
+  padding-bottom: 10px;
+`
+
+export const ActionButton = styled.div<{ rgbColor?: string }>`
+  background-color: ${(props): string => (props.rgbColor ? `rgba(${props.rgbColor}, .85)` : `rgba(0,0,0,0.6)`)};
+  font-size: 110%;
+  flex: 1 1 auto;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color ease-in-out 0.25s;
+  &:hover {
+    background-color: ${(props): string => (props.rgbColor ? `rgba(${props.rgbColor}, 1)` : `rgba(0,0,0,1)`)};
+  }
 `

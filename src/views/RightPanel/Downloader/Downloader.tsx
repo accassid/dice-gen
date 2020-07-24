@@ -1,13 +1,13 @@
 import React from 'react'
 
 // Style
-import { Button } from 'antd'
-import { subtractSolid } from '../../utils/subtractSolid'
-import { GeometryGenerator } from '../../models/geometryGenerator'
-import { useGlobalState } from '../../modules/global'
-import { download, generateSTL } from '../../utils/downloader'
+import { subtractSolid } from '../../../utils/subtractSolid'
+import { GeometryGenerator } from '../../../models/geometryGenerator'
+import { useGlobalState } from '../../../modules/global'
+import { download, generateSTL } from '../../../utils/downloader'
 
-import Worker from 'worker-loader!../../subtractSolid.worker' // eslint-disable-line import/no-webpack-loader-syntax
+import Worker from 'worker-loader!../../../subtractSolid.worker' // eslint-disable-line import/no-webpack-loader-syntax
+import { ActionButton } from '../style'
 
 type Props = {}
 
@@ -44,7 +44,11 @@ const Downloader: React.FC<Props> = () => {
     subtractSolid(newWorker)
   }
 
-  return <Button onClick={handleDownload}>Download</Button>
+  return (
+    <ActionButton rgbColor={'62,119,84'} onClick={handleDownload}>
+      Download
+    </ActionButton>
+  )
 }
 
 export default Downloader

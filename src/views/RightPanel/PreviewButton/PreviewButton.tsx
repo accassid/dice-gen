@@ -1,10 +1,10 @@
 import React from 'react'
-import { Button } from 'antd'
-import { subtractSolid } from '../../utils/subtractSolid'
-import { useGlobalState } from '../../modules/global'
+import { subtractSolid } from '../../../utils/subtractSolid'
+import { useGlobalState } from '../../../modules/global'
 import { Mesh, MeshStandardMaterial } from 'three'
-import Worker from 'worker-loader!../../subtractSolid.worker' // eslint-disable-line import/no-webpack-loader-syntax
-import { GeometryGenerator } from '../../models/geometryGenerator'
+import Worker from 'worker-loader!../../../subtractSolid.worker' // eslint-disable-line import/no-webpack-loader-syntax
+import { GeometryGenerator } from '../../../models/geometryGenerator'
+import { ActionButton } from '../style'
 
 //   import Worker from 'worker-loader!./subtractSolid.worker.js'
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 }
 
 const PreviewButton: React.FC<Props> = ({ close }: Props) => {
-  const setDiePreview = useGlobalState('diePreview')[1]
+  const [diePreview, setDiePreview] = useGlobalState('diePreview')
   const setLoadingDice = useGlobalState('loadingDice')[1]
   const setLoadingFaces = useGlobalState('loadingFaces')[1]
   const preview = (): void => {
@@ -49,7 +49,11 @@ const PreviewButton: React.FC<Props> = ({ close }: Props) => {
   //   if (!worker) setWorker(new Worker())
   // })
 
-  return <Button onClick={preview}>Solid Preview</Button>
+  return (
+    <ActionButton rgbColor={'170,157,45'} onClick={preview}>
+      {diePreview ? 'Close Preview' : 'Solid Preview'}
+    </ActionButton>
+  )
 }
 
 export default PreviewButton

@@ -6,6 +6,7 @@ import { MenuOutlined } from '@ant-design/icons'
 
 // Assets
 import title from '../../assets/title.svg'
+import logo from '../../assets/dicegenlight.svg'
 import { useGlobalState } from '../../modules/global'
 
 type Props = {}
@@ -23,7 +24,8 @@ const TopToolbar: React.FC<Props> = () => {
     <Toolbar>
       <BarSegment>
         <a href="/">
-          <img alt="DiceGen" src={title} height="25x" />
+          <img alt="DiceGen Logo" src={logo} height="30x" />
+          <img alt="DiceGen" src={title} height="23x" />
         </a>
       </BarSegment>
       <BarSegment>
