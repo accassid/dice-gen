@@ -12,6 +12,7 @@ steps:
   # Copy all files that aren't index.html to the bucket (by default their cache control will be long)
   - name: 'gcr.io/cloud-builders/gsutil'
     id: 'nonhtml'
+    entrypoint: 'gsutil'
     args:
       [
         'gsutil',
