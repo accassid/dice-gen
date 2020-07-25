@@ -14,15 +14,9 @@ steps:
     id: 'nonhtml'
     entrypoint: 'bash'
     args:
-      [
-        'gsutil',
-        'cp',
-        '-r',
-        '-a',
-        'public-read',
-        '`ls -A | grep -v "index.html"`',
-        'gs://$_BUILD_MODE-dicegen-client-bucket',
-      ]
+      - '-c'
+      - |
+        gsutil cp -r -a public-read `ls -A | grep -v "index.html"` gs://$_BUILD_MODE-dicegen-client-bucket
     waitFor: ['install', 'lint']
     dir: 'build/'
 
