@@ -1,19 +1,33 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Canvas } from 'react-three-fiber'
 
 // Components
-import Box from "../Box/Box";
+import Grid from '../Grid/Grid'
+import Controls from '../Controls/Controls'
+import Die from '../Die/Die'
+
+// Style
+import { CanvasContainer } from './style'
+
+import Preview from '../Preview/Preview'
 
 type Props = {}
 
-const MainCanvas: React.FC<Props> = (props: Props) => {
+const MainCanvas: React.FC<Props> = () => {
   return (
-    <Canvas>
-      <ambientLight />
-      <pointLight position={[10, 10, 10]} />
-      <Box position={[-1.2, 0, 0]} />
-      <Box position={[1.2, 0, 0]} />
-    </Canvas>
+    <CanvasContainer>
+      <Canvas camera={{ position: [20, 30, 50] }}>
+        <ambientLight />
+        <pointLight position={[30, 20, 60]} />
+        <pointLight position={[-60, -20, 0]} />
+        <Die />
+        <Preview />
+        <Suspense fallback={null}></Suspense>
+        <axesHelper args={[10]} />
+        <Grid />
+        <Controls />
+      </Canvas>
+    </CanvasContainer>
   )
 }
 
