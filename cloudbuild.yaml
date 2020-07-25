@@ -17,7 +17,7 @@ steps:
       - '-c'
       - |
         gsutil cp -r -a public-read `ls -A | grep -v "index.html"` gs://$_BUILD_MODE-dicegen-client-bucket
-    waitFor: ['install', 'flow', 'lint']
+    waitFor: ['install', 'lint']
     dir: 'build/'
 
   # Copy index.html to the bucket with a no-cache policy
