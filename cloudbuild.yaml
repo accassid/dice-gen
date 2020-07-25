@@ -21,7 +21,7 @@ steps:
     args:
       - '-c'
       - |
-        gsutil -m cp -r -a public-read `ls -A | grep -v "index.html"` gs://$_BUILD_MODE-dicegen-client-bucket
+        gsutil cp -r -a public-read `ls -A | grep -v "index.html"` gs://$_BUILD_MODE-dicegen-client-bucket
     waitFor: ['install', 'lint', 'build']
     dir: 'build/'
 
