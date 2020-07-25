@@ -1,0 +1,30 @@
+steps:
+  - name: node:10.15.1
+    entrypoint: yarn
+    id: 'install'
+    args: ['install']
+
+  - name: node:10.15.1
+    entrypoint: yarn
+    id: 'lint'
+    args: ['lint']
+
+  # Copy all files that aren't index.html to the bucket (by default their cache control will be long)
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: 'nonhtml'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gsutil cp -r -a public-read `ls -A | grep -v "index.html"` gs://$_BUILD_MODE-dicegen-client-bucket
+    waitFor: ['install', 'flow', 'lint']
+    dir: 'build/'
+
+  # Copy index.html to the bucket with a no-cache policy
+  - name: 'gcr.io/cloud-builders/gsutil'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gsutil -h "Cache-Control:no-cache,max-age=0" cp -a public-read build/index.html gs://$_BUILD_MODE-dicegen-client-bucket
+    waitFor: ['nonhtml']
