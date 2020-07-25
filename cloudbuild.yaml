@@ -10,7 +10,7 @@ steps:
     args: ['lint']
 
   # Copy all files that aren't index.html to the bucket (by default their cache control will be long)
-  - name: 'gcr.io/cloud-builders/gsutil'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     id: 'nonhtml'
     entrypoint: 'bash'
     args:
@@ -21,7 +21,7 @@ steps:
     dir: 'build/'
 
   # Copy index.html to the bucket with a no-cache policy
-  - name: 'gcr.io/cloud-builders/gsutil'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args:
       - '-c'
