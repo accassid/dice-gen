@@ -29,10 +29,11 @@ const FontDropdown: React.FC<Props> = () => {
           const fontMap: Record<string, string> = {}
           const fontList: Array<React.ReactNode> = []
           data.items.forEach((font: FontType): void => {
-            fontMap[font.family] = font.files.regular
+            const url =  font.files.regular ? font.files.regular.replace('http', 'https') : ''
+            fontMap[font.family] = url
             fontList.push(
               <Option key={font.family} value={font.family}>
-                <FontStyle url={font.files.regular} family={font.family}>
+                <FontStyle url={url} family={font.family}>
                   {font.family} (0123456789)
                 </FontStyle>
               </Option>,
