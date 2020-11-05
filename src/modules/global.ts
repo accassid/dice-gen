@@ -25,7 +25,7 @@ export type GlobalStateType = {
 
   orientationIndicator: OrientationIndicatorType
   orientationIndicatorSize: number
-  orientationIndicatorOnD6D8: boolean
+  orientationIndicatorOnD6D8: 0 | 1
 
   loadingDice: null | { current: number; max: number }
   loadingFaces: null | { current: number; max: number }
@@ -52,7 +52,7 @@ const initialState: GlobalStateType = {
 
   orientationIndicator: ORIENTATION_INDICATOR.PERIOD,
   orientationIndicatorSize: 1,
-  orientationIndicatorOnD6D8: false,
+  orientationIndicatorOnD6D8: 0,
 
   loadingDice: null,
   loadingFaces: null,
