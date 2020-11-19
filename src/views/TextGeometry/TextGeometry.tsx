@@ -18,6 +18,7 @@ const TextGeometry2: React.FC<Props> = ({ font, face, dieFontScale, dieScale }: 
   const [globalDepth] = useGlobalState('globalDepth')
   const [orientationIndicator] = useGlobalState('orientationIndicator')
   const [orientationIndicatorSize] = useGlobalState('orientationIndicatorSize')
+  const [orientationIndicatorSpace] = useGlobalState('orientationIndicatorSpace')
   const [orientationIndicatorOnD8D6] = useGlobalState('orientationIndicatorOnD6D8')
   const [die] = useGlobalState('die')
   const [geometry, setGeometry] = useState<Geometry>(new Geometry())
@@ -54,6 +55,7 @@ const TextGeometry2: React.FC<Props> = ({ font, face, dieFontScale, dieScale }: 
             geometry,
             config,
             orientationIndicatorSize,
+            orientationIndicatorSpace,
           )
         if (orientationIndicator === ORIENTATION_INDICATOR.BAR)
           addBarIndicator(
@@ -64,6 +66,7 @@ const TextGeometry2: React.FC<Props> = ({ font, face, dieFontScale, dieScale }: 
             dieScale,
             geometry,
             orientationIndicatorSize,
+            orientationIndicatorSpace,
           )
       }
     }
@@ -83,6 +86,7 @@ const TextGeometry2: React.FC<Props> = ({ font, face, dieFontScale, dieScale }: 
     orientationIndicator,
     orientationIndicatorOnD8D6,
     orientationIndicatorSize,
+    orientationIndicatorSpace,
   ])
 
   return <primitive object={geometry} attach="geometry" />

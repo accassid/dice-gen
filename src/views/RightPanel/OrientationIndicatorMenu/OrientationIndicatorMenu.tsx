@@ -23,6 +23,7 @@ const OrientationIndicatorMenu: React.FC<Props> = () => {
         <ValueDropdown options={ORIENTATION_INDICATOR_OPTIONS} stateKey="orientationIndicator" />
         <Spacer />
         <ValueSlider stateKey="orientationIndicatorSize" label="Size" min={0.1} max={2} step={0.1} />
+        <ValueSlider stateKey="orientationIndicatorSpace" label="Space" min={0.1} max={3} step={0.1} />
         <Spacer />
         <ValueCheckbox stateKey="orientationIndicatorOnD6D8" label="Include on D6/D8" />
       </Panel>
