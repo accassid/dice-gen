@@ -15,6 +15,7 @@ import ValueSlider from './ValueSlider/ValueSlider'
 import DiceTabs from './DiceTabs/DiceTabs'
 import MassDownloader from './MassDownloader/MassDownloader'
 import SVGMenu from './SVGMenu/SVGMenu'
+import OrientationIndicatorMenu from './OrientationIndicatorMenu/OrientationIndicatorMenu'
 
 type Props = {}
 
@@ -35,6 +36,8 @@ const RightPanel: React.FC<Props> = () => {
             <ValueSlider label="Dice Size (mm):" stateKey="globalSize" min={1} max={50} step={1} />
             <ValueSlider label="Font Scale:" stateKey="globalFontScale" min={0.1} max={1} step={0.05} />
             <ValueSlider label="Symbol Depth (mm):" stateKey="globalDepth" min={0.25} max={5} step={0.25} />
+            <Spacer />
+            <OrientationIndicatorMenu />
             <SVGMenu />
           </SectionContainer>
           <h2>&nbsp;Die Settings:</h2>

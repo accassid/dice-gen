@@ -5,6 +5,7 @@ import { DEFAULT_FACE_STATE, FaceStateType } from '../models/face'
 import { Font } from 'three'
 import { DEFAULT_DICE_OPTIONS, DiceOptions, DiceType } from '../models/dice'
 import { reducer } from './reducer'
+import { ORIENTATION_INDICATOR, OrientationIndicatorType } from '../models/orientationIndicator'
 
 export type GlobalStateType = {
   rightPanelActive: boolean
@@ -21,6 +22,11 @@ export type GlobalStateType = {
   globalSize: number
   globalDepth: number
   globalSVG: Record<string, SVGType>
+
+  orientationIndicator: OrientationIndicatorType
+  orientationIndicatorSize: number
+  orientationIndicatorSpace: number
+  orientationIndicatorOnD6D8: 0 | 1
 
   loadingDice: null | { current: number; max: number }
   loadingFaces: null | { current: number; max: number }
@@ -44,6 +50,11 @@ const initialState: GlobalStateType = {
   globalSize: 20,
   globalDepth: 1,
   globalSVG: {},
+
+  orientationIndicator: ORIENTATION_INDICATOR.PERIOD,
+  orientationIndicatorSize: 1,
+  orientationIndicatorSpace: 1,
+  orientationIndicatorOnD6D8: 0,
 
   loadingDice: null,
   loadingFaces: null,
