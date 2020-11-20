@@ -43,9 +43,9 @@ export const createSVGGeometry = (
   let geometry: Geometry = new Geometry()
 
   let dieSVGScale = 1
-  if (die === 'd4') dieSVGScale = 0.4
+  if (die === 'd4') dieSVGScale = 0.45
   if (die === 'd10' || die === 'd100') dieSVGScale = 0.5
-  if (die === 'd20') dieSVGScale = 0.6
+  if (die === 'd20') dieSVGScale = 0.65
 
   const Complex = complex(THREE)
 
@@ -132,7 +132,7 @@ export const createSVGGeometry = (
     geometry.rotateZ((svg.rotation * Math.PI) / 180)
     let scale = 1
     if (geometry.boundingBox) {
-      const targetMax = (size * dieScale * svg.scale * dieSVGScale) / 2
+      const targetMax = (size * dieScale * svg.scale * dieSVGScale) / 2.3
       if (geometry.boundingBox.max.x > geometry.boundingBox.max.y) scale = targetMax / geometry.boundingBox.max.x
       else scale = targetMax / geometry.boundingBox.max.y
     }
