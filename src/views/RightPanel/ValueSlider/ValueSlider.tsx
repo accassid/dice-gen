@@ -11,9 +11,10 @@ type Props = {
   min: number
   max: number
   step: number
+  scale?: number
 }
 
-const ValueSlider: React.FC<Props> = ({ stateKey, label, min, max, step }: Props) => {
+const ValueSlider: React.FC<Props> = ({ stateKey, label, min, max, step, scale }: Props) => {
   const [value, setValue] = useGlobalState(stateKey)
 
   if (typeof value !== 'number')
@@ -21,8 +22,10 @@ const ValueSlider: React.FC<Props> = ({ stateKey, label, min, max, step }: Props
 
   const onChange = (currentValue: SliderValue | number | string | undefined): void => {
     currentValue = Number(currentValue)
-    setValue(currentValue)
+    setValue(scale ? currentValue * scale : currentValue)
   }
+
+  const scaledValue = scale ? value/scale : value
 
   return (
     <>
@@ -31,10 +34,10 @@ const ValueSlider: React.FC<Props> = ({ stateKey, label, min, max, step }: Props
       </Row>
       <Row>
         <Col span={14}>
-          <Slider min={min} max={max} step={step} onChange={onChange} value={value} />
+          <Slider min={min} max={max} step={step} onChange={onChange} value={scaledValue} />
         </Col>
         <Col span={3}>
-          <InputNumber min={min} max={max} step={step} style={{ margin: '0 16px' }} value={value} onChange={onChange} />
+          <InputNumber min={min} max={max} step={step} style={{ margin: '0 16px' }} value={scaledValue} onChange={onChange} />
         </Col>
       </Row>
     </>

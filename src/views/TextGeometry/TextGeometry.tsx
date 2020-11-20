@@ -9,11 +9,11 @@ type Props = {
   font: Font | null
   face: FaceType
   dieFontScale: number
-  dieScale: number
+  dieSize: number
 }
 
-const TextGeometry2: React.FC<Props> = ({ font, face, dieFontScale, dieScale }: Props) => {
-  const [globalSize] = useGlobalState('globalSize')
+const TextGeometry2: React.FC<Props> = ({ font, face, dieFontScale, dieSize }: Props) => {
+  const [globalScale] = useGlobalState('globalScale')
   const [globalFontScale] = useGlobalState('globalFontScale')
   const [globalDepth] = useGlobalState('globalDepth')
   const [orientationIndicator] = useGlobalState('orientationIndicator')
@@ -29,7 +29,7 @@ const TextGeometry2: React.FC<Props> = ({ font, face, dieFontScale, dieScale }: 
     if (font) {
       config = {
         font,
-        size: globalSize * globalFontScale * dieFontScale * dieScale,
+        size: globalScale * globalFontScale * dieFontScale * dieSize,
         height: globalDepth + 0.02,
         curveSegments: 6,
         bevelEnabled: false,
@@ -47,11 +47,11 @@ const TextGeometry2: React.FC<Props> = ({ font, face, dieFontScale, dieScale }: 
       ) {
         if (orientationIndicator === ORIENTATION_INDICATOR.PERIOD)
           addPeriodIndicator(
-            globalSize,
+            globalScale,
             globalFontScale,
             globalDepth,
             dieFontScale,
-            dieScale,
+            dieSize,
             geometry,
             config,
             orientationIndicatorSize,
@@ -59,11 +59,11 @@ const TextGeometry2: React.FC<Props> = ({ font, face, dieFontScale, dieScale }: 
           )
         if (orientationIndicator === ORIENTATION_INDICATOR.BAR)
           addBarIndicator(
-            globalSize,
+            globalScale,
             globalFontScale,
             globalDepth,
             dieFontScale,
-            dieScale,
+            dieSize,
             geometry,
             orientationIndicatorSize,
             orientationIndicatorSpace,
@@ -76,12 +76,12 @@ const TextGeometry2: React.FC<Props> = ({ font, face, dieFontScale, dieScale }: 
     setGeometry(geometry)
   }, [
     font,
-    globalSize,
+    globalScale,
     globalFontScale,
     globalDepth,
     face,
     dieFontScale,
-    dieScale,
+    dieSize,
     die,
     orientationIndicator,
     orientationIndicatorOnD8D6,

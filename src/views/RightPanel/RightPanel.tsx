@@ -33,7 +33,7 @@ const RightPanel: React.FC<Props> = () => {
           <SectionContainer>
             <FontDropdown />
             <Spacer />
-            <ValueSlider label="Dice Size (mm):" stateKey="globalSize" min={1} max={50} step={1} />
+            <ValueSlider label="Dice Scale:" stateKey="globalScale" min={0.1} max={3} step={.1} />
             <ValueSlider label="Font Scale:" stateKey="globalFontScale" min={0.1} max={1} step={0.05} />
             <ValueSlider label="Symbol Depth (mm):" stateKey="globalDepth" min={0.25} max={5} step={0.25} />
             <Spacer />

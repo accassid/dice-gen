@@ -15,14 +15,14 @@ const Die: React.FC<Props> = () => {
   const diePreview = useGlobalState('diePreview')[0]
   const sides = DICE_FACE_LISTS[die]
 
-  const dieScaleKey = die + 'Scale'
-  if (!isDiceOption(dieScaleKey)) throw new Error(`${die}Scale is not a valid key in the global state.`)
-  const [dieScale] = useGlobalState(dieScaleKey)
+  const dieSizeKey = die + 'Size'
+  if (!isDiceOption(dieSizeKey)) throw new Error(`${die}Scale is not a valid key in the global state.`)
+  const [dieSize] = useGlobalState(dieSizeKey)
 
   return (
     <>
-      {!diePreview && sides.map(side => <Face key={side} faceNum={side} dieScale={dieScale} die={die} />)}
-      <Internal dieScale={dieScale} />
+      {!diePreview && sides.map(side => <Face key={side} faceNum={side} dieSize={dieSize} die={die} />)}
+      <Internal dieSize={dieSize} />
     </>
   )
 }

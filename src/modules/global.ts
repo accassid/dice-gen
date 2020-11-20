@@ -19,7 +19,7 @@ export type GlobalStateType = {
 
   globalFont: Font | null
   globalFontScale: number
-  globalSize: number
+  globalScale: number
   globalDepth: number
   globalSVG: Record<string, SVGType>
 
@@ -47,8 +47,8 @@ const initialState: GlobalStateType = {
 
   globalFont: null,
   globalFontScale: 0.5,
-  globalSize: 20,
-  globalDepth: 1,
+  globalScale: 1,
+  globalDepth: 0.75,
   globalSVG: {},
 
   orientationIndicator: ORIENTATION_INDICATOR.PERIOD,

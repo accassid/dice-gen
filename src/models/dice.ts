@@ -6,55 +6,73 @@ export const isDiceType = (keyInput: string): keyInput is DiceType => {
   return DICE_LIST.includes(keyInput)
 }
 
+
+/**
+ * The three.js shape objects are not measured from face to face as most people would measure dice. These are ratios
+ * manually calculated from three.js's size property for the die's shape to it's corresponding face to face size. For
+ * example, if we want a d8 that is 15mm from face to face, we need to pass 15 * 0.866 into three.js's octahedron's
+ * height parameter. Therefore those values are set be default. The scalars are used in reverse when rendering the size
+ * value to the user so they see the face to face size, not the three.js size.
+ */
+export const DIE_SIZE_SCALARS = {
+  d4: 0.75,
+  d6: 1,
+  d8: 0.866,
+  d10: 1.30187,
+  d100: 1.30187,
+  d12: 0.62915,
+  d20: 0.62912,
+}
+
 export type DiceOptions = {
-  d4Scale: number
+  d4Size: number
   d4FontScale: number
   d4RadiusScale: number
 
-  d6Scale: number
+  d6Size: number
   d6FontScale: number
 
-  d8Scale: number
+  d8Size: number
   d8FontScale: number
 
-  d10Scale: number
+  d10Size: number
   d10Height: number
   d10FontScale: number
 
-  d100Scale: number
+  d100Size: number
   d100FontScale: number
   d100FontVertical: number
 
-  d12Scale: number
+  d12Size: number
   d12FontScale: number
 
-  d20Scale: number
+  d20Size: number
   d20FontScale: number
 }
 
 export const DEFAULT_DICE_OPTIONS = {
-  d4Scale: 1,
+  d4Size: 20 * DIE_SIZE_SCALARS['d4'],
   d4FontScale: 1,
   d4RadiusScale: 1,
 
-  d6Scale: 1,
+  d6Size: 15 * DIE_SIZE_SCALARS['d6'],
   d6FontScale: 1,
 
-  d8Scale: 1,
+  d8Size: 15 * DIE_SIZE_SCALARS['d8'],
   d8FontScale: 1,
 
-  d10Scale: 1,
+  d10Size: 16 * DIE_SIZE_SCALARS['d10'],
   d10FontScale: 0.55,
   d10Height: 0.6,
 
-  d100Scale: 1,
+  d100Size: 16 * DIE_SIZE_SCALARS['d100'],
   d100FontScale: 0.4,
   d100FontVertical: 0,
 
-  d12Scale: 1,
+  d12Size: 18 * DIE_SIZE_SCALARS['d12'],
   d12FontScale: 1,
 
-  d20Scale: 1,
+  d20Size: 20 * DIE_SIZE_SCALARS['d20'],
   d20FontScale: 0.5,
 }
 
@@ -105,3 +123,4 @@ export const SVG_FACE_OPTIONS = [
   '90',
   '00',
 ]
+

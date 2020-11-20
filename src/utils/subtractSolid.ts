@@ -16,12 +16,12 @@ import { meshToPassableObject } from '../models/geometryGenerator'
 export function subtractSolid(worker: Worker, die?: string): void {
   let mesh = null
 
-  const globalSize = getGlobalState().globalSize
+  const globalScale = getGlobalState().globalScale
   if (!die) die = getGlobalState().die
-  const dieScaleKey = die + 'Scale'
-  if (!isDiceOption(dieScaleKey)) throw new Error(die + ' does not have state keys for scale.')
-  const dieScale = getGlobalState()[dieScaleKey]
-  const size = globalSize * dieScale
+  const dieSizeKey = die + 'Size'
+  if (!isDiceOption(dieSizeKey)) throw new Error(die + ' does not have state keys for scale.')
+  const dieSize = getGlobalState()[dieSizeKey]
+  const size = globalScale * dieSize
 
   let dieNumber = 4
 

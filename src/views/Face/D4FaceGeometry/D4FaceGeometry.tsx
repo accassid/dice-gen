@@ -7,7 +7,7 @@ type Props = {
   font: Font | null
   faceNum: number
   dieFontScale: number
-  dieScale: number
+  dieSize: number
 }
 
 const FACE_MAP: Record<string, [string, string, string]> = {
@@ -17,14 +17,14 @@ const FACE_MAP: Record<string, [string, string, string]> = {
   '4': ['4', '3', '1'],
 }
 
-const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieScale }: Props) => {
+const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize }: Props) => {
   const [geometry, setGeometry] = useState<Geometry>(new Geometry())
-  const [globalSize] = useGlobalState('globalSize')
+  const [globalScale] = useGlobalState('globalScale')
   const [globalFontScale] = useGlobalState('globalFontScale')
   const [globalDepth] = useGlobalState('globalDepth')
   const [globalSVG] = useGlobalState('globalSVG')
   const [d4RadiusScale] = useGlobalState('d4RadiusScale')
-  const [d4Scale] = useGlobalState('d4Scale')
+  const [d4Size] = useGlobalState('d4Size')
 
   useEffect(() => {
     let config: null | TextGeometryParameters = null
@@ -32,7 +32,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieScale
     if (font)
       config = {
         font,
-        size: (globalSize / 2) * globalFontScale * dieScale * dieFontScale,
+        size: (globalScale / 2) * globalFontScale * dieSize * dieFontScale,
         height: globalDepth + 0.02,
         curveSegments: 6,
         bevelEnabled: false,
@@ -43,7 +43,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieScale
       }
     const numbers = FACE_MAP[`${faceNum}`]
     if (!numbers) return
-    const radius = ((globalSize * d4Scale) / 2) * d4RadiusScale
+    const radius = ((globalScale * d4Size) / 2) * d4RadiusScale
     let rotation = 0
     let geometry: Geometry = new Geometry()
     for (let i = 0; i < numbers.length; i++) {
@@ -55,7 +55,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieScale
       if (text === '1') svg = globalSVG.min ? globalSVG.min : svg
 
       if (svg) {
-        if (svg.primitiveMesh) currentGeometry = createSVGGeometry(svg, globalDepth, globalSize, 'd4', dieScale)
+        if (svg.primitiveMesh) currentGeometry = createSVGGeometry(svg, globalDepth, globalScale, 'd4', dieSize)
       } else if (config) currentGeometry = new TextGeometry(text, config)
 
       currentGeometry.center()
@@ -72,15 +72,15 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieScale
     setGeometry(geometry)
   }, [
     font,
-    globalSize,
+    globalScale,
     globalFontScale,
     globalDepth,
     faceNum,
     globalSVG,
     d4RadiusScale,
     dieFontScale,
-    dieScale,
-    d4Scale,
+    dieSize,
+    d4Size,
   ])
 
   return <primitive object={geometry} attach="geometry" />
