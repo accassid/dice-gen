@@ -6,7 +6,7 @@ import { Tabs } from 'antd'
 import { SectionContainer } from '../style'
 
 // Models
-import {DICE_LIST, DIE_SIZE_SCALARS} from '../../../models/dice'
+import { DICE_LIST, DIE_SIZE_SCALARS } from '../../../models/dice'
 import { isDiceOption, isDiceType } from '../../../models/dice'
 
 // Components
@@ -34,7 +34,14 @@ const DiceTabs: React.FC<Props> = () => {
         return (
           <TabPane tab={die.toUpperCase()} key={die}>
             <SectionContainer>
-              <ValueSlider stateKey={sizeKey} label={`${die.toUpperCase()} Size (mm face to face)`} min={1} max={50} step={1}  scale={DIE_SIZE_SCALARS[die]}/>
+              <ValueSlider
+                stateKey={sizeKey}
+                label={`${die.toUpperCase()} Size (mm face to face)`}
+                min={1}
+                max={50}
+                step={1}
+                scale={DIE_SIZE_SCALARS[die]}
+              />
               <ValueSlider
                 stateKey={scaleFontKey}
                 label={`${die.toUpperCase()} Font Scale`}
