@@ -6,7 +6,6 @@ export const isDiceType = (keyInput: string): keyInput is DiceType => {
   return DICE_LIST.includes(keyInput)
 }
 
-
 /**
  * The three.js shape objects are not measured from face to face as most people would measure dice. These are ratios
  * manually calculated from three.js's size property for the die's shape to it's corresponding face to face size. For
@@ -123,4 +122,3 @@ export const SVG_FACE_OPTIONS = [
   '90',
   '00',
 ]
-

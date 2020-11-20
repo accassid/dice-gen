@@ -25,7 +25,7 @@ const ValueSlider: React.FC<Props> = ({ stateKey, label, min, max, step, scale }
     setValue(scale ? currentValue * scale : currentValue)
   }
 
-  const scaledValue = scale ? value/scale : value
+  const scaledValue = scale ? value / scale : value
 
   return (
     <>
@@ -37,7 +37,14 @@ const ValueSlider: React.FC<Props> = ({ stateKey, label, min, max, step, scale }
           <Slider min={min} max={max} step={step} onChange={onChange} value={scaledValue} />
         </Col>
         <Col span={3}>
-          <InputNumber min={min} max={max} step={step} style={{ margin: '0 16px' }} value={scaledValue} onChange={onChange} />
+          <InputNumber
+            min={min}
+            max={max}
+            step={step}
+            style={{ margin: '0 16px' }}
+            value={scaledValue}
+            onChange={onChange}
+          />
         </Col>
       </Row>
     </>
