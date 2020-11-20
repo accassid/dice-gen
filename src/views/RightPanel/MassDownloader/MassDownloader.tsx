@@ -70,7 +70,7 @@ const MassDownloader: React.FC<Props> = () => {
       const key = `${die}f${die === 'd100' || die === 'd10' ? '0' : die.replace('d', '')}`
       const maxFace = getGlobalState()[key]
       if (maxFace && maxFace.ref && maxFace.ref.name === 'rendered') {
-        processDie()
+        setTimeout(processDie(), 500)
       } else {
         setTimeout(handleEffect, 1000)
       }

@@ -8,15 +8,15 @@ import { createSVGGeometry } from '../../utils/createSVGGeometry'
 
 type Props = {
   svg: SVGType
-  dieScale: number
+  dieSize: number
 }
 /**
  * https://threejs.org/docs/#api/en/geometries/ExtrudeGeometry
  * https://muffinman.io/three-js-extrude-svg-path/
  */
-const SVGGeometry: React.FC<Props> = ({ svg, dieScale }: Props) => {
+const SVGGeometry: React.FC<Props> = ({ svg, dieSize }: Props) => {
   const [svgGeometry, setGeometry] = useState<Geometry | null>(null)
-  const [globalSize] = useGlobalState('globalSize')
+  const [globalScale] = useGlobalState('globalScale')
   const [globalDepth] = useGlobalState('globalDepth')
   const [die] = useGlobalState('die')
 
@@ -24,10 +24,10 @@ const SVGGeometry: React.FC<Props> = ({ svg, dieScale }: Props) => {
 
   useEffect(() => {
     if (svg.primitiveMesh) {
-      const geometry = createSVGGeometry(svg, globalDepth, globalSize, die, dieScale)
+      const geometry = createSVGGeometry(svg, globalDepth, globalScale, die, dieSize)
       if (geometry) setGeometry(geometry)
     }
-  }, [globalSize, globalDepth, svg, die, dieScale])
+  }, [globalScale, globalDepth, svg, die, dieSize])
 
   if (!svgGeometry) return <boxGeometry attach="geometry" args={[0.1, 0.1, 0.1]} />
 

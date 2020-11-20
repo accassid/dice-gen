@@ -6,16 +6,16 @@ import { PentagonalTrapezohedronGeometry } from '../../../models/pentagonalTrape
 extend({ PentagonalTrapezohedronGeometry })
 
 type Props = {
-  dieScale: number
+  dieSize: number
 }
 
-const Internal: React.FC<Props> = ({ dieScale }: Props) => {
+const Internal: React.FC<Props> = ({ dieSize }: Props) => {
   const [die] = useGlobalState('die')
   const [diePreview] = useGlobalState('diePreview')
-  const [globalSize] = useGlobalState('globalSize')
+  const [globalScale] = useGlobalState('globalScale')
   const [d10Height] = useGlobalState('d10Height')
 
-  const size = globalSize * dieScale
+  const size = globalScale * dieSize
 
   return (
     <mesh position={[0, 0, 0]} scale={[0.999, 0.999, 0.999]}>

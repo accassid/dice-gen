@@ -6,7 +6,7 @@ import { Tabs } from 'antd'
 import { SectionContainer } from '../style'
 
 // Models
-import { DICE_LIST } from '../../../models/dice'
+import {DICE_LIST, DIE_SIZE_SCALARS} from '../../../models/dice'
 import { isDiceOption, isDiceType } from '../../../models/dice'
 
 // Components
@@ -25,16 +25,16 @@ const DiceTabs: React.FC<Props> = () => {
   return (
     <Tabs activeKey={die} onChange={callback}>
       {DICE_LIST.map(die => {
-        const scaleKey = die + 'Scale'
+        const sizeKey = die + 'Size'
         const scaleFontKey = die + 'FontScale'
-        if (!isDiceOption(scaleKey) || !isDiceOption(scaleFontKey)) return null
+        if (!isDiceOption(sizeKey) || !isDiceOption(scaleFontKey)) return null
         const d4RadiusKey = die === 'd4' ? 'd4RadiusScale' : null
         const d10HeightKey = die === 'd10' || die === 'd100' ? 'd10Height' : null
         const d100FontVerticalKey = die === 'd100' ? 'd100FontVertical' : null
         return (
           <TabPane tab={die.toUpperCase()} key={die}>
             <SectionContainer>
-              <ValueSlider stateKey={scaleKey} label={`${die.toUpperCase()} Scale`} min={0.25} max={2} step={0.05} />
+              <ValueSlider stateKey={sizeKey} label={`${die.toUpperCase()} Size (mm face to face)`} min={1} max={50} step={1}  scale={DIE_SIZE_SCALARS[die]}/>
               <ValueSlider
                 stateKey={scaleFontKey}
                 label={`${die.toUpperCase()} Font Scale`}

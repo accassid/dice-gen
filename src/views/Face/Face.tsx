@@ -11,17 +11,17 @@ import { isDiceOption } from '../../models/dice'
 
 type Props = {
   faceNum: number
-  dieScale: number
+  dieSize: number
   die: string
 }
 
-const Face: React.FC<Props> = ({ faceNum, dieScale, die }: Props) => {
+const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
   const key = `${die}f${faceNum}`
   if (!isFaceOption(key)) throw new Error(`${key} is not a valid face key in the global state.`)
   const [face, setFace] = useGlobalState(key)
   const [font] = useGlobalState('globalFont')
   const [globalSVG] = useGlobalState('globalSVG')
-  const [globalSize] = useGlobalState('globalSize')
+  const [globalScale] = useGlobalState('globalScale')
   const [globalDepth] = useGlobalState('globalDepth')
   const [d10Height] = useGlobalState('d10Height')
   const [d100FontVertical] = useGlobalState('d100FontVertical')
@@ -39,9 +39,9 @@ const Face: React.FC<Props> = ({ faceNum, dieScale, die }: Props) => {
   )
 
   useEffect(() => {
-    moveGeometryAndMesh(die, meshRef.current, faceNum, globalSize, dieScale, globalDepth, d10Height, d100FontVertical)
+    moveGeometryAndMesh(die, meshRef.current, faceNum, globalScale, dieSize, globalDepth, d10Height, d100FontVertical)
     meshRef.current.name = 'rendered'
-  }, [font, globalSVG, globalSize, globalDepth, d10Height, die, dieScale, d100FontVertical, meshRef, faceNum])
+  }, [font, globalSVG, globalScale, globalDepth, d10Height, die, dieSize, d100FontVertical, meshRef, faceNum])
 
   let svg = null
   if (face.svg) svg = face.svg
@@ -52,11 +52,11 @@ const Face: React.FC<Props> = ({ faceNum, dieScale, die }: Props) => {
   return (
     <mesh ref={meshRef}>
       {die === 'd4' ? (
-        <D4FaceGeometry font={font} faceNum={faceNum} dieFontScale={dieFontScale} dieScale={dieScale} />
+        <D4FaceGeometry font={font} faceNum={faceNum} dieFontScale={dieFontScale} dieSize={dieSize} />
       ) : svg ? (
-        <SVGGeometry svg={svg} dieScale={dieScale} />
+        <SVGGeometry svg={svg} dieSize={dieSize} />
       ) : (
-        <TextGeometry font={font} face={face} dieFontScale={dieFontScale} dieScale={dieScale} />
+        <TextGeometry font={font} face={face} dieFontScale={dieFontScale} dieSize={dieSize} />
       )}
       <meshStandardMaterial side={DoubleSide} attach="material" color={'#898989'} />
     </mesh>
