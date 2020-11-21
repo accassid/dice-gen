@@ -1,5 +1,20 @@
 import { BoxGeometry, Geometry, TextGeometry, TextGeometryParameters } from 'three'
 
+/**
+ * This function takes in all relevant size parameters of the current die as well as geometry to add onto. It then
+ * creates a period with the given text geometry parameters it positions the period to the bottom right of the given
+ * geometry and then merges the period into the given geometry.
+ *
+ * @param globalSize
+ * @param globalFontScale
+ * @param globalDepth
+ * @param dieFontScale
+ * @param dieScale
+ * @param geometry
+ * @param config
+ * @param orientationIndicatorSize
+ * @param orientationIndicatorSpace
+ */
 export const addPeriodIndicator = (
   globalSize: number,
   globalFontScale: number,
@@ -32,6 +47,20 @@ export const addPeriodIndicator = (
   geometry.merge(periodGeometry)
 }
 
+/**
+ * This function takes in all relevant size parameters of the current die as well as geometry to add onto. It then
+ * generates a bar with a BoxGeometry and positions it centered and below the given geometry. It them merges the
+ * Boxgeometry into the given geometry.
+ *
+ * @param globalSize
+ * @param globalFontScale
+ * @param globalDepth
+ * @param dieFontScale
+ * @param dieScale
+ * @param geometry
+ * @param orientationIndicatorSize
+ * @param orientationIndicatorSpace
+ */
 export const addBarIndicator = (
   globalSize: number,
   globalFontScale: number,

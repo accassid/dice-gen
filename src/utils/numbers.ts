@@ -1,12 +1,26 @@
 import { Mesh, Vector3, Line3 } from 'three'
 import { PentagonalTrapezohedronGeometry } from '../models/pentagonalTrapezohedron'
 
+/**
+ * This function does the main work of moving a face (text or svg) to the correct face of the die. It takes in the die
+ * and face number to determine the movement. The function also takes in all the relevant size parameters to it knows
+ * how far to translate the face. It takes in a mesh as the face that it is positioning. The mesh is mutable so it
+ * modifies it directly. Each 3d shape has it's how angles and radius that are calculated on the fly.
+ * @param die
+ * @param mesh
+ * @param face
+ * @param scale
+ * @param dieSize
+ * @param depth
+ * @param d10Height
+ * @param d100FontVertical
+ */
 export const moveGeometryAndMesh = (
   die: string,
   mesh: Mesh,
   face: number,
-  size: number,
-  dieScale: number,
+  scale: number,
+  dieSize: number,
   depth: number,
   d10Height: number,
   d100FontVertical: number,
@@ -19,7 +33,7 @@ export const moveGeometryAndMesh = (
   mesh.rotation.y = 0
   mesh.rotation.z = 0
 
-  const scaledSize = size * dieScale
+  const scaledSize = scale * dieSize
 
   if (die !== 'd4') mesh.geometry.center()
 

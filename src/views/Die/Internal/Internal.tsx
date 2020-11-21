@@ -9,6 +9,12 @@ type Props = {
   dieSize: number
 }
 
+/**
+ * This component renders the internal base shape of the die as a transparent preview. Based on the current die that
+ * is selected from the global state, it picks the proper geometry to render.
+ * @param dieSize
+ * @constructor
+ */
 const Internal: React.FC<Props> = ({ dieSize }: Props) => {
   const [die] = useGlobalState('die')
   const [diePreview] = useGlobalState('diePreview')
