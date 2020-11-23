@@ -13,6 +13,16 @@ import { PentagonalTrapezohedronGeometry } from '../models/pentagonalTrapezohedr
 import { isDiceOption } from '../models/dice'
 import { meshToPassableObject } from '../models/geometryGenerator'
 
+/**
+ * This function takes in a die type and then starts off the process of subtracting all the faces (numbers and svgs)
+ * from the die geometry. The process is spun off in the passed in web worker. First this function generates a new
+ * geometry for the base die using the proper size parameters from the global state. It then goes through all the faces
+ * for that die in the global state and pulls references to the face's mesh (meaning this function only works if the
+ * die is currently rendered). All the faces and the base shape are converted to objects that can be passed to the
+ * webworker and sent off. The download components then await the response from the worker.
+ * @param worker
+ * @param die
+ */
 export function subtractSolid(worker: Worker, die?: string): void {
   let mesh = null
 

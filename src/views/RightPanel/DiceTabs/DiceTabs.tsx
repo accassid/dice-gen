@@ -6,7 +6,7 @@ import { Tabs } from 'antd'
 import { SectionContainer } from '../style'
 
 // Models
-import {DICE_LIST, DIE_SIZE_SCALARS} from '../../../models/dice'
+import { DICE_LIST, DIE_SIZE_SCALARS } from '../../../models/dice'
 import { isDiceOption, isDiceType } from '../../../models/dice'
 
 // Components
@@ -17,6 +17,13 @@ const { TabPane } = Tabs
 
 type Props = {}
 
+/**
+ * This component renders a tab component that when the tab is changed it changes the currently rendered die in the
+ * global state. Within the tab is rendered controls for all dice (size and font scale) and controls that only exist
+ * for specific dice (d4RadiusScale, d10Height and d100FontVertical). These controls are handled by the value
+ * components.
+ * @constructor
+ */
 const DiceTabs: React.FC<Props> = () => {
   const [die, setDie] = useGlobalState('die')
   const callback = (key: string): void => {
@@ -34,7 +41,14 @@ const DiceTabs: React.FC<Props> = () => {
         return (
           <TabPane tab={die.toUpperCase()} key={die}>
             <SectionContainer>
-              <ValueSlider stateKey={sizeKey} label={`${die.toUpperCase()} Size (mm face to face)`} min={1} max={50} step={1}  scale={DIE_SIZE_SCALARS[die]}/>
+              <ValueSlider
+                stateKey={sizeKey}
+                label={`${die.toUpperCase()} Size (mm face to face)`}
+                min={1}
+                max={50}
+                step={1}
+                scale={DIE_SIZE_SCALARS[die]}
+              />
               <ValueSlider
                 stateKey={scaleFontKey}
                 label={`${die.toUpperCase()} Font Scale`}

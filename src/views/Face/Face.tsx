@@ -1,13 +1,21 @@
 import React, { useEffect } from 'react'
 import { useGlobalState, getGlobalState } from '../../modules/global'
+
+// Models
 import { isFaceOption } from '../../models/face'
+import { isDiceOption } from '../../models/dice'
+
+// Libraries
 import { DoubleSide, Mesh } from 'three'
+import { useUpdate } from 'react-three-fiber'
+
+// Utils
 import { moveGeometryAndMesh } from '../../utils/numbers'
+
+// Components
 import SVGGeometry from '../SVGGeometry/SVGGeometry'
 import TextGeometry from '../TextGeometry/TextGeometry'
-import { useUpdate } from 'react-three-fiber'
 import D4FaceGeometry from './D4FaceGeometry/D4FaceGeometry'
-import { isDiceOption } from '../../models/dice'
 
 type Props = {
   faceNum: number
@@ -15,6 +23,15 @@ type Props = {
   die: string
 }
 
+/**
+ * This component renders a single face of a die. This can be a mesh of either a TextGeometry, SVGGeometry or
+ * D4FaceGeometry. It checks the global state to see if the current face has an SVG set for it. The useEffect function
+ * moves and rotates the face into the proper position along the face of the 3d shape of the die.
+ * @param faceNum
+ * @param dieSize
+ * @param die
+ * @constructor
+ */
 const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
   const key = `${die}f${faceNum}`
   if (!isFaceOption(key)) throw new Error(`${key} is not a valid face key in the global state.`)
@@ -38,6 +55,11 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
     [key],
   )
 
+  /**
+   * This function triggers when any properties in state are changed that would change the position of a face. It calls
+   * the moveGeometryAndMesh function with these properties and modifies the mesh object of this component (via a ref)
+   * directly without needing a component rerender.
+   */
   useEffect(() => {
     moveGeometryAndMesh(die, meshRef.current, faceNum, globalScale, dieSize, globalDepth, d10Height, d100FontVertical)
     meshRef.current.name = 'rendered'

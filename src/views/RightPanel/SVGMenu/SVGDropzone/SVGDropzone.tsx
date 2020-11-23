@@ -15,6 +15,14 @@ type Props = {
   name: string
 }
 
+/**
+ * This component renders an antdesign file dropzone that accepts SVG files. When a file is dropped in the zone  it
+ * uses several external libraries to process the file. Three.js does have some built in options but most of them
+ * messed with the svg more than these libraries. The simplify parameter tries to simplify the svg more depending on
+ * how complex it is so it does not bog down three.js.
+ * @param name
+ * @constructor
+ */
 const SVGDropzone: React.FC<Props> = ({ name }: Props) => {
   const [globalSVG, setGlobalSVG] = useGlobalState('globalSVG')
   const [file, setFile] = useState<RcFile | null>(null)

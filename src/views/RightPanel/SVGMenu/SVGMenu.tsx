@@ -1,14 +1,23 @@
 import React from 'react'
-import { Collapse } from 'antd'
-import AddSVGButton from './AddSVGButton/AddSVGButton'
 import { useGlobalState } from '../../../modules/global'
-import SVGEntry from './SVGEntry/SVGEntry'
+
+// Style
+import { Collapse } from 'antd'
 import { Spacer } from '../../style'
+
+// Components
+import AddSVGButton from './AddSVGButton/AddSVGButton'
+import SVGEntry from './SVGEntry/SVGEntry'
 
 const { Panel } = Collapse
 
 type Props = {}
 
+/**
+ * This component is an accordion menu that contains submenus for all SVG faces as well as a button to add more SVG
+ * faces. It renders all faces from the globalSVG object that are not null.
+ * @constructor
+ */
 const SVGMenu: React.FC<Props> = () => {
   const [globalSVG] = useGlobalState('globalSVG')
 

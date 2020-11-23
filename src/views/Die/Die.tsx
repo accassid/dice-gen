@@ -10,6 +10,11 @@ import { DICE_FACE_LISTS, isDiceOption } from '../../models/dice'
 
 type Props = {}
 
+/**
+ * This is the general component for a die. It renders a transparent preview of the die shape as well as mapping all
+ * the die faces to solid meshes.
+ * @constructor
+ */
 const Die: React.FC<Props> = () => {
   const [die] = useGlobalState('die')
   const diePreview = useGlobalState('diePreview')[0]

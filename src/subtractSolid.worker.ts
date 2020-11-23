@@ -4,6 +4,14 @@ import { GeometryGenerator, meshToPassableObject } from './models/geometryGenera
 // eslint-disable-next-line no-restricted-globals, @typescript-eslint/no-explicit-any
 export const ctx: Worker = self as any
 
+/**
+ * This web worker is used to subtract one geometry from another, specifically a face from a die. It receives a message
+ * from the client in the form of a passableGeometry (since web worker messages can't pass classes) and then converts
+ * it back into a three.js Geometry. It also receives faces to subtract (that also need to be converted back to a
+ * Geometry). It subtracts each face from the die shape and sends a message back to the client about the face progress
+ * each time. Finally it sends a message back to the client containing the fully subtracted geometry, converted back
+ * into a passable geometry.
+ */
 // eslint-disable-next-line no-restricted-globals
 self.addEventListener('message', event => {
   const { shape, faces } = event.data
