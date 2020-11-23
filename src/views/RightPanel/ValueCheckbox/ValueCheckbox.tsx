@@ -3,7 +3,6 @@ import { GlobalStateKey, useGlobalState } from '../../../modules/global'
 
 // Style
 import { Checkbox, Row } from 'antd'
-
 import { CheckboxChangeEvent } from 'antd/es/checkbox'
 
 type Props = {
@@ -11,6 +10,13 @@ type Props = {
   label: string
 }
 
+/**
+ * This is a generic implementation of the checkbox component that takes in a stateKey from the global state and pulls
+ * that value from the global state as well as sets it. It also takes in a label.
+ * @param stateKey
+ * @param label
+ * @constructor
+ */
 const ValueCheckbox: React.FC<Props> = ({ stateKey, label }: Props) => {
   const [value, setValue] = useGlobalState(stateKey)
 

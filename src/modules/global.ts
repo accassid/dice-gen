@@ -18,6 +18,7 @@ export type GlobalStateType = {
   diePreview: Mesh | null
 
   globalFont: Font | null
+  globalFontName: string
   globalFontScale: number
   globalScale: number
   globalDepth: number
@@ -46,6 +47,7 @@ const initialState: GlobalStateType = {
   diePreview: null,
 
   globalFont: null,
+  globalFontName: '',
   globalFontScale: 0.5,
   globalScale: 1,
   globalDepth: 0.75,

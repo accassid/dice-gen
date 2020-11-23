@@ -6,6 +6,12 @@ const C2 = (3 + Math.sqrt(5)) / 4
 
 const theta = Math.acos((C0 - C2) / Math.sqrt(Math.pow(C0 - C2, 2) + 4 * Math.pow(C1, 2))) // This is the angle between one of the diagonal faces (the center vector) and the x axis. Computed by finding angle between two vectors
 
+/**
+ * This is a custom geometry for a Pentagonal Trapezohedron (d10/d100). Vertices are manually generated from standard
+ * constants. These standard constants yield a shape that is more elongated than the standard d10. Thus a height scale
+ * is passed into the constructor to control the elongation. The variable that scales the entirety of the geometry is
+ * the radius.
+ */
 export class PentagonalTrapezohedronGeometry extends Geometry {
   constructor(radius: number, heightScale: number) {
     super()

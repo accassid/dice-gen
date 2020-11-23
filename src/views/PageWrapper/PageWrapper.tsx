@@ -13,6 +13,13 @@ type Props = {
   children?: React.ReactNode
 }
 
+/**
+ * This is a simple styled wrapper that is rendered around each page. It contains the top toolbar, the right toolbar,
+ * the footer and the loader component to appear when needed. Children are passed into this component to be rendered in
+ * the page body.
+ * @param children
+ * @constructor
+ */
 const PageWrapper: React.FC<Props> = ({ children }: Props) => {
   return (
     <>

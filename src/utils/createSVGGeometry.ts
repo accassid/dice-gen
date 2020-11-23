@@ -33,6 +33,20 @@ const getRectString = (face1: Face3, face2: Face3, vertices: Array<Vector3>): st
   return vertexStringList.sort().join(':')
 }
 
+/**
+ * This is a custom function to generate an extruded SVG Geometry given an SVG. Functions do exist in three.js to do
+ * this however they seem to be very poor at loading in SVGs (filling in holes, not detecting touching faces, etc.)
+ * three-simplicial-complex does a sufficient job of converting an SVG into a a 2d mesh however we then need to manually
+ * extrude that 2d SVG to the symbol depth for the dice. This function extrudes every single sub face. Then it deletes
+ * any faces in those partials that match another face (that means it is not an outward facing face). The partials
+ * are all merged together for a final extruded geometry. That geometry is then scaled appropriately while maintaining
+ * the passed in depth.
+ * @param svg
+ * @param depth
+ * @param size
+ * @param die
+ * @param dieScale
+ */
 export const createSVGGeometry = (
   svg: SVGType,
   depth: number,

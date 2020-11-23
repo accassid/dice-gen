@@ -1,11 +1,17 @@
 import React from 'react'
+import { useGlobalState } from '../../modules/global'
 
 // Style
 import { Modal, Progress } from 'antd'
-import { useGlobalState } from '../../modules/global'
 
 type Props = {}
 
+/**
+ * This component is a modal that contains progress bars containing the progress of dice subtraction which is stored in
+ * the global state. The first progress bar shows the progress through dice if processing a set (will be at 100% for a
+ * single die). The second progress bar shows the progress of faces through the current die.
+ * @constructor
+ */
 const Loader: React.FC<Props> = () => {
   const [loadingDice] = useGlobalState('loadingDice')
   const [loadingFaces] = useGlobalState('loadingFaces')
