@@ -1,8 +1,8 @@
 import React from 'react'
-import { Collapse } from 'antd'
 
 // Style
 import { Spacer } from '../../style'
+import { Collapse } from 'antd'
 
 // Components
 import ValueCheckbox from '../ValueCheckbox/ValueCheckbox'
@@ -16,6 +16,12 @@ const { Panel } = Collapse
 
 type Props = {}
 
+/**
+ * This accordion menu exists in the right panel's global settings. It allows the user to modify global state settings
+ * for the orientation indicators on 6s and 9s including their type, size, spacing and if they should be included on
+ * D6s and D8s.
+ * @constructor
+ */
 const OrientationIndicatorMenu: React.FC<Props> = () => {
   return (
     <Collapse>

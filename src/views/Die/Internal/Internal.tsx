@@ -1,6 +1,10 @@
 import React from 'react'
 import { useGlobalState } from '../../../modules/global'
+
+// Libraries
 import { extend } from 'react-three-fiber'
+
+// Models
 import { PentagonalTrapezohedronGeometry } from '../../../models/pentagonalTrapezohedron'
 
 extend({ PentagonalTrapezohedronGeometry })

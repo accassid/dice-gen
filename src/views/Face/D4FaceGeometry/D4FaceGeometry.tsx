@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Font, TextGeometry, TextGeometryParameters, Geometry } from 'three'
 import { useGlobalState } from '../../../modules/global'
+
+// Libraries
+import { Font, TextGeometry, TextGeometryParameters, Geometry } from 'three'
+
+// Utils
 import { createSVGGeometry } from '../../../utils/createSVGGeometry'
 
 type Props = {

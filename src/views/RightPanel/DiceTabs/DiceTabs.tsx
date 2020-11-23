@@ -17,6 +17,13 @@ const { TabPane } = Tabs
 
 type Props = {}
 
+/**
+ * This component renders a tab component that when the tab is changed it changes the currently rendered die in the
+ * global state. Within the tab is rendered controls for all dice (size and font scale) and controls that only exist
+ * for specific dice (d4RadiusScale, d10Height and d100FontVertical). These controls are handled by the value
+ * components.
+ * @constructor
+ */
 const DiceTabs: React.FC<Props> = () => {
   const [die, setDie] = useGlobalState('die')
   const callback = (key: string): void => {

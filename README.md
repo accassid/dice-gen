@@ -48,6 +48,10 @@ Utility functions may be created and added to the `src/utils` directory.
 
 Models, consts and reusable type aliases may be created added to the `src/models` directory.
 
+### Web Workers
+
+The process of subtracting faces from dice using ThreeBSP takes some JS processing power and time. If this were to be done in the main thread of the client, it would hang, meaning a loader would stall in showing progress. For that reason, we use a web worker to perform this subtraction. It, and any future web workers are stored in the `/src` directory. They are imported in the client using the `worker-loader` library and the syntax, `import Worker from 'worker-loader![PATH_TO_WORKER]'`. This import line requires a `// eslint-disable-line import/no-webpack-loader-syntax` to cooperate with our linter.
+
 ## Running scripts
 
 In the project directory, you can run:

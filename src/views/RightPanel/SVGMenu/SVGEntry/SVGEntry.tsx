@@ -1,11 +1,17 @@
 import React from 'react'
-import { SVGType } from '../../../../models/svg'
 import { useGlobalState } from '../../../../modules/global'
+
+// Models
+import { SVGType } from '../../../../models/svg'
+import { SVG_FACE_OPTIONS } from '../../../../models/dice'
+
+// Style
 import { Select, Row, Col, InputNumber } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons/lib'
-import { SVG_FACE_OPTIONS } from '../../../../models/dice'
-import SVGDropzone from '../SVGDropzone/SVGDropzone'
 import { SVGCard, CornerDiv } from './style'
+
+// Components
+import SVGDropzone from '../SVGDropzone/SVGDropzone'
 
 const { Option } = Select
 
@@ -14,6 +20,15 @@ type Props = {
   name: string
 }
 
+/**
+ * This component is used in the SVGMenu accordion. It renders for any of the faces in the globalSVG state that aren't
+ * null. The component contains a select dropdown to change the face of the svg, inputs to change the scale and rotation
+ * of the svg (also stored in the globalSVG state), a dropzone to load in an SVG file and finally a delete button in
+ * the corner.
+ * @param svg
+ * @param name
+ * @constructor
+ */
 const SVGEntry: React.FC<Props> = ({ svg, name }: Props) => {
   const [globalSVG, setGlobalSVG] = useGlobalState('globalSVG')
 

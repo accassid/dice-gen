@@ -1,13 +1,21 @@
 import React, { useEffect } from 'react'
 import { useGlobalState, getGlobalState } from '../../modules/global'
+
+// Models
 import { isFaceOption } from '../../models/face'
+import { isDiceOption } from '../../models/dice'
+
+// Libraries
 import { DoubleSide, Mesh } from 'three'
+import { useUpdate } from 'react-three-fiber'
+
+// Utils
 import { moveGeometryAndMesh } from '../../utils/numbers'
+
+// Components
 import SVGGeometry from '../SVGGeometry/SVGGeometry'
 import TextGeometry from '../TextGeometry/TextGeometry'
-import { useUpdate } from 'react-three-fiber'
 import D4FaceGeometry from './D4FaceGeometry/D4FaceGeometry'
-import { isDiceOption } from '../../models/dice'
 
 type Props = {
   faceNum: number

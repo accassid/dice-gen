@@ -14,6 +14,20 @@ type Props = {
   scale?: number
 }
 
+/**
+ * This is a generic implementation of the slider component that takes in a stateKey from the global state and pulls
+ * that value from the global state as well as sets it. It also shows the value in an InputNumber component. Props
+ * for these components are passed in with the min, max, and step props. Scale is an option prop that allows the
+ * components to display a scaled value in front of the actual backend value. This allows us to show face to face
+ * sizes for dice while maintaining the size that three.js wants on the backend.
+ * @param stateKey
+ * @param label
+ * @param min
+ * @param max
+ * @param step
+ * @param scale
+ * @constructor
+ */
 const ValueSlider: React.FC<Props> = ({ stateKey, label, min, max, step, scale }: Props) => {
   const [value, setValue] = useGlobalState(stateKey)
 

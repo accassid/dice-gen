@@ -10,6 +10,11 @@ import LinkChip from './LinkChip/LinkChip'
 
 type Props = {}
 
+/**
+ * This is a simple container element styled to a fixed position at the bottom of the page (although it uses css media
+ * queries to reposition to the left on small screens). It includes all the external links.
+ * @constructor
+ */
 const Footer: React.FC<Props> = () => {
   return (
     <FootContainer>
