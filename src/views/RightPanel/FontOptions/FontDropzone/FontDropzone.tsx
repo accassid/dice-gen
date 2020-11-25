@@ -6,13 +6,11 @@ import { RcFile } from 'antd/es/upload'
 import { StyledDragger } from '../../../style'
 
 // SVG Libraries
-import loadSvg from 'load-svg'
-import svgMesh3d from 'svg-mesh-3d'
-import { parse } from 'extract-svg-path'
-import mergeVertices from 'merge-vertices'
+
+import {TTFLoader} from "three/examples/jsm/loaders/TTFLoader";
+import * as THREE from "three";
 
 type Props = {
-  name: string
 }
 
 /**
@@ -23,42 +21,36 @@ type Props = {
  * @param name
  * @constructor
  */
-const SVGDropzone: React.FC<Props> = ({ name }: Props) => {
-  const [globalSVG, setGlobalSVG] = useGlobalState('globalSVG')
+const FontDropzone: React.FC<Props> = ({ }: Props) => {
   const [file, setFile] = useState<RcFile | null>(null)
+  const setGlobalFont = useGlobalState('globalFont')[1]
+  const [globalFontName, setGlobalFontName] = useGlobalState('globalFontName')
 
   const onDrop = useCallback(
     (file: RcFile) => {
-      loadSvg(URL.createObjectURL(file), (error, svg) => {
-        if (error) throw error
-        const svgPath = parse(svg)
-        let mesh = svgMesh3d(svgPath, {
-          delaunay: true,
-          simplify: svgPath.length / 10000,
-          normalize: false,
-        })
-        mesh = mergeVertices(mesh.cells, mesh.positions)
-
-        setGlobalSVG({ ...globalSVG, [name]: { ...globalSVG[name], primitiveMesh: mesh } })
-      })
       setFile(file)
+      const ttfLoader = new TTFLoader()
+      const fontLoader = new THREE.FontLoader()
+      ttfLoader.load(URL.createObjectURL(file), fnt => setGlobalFont(fontLoader.parse(fnt)))
+      setGlobalFontName(file.name)
       return true
     },
-    [globalSVG, setGlobalSVG, name],
+    [],
   )
 
   return (
     <StyledDragger
-      width="141px"
+      style={{width: '100%'}}
+      width="100%"
       showUploadList={false}
-      accept={'.svg'}
+      accept={'.ttf'}
       fileList={file ? [file] : []}
       name="file"
       multiple={false}
       beforeUpload={onDrop}>
-      <p>{file ? file.name : 'Click or drag.'}</p>
+      <p>{globalFontName ? globalFontName : 'Click or drag TTF.'}</p>
     </StyledDragger>
   )
 }
 
-export default SVGDropzone
+export default FontDropzone
