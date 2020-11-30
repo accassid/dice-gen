@@ -39,7 +39,7 @@ const SVGDropzone: React.FC<Props> = ({ name }: Props) => {
         })
         mesh = mergeVertices(mesh.cells, mesh.positions)
 
-        setGlobalSVG({ ...globalSVG, [name]: { ...globalSVG[name], primitiveMesh: mesh } })
+        setGlobalSVG({ ...globalSVG, [name]: { ...globalSVG[name], primitiveMesh: mesh, fileName: file.name } })
       })
       setFile(file)
       return true
@@ -49,14 +49,14 @@ const SVGDropzone: React.FC<Props> = ({ name }: Props) => {
 
   return (
     <StyledDragger
-      width="141px"
+      width="140px"
       showUploadList={false}
       accept={'.svg'}
       fileList={file ? [file] : []}
       name="file"
       multiple={false}
       beforeUpload={onDrop}>
-      <p>{file ? file.name : 'Click or drag.'}</p>
+      <p>{globalSVG[name].fileName ? globalSVG[name].fileName : 'Click or drag.'}</p>
     </StyledDragger>
   )
 }
