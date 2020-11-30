@@ -3,7 +3,7 @@ import { useGlobalState } from '../../../../modules/global'
 
 // Style
 import { RcFile } from 'antd/es/upload'
-import { StyledDragger } from './style'
+import { StyledDragger } from '../../../style'
 
 // SVG Libraries
 import loadSvg from 'load-svg'
@@ -49,6 +49,7 @@ const SVGDropzone: React.FC<Props> = ({ name }: Props) => {
 
   return (
     <StyledDragger
+      width="141px"
       showUploadList={false}
       accept={'.svg'}
       fileList={file ? [file] : []}

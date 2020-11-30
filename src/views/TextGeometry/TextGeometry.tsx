@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useGlobalState } from '../../modules/global'
 
 // Libraries
-import { Font, Geometry, TextGeometryParameters, TextGeometry } from 'three'
+import { Font, Geometry, TextGeometryParameters } from 'three'
 
 // Models
 import { FaceType } from '../../models/face'
 import { ORIENTATION_INDICATOR } from '../../models/orientationIndicator'
+import { CombinedTextGeometry } from '../../models/combinedTextGeometry'
 
 // Utils
 import { addBarIndicator, addPeriodIndicator } from '../../utils/addOrientationIndicator'
@@ -21,14 +22,15 @@ type Props = {
 /**
  * This component renders our custom TextGeometry. While three.js does provide a TextGeometry object and thus
  * react-three-fiber a react element, we still generate our own geometry to pass to a <primitive> element so that we
- * can add our orientation indicators to 6s and 9s. Thus why the function itself is named TextGeometry2.
+ * can add our orientation indicators to 6s and 9s. We use our custom defined CombinedTextGeometry class to save
+ * different shape exclusions for subtraction.
  * @param font
  * @param face
  * @param dieFontScale
  * @param dieSize
  * @constructor
  */
-const TextGeometry2: React.FC<Props> = ({ font, face, dieFontScale, dieSize }: Props) => {
+const TextGeometry: React.FC<Props> = ({ font, face, dieFontScale, dieSize }: Props) => {
   const [globalScale] = useGlobalState('globalScale')
   const [globalFontScale] = useGlobalState('globalFontScale')
   const [globalDepth] = useGlobalState('globalDepth')
@@ -60,7 +62,7 @@ const TextGeometry2: React.FC<Props> = ({ font, face, dieFontScale, dieSize }: P
         bevelOffset: 0,
         bevelSegments: 8,
       }
-      geometry = new TextGeometry(face.text, config)
+      geometry = new CombinedTextGeometry(face.text, config)
       geometry.center()
       if (
         orientationIndicator !== ORIENTATION_INDICATOR.NONE &&
@@ -114,4 +116,4 @@ const TextGeometry2: React.FC<Props> = ({ font, face, dieFontScale, dieSize }: P
   return <primitive object={geometry} attach="geometry" />
 }
 
-export default TextGeometry2
+export default TextGeometry
