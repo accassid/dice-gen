@@ -20,6 +20,7 @@ export type GlobalStateType = {
   globalFont: Font | null
   globalFontName: string
   globalFontScale: number
+  globalFontUploadActive: boolean
   globalScale: number
   globalDepth: number
   globalSVG: Record<string, SVGType>
@@ -49,6 +50,7 @@ const initialState: GlobalStateType = {
   globalFont: null,
   globalFontName: '',
   globalFontScale: 0.5,
+  globalFontUploadActive: false,
   globalScale: 1,
   globalDepth: 0.75,
   globalSVG: {},

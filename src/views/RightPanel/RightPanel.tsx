@@ -13,7 +13,7 @@ import DiceTabs from './DiceTabs/DiceTabs'
 import MassDownloader from './MassDownloader/MassDownloader'
 import SVGMenu from './SVGMenu/SVGMenu'
 import OrientationIndicatorMenu from './OrientationIndicatorMenu/OrientationIndicatorMenu'
-import FontOptions from "./FontOptions/FontOptions";
+import FontOptions from './FontOptions/FontOptions'
 
 type Props = {}
 
@@ -36,7 +36,7 @@ const RightPanel: React.FC<Props> = () => {
         <>
           <h2>&nbsp;Global Settings:</h2>
           <SectionContainer>
-            <FontOptions/>
+            <FontOptions />
             <Spacer />
             <ValueSlider label="Dice Scale:" stateKey="globalScale" min={0.1} max={3} step={0.1} />
             <ValueSlider label="Font Scale:" stateKey="globalFontScale" min={0.1} max={1} step={0.05} />

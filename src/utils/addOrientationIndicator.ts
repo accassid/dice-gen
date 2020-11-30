@@ -1,4 +1,5 @@
-import { BoxGeometry, Geometry, TextGeometry, TextGeometryParameters } from 'three'
+import { BoxGeometry, Geometry, TextGeometryParameters } from 'three'
+import { CombinedTextGeometry } from '../models/combinedTextGeometry'
 
 /**
  * This function takes in all relevant size parameters of the current die as well as geometry to add onto. It then
@@ -34,7 +35,7 @@ export const addPeriodIndicator = (
     ...config,
     size: config.size * orientationIndicatorSize,
   }
-  const periodGeometry = new TextGeometry('.', newConfig)
+  const periodGeometry = new CombinedTextGeometry('.', newConfig)
   periodGeometry.center()
   periodGeometry.computeBoundingBox()
   const periodHeight = periodGeometry.boundingBox.max.y - periodGeometry.boundingBox.min.y
@@ -45,6 +46,7 @@ export const addPeriodIndicator = (
     numberBoxMin.z + globalDepth / 2,
   )
   geometry.merge(periodGeometry)
+  if (geometry instanceof CombinedTextGeometry) geometry.orientationIndicator = periodGeometry
 }
 
 /**
@@ -84,4 +86,5 @@ export const addBarIndicator = (
   barGeometry.translate(0, numberBoxMin.y - barHeight / 2 - buffer, numberBoxMin.z + globalDepth / 2)
   geometry.merge(barGeometry)
   geometry.center()
+  if (geometry instanceof CombinedTextGeometry) geometry.orientationIndicator = barGeometry
 }
