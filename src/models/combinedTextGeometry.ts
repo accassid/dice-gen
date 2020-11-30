@@ -1,6 +1,6 @@
 import { Geometry, ExtrudeGeometry, TextGeometryParameters } from 'three'
 
-import { generateShapes } from './generateShapes'
+import { generateShapes } from './threejs/generateShapes'
 
 /**
  * This class is essentially a clone of the TextGeometry class from three.js however it allows us to call a custom

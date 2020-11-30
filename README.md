@@ -52,6 +52,14 @@ Models, consts and reusable type aliases may be created added to the `src/models
 
 The process of subtracting faces from dice using ThreeBSP takes some JS processing power and time. If this were to be done in the main thread of the client, it would hang, meaning a loader would stall in showing progress. For that reason, we use a web worker to perform this subtraction. It, and any future web workers are stored in the `/src` directory. They are imported in the client using the `worker-loader` library and the syntax, `import Worker from 'worker-loader![PATH_TO_WORKER]'`. This import line requires a `// eslint-disable-line import/no-webpack-loader-syntax` to cooperate with our linter.
 
+### Font Processing
+
+Some parts of the font processing for `TextGeometry` are somewhat hacked together beyond three.js's default classes and warrant some explanation. There are two major issues in imported fonts based on the fonts not being created following glyph standards.
+
+First, there could be multiple solid paths that could overlap. So, for example, if there were a plus sign glyph that was two separate paths of rectangles that overlap. That would cause the subtraction to get confused and not subtract where they overlap or leave lines around where they intersect. Note that the extrusion will likely look fine until it is actually subtracted from the die. To get around this the combinedTextGeometry is saving every different shape that the glyph generates so that rather than rather than extruding all the shapes together, we extrude each shape separately and then use ThreeBSP to take the union of them in the geometryGenerator.
+
+Second issue is hole detection. Basically the font loader starts by going in and making a path for every glyph. For a given glyph and its ShapePath, the subpaths will eventually generate different shapes mentioned above all being solid unless it finds a subpath that is counterclockwise. Apparently this usually means that it is supposed to be a hole rather than a solid and treats it as such. The problem is, not all fonts follow this standard, meaning if a shape happens to be drawn counterclockwise, it will render as an extruded hole. To get around this, `combinedTextGeometry` uses a custom `generateShapes` function that in turn calls a custom `toShapes` function, both found in `src/models/threejs`. Note that these are the only allowed uses of javascript with Typescript as they are mostly copied directly from Three.js. These functions do an extra check for counter clockwise shapes that are assumed be be holes and checks if every point of them is inside their supposed parent. If not the "hole" is instead added as an actual shape.
+
 ## Running scripts
 
 In the project directory, you can run:
