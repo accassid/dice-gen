@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useGlobalState } from '../../modules/global'
+import { useGlobalState } from '../../../../modules/global'
 
 // Models
-import { FontType } from '../../models/font'
+import { FontType } from '../../../../models/font'
 
 // Style
 import { Select } from 'antd'
@@ -71,8 +71,8 @@ const FontDropdown: React.FC<Props> = () => {
   return (
     <Select
       showSearch
-      value={globalFontName}
-      style={{ width: '100%' }}
+      value={globalFontName ? globalFontName : undefined}
+      style={{ flex: '1 0 auto', marginRight: 5 }}
       placeholder="Select a font"
       loading={loading}
       onChange={handleChange}>

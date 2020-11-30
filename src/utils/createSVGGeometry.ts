@@ -151,6 +151,7 @@ export const createSVGGeometry = (
       else scale = targetMax / geometry.boundingBox.max.y
     }
     geometry.scale(scale, scale, 1)
+    geometry.translate(svg.x * dieSVGScale * 0.25, svg.y * dieSVGScale * 0.25, 0)
   }
   return geometry
 }

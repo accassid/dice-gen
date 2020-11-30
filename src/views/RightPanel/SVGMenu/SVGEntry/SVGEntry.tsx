@@ -45,7 +45,7 @@ const SVGEntry: React.FC<Props> = ({ svg, name }: Props) => {
     setGlobalSVG(newGlobalState)
   }
 
-  const handleNumberChange = (value: number, key: 'rotation' | 'scale'): void => {
+  const handleNumberChange = (value: number, key: 'rotation' | 'scale' | 'x' | 'y'): void => {
     setGlobalSVG({
       ...globalSVG,
       [name]: {
@@ -94,6 +94,32 @@ const SVGEntry: React.FC<Props> = ({ svg, name }: Props) => {
             style={{}}
             value={globalSVG[name].rotation}
             onChange={(value: number): void => handleNumberChange(value, 'rotation')}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col span={11}>Horizontal:</Col>
+        <Col span={11}>Vertical:</Col>
+      </Row>
+      <Row>
+        <Col span={11}>
+          <InputNumber
+            min={-20}
+            max={20}
+            step={1}
+            style={{}}
+            value={globalSVG[name].x}
+            onChange={(value: number): void => handleNumberChange(value, 'x')}
+          />
+        </Col>
+        <Col span={11}>
+          <InputNumber
+            min={-20}
+            max={20}
+            step={1}
+            style={{}}
+            value={globalSVG[name].y}
+            onChange={(value: number): void => handleNumberChange(value, 'y')}
           />
         </Col>
       </Row>

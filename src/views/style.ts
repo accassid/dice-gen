@@ -1,4 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components'
+import { Upload } from 'antd'
+const { Dragger } = Upload
 
 export const GlobalStyle = createGlobalStyle`
   #root {
@@ -18,4 +20,19 @@ export const GlobalStyle = createGlobalStyle`
 
 export const Spacer = styled.div<{ height?: number }>`
   height: ${(props): number => (props.height ? props.height : 15)}px;
+`
+export const StyledDragger = styled(Dragger)<{ width: string }>`
+  width: ${props => props.width} !important;
+  margin-left: 4px;
+  overflow: hidden;
+
+  .ant-upload-btn {
+    p {
+      width: ${props => props.width};
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    padding: 5px 0 !important;
+  }
 `
