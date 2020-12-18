@@ -43,7 +43,7 @@ const initialState: GlobalStateType = {
   fontUrl: '',
   svgFile: null,
 
-  die: 'd6',
+  die: 'd20',
 
   diePreview: null,
 

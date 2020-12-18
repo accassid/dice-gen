@@ -46,6 +46,9 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
   if (!isDiceOption(fontScaleKey))
     throw new Error(`${die}FontScale was not fount as a dice option key for the global state`)
   const [dieFontScale] = useGlobalState(fontScaleKey)
+  const [d10Spindown] = useGlobalState('d10Spindown')
+  const [d20Spindown] = useGlobalState('d20Spindown')
+  const spindown = die === 'd10' ? d10Spindown : die === 'd20' ? d20Spindown : 0
 
   const meshRef = useUpdate<Mesh>(
     self => {
@@ -61,9 +64,19 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
    * directly without needing a component rerender.
    */
   useEffect(() => {
-    moveGeometryAndMesh(die, meshRef.current, faceNum, globalScale, dieSize, globalDepth, d10Height, d100FontVertical)
+    moveGeometryAndMesh(
+      die,
+      meshRef.current,
+      faceNum,
+      globalScale,
+      dieSize,
+      globalDepth,
+      d10Height,
+      d100FontVertical,
+      spindown,
+    )
     meshRef.current.name = 'rendered'
-  }, [font, globalSVG, globalScale, globalDepth, d10Height, die, dieSize, d100FontVertical, meshRef, faceNum])
+  }, [font, globalSVG, globalScale, globalDepth, d10Height, die, dieSize, d100FontVertical, meshRef, faceNum, spindown])
 
   let svg = null
   if (face.svg) svg = face.svg
