@@ -37,6 +37,7 @@ export type DiceOptions = {
   d10Size: number
   d10Height: number
   d10FontScale: number
+  d10Spindown: number
 
   d100Size: number
   d100FontScale: number
@@ -47,6 +48,7 @@ export type DiceOptions = {
 
   d20Size: number
   d20FontScale: number
+  d20Spindown: number
 }
 
 export const DEFAULT_DICE_OPTIONS = {
@@ -63,6 +65,7 @@ export const DEFAULT_DICE_OPTIONS = {
   d10Size: 16 * DIE_SIZE_SCALARS['d10'],
   d10FontScale: 0.55,
   d10Height: 0.6,
+  d10Spindown: 0,
 
   d100Size: 16 * DIE_SIZE_SCALARS['d100'],
   d100FontScale: 0.4,
@@ -73,6 +76,7 @@ export const DEFAULT_DICE_OPTIONS = {
 
   d20Size: 20 * DIE_SIZE_SCALARS['d20'],
   d20FontScale: 0.5,
+  d20Spindown: 0,
 }
 
 export const isDiceOption = (key: string): key is keyof DiceOptions => {

@@ -1,5 +1,6 @@
 import { Mesh, Vector3, Line3 } from 'three'
 import { PentagonalTrapezohedronGeometry } from '../models/pentagonalTrapezohedron'
+import { D10_SPINDOWN_MAP, D20_SPINDOWN_MAP } from '../models/spindown'
 
 /**
  * This function does the main work of moving a face (text or svg) to the correct face of the die. It takes in the die
@@ -24,6 +25,7 @@ export const moveGeometryAndMesh = (
   depth: number,
   d10Height: number,
   d100FontVertical: number,
+  spindown: number,
 ): void => {
   mesh.position.x = 0
   mesh.position.y = 0
@@ -158,6 +160,7 @@ export const moveGeometryAndMesh = (
   }
 
   if (die === 'd10' || die === 'd100') {
+    if (spindown) face = D10_SPINDOWN_MAP[`${face}`]
     const pt = new PentagonalTrapezohedronGeometry(scaledSize, d10Height)
     const top = pt.vertices[8]
     const bottom = pt.vertices[10]
@@ -326,6 +329,7 @@ export const moveGeometryAndMesh = (
   }
 
   if (die === 'd20') {
+    if (spindown) face = D20_SPINDOWN_MAP[`${face}`]
     const inRadius = (0.75576 / 0.95105) * scaledSize - depth / 2 + 0.01
     const dihedral = Math.acos(-Math.sqrt(5) / 3)
     const dihedralOffset = Math.PI / 2 - dihedral / 2 // 90 degrees minus half of the dihedral for the vertical faces
@@ -347,24 +351,26 @@ export const moveGeometryAndMesh = (
       case 2:
         mesh.rotateY(-dihedralOffset)
         mesh.translateZ(inRadius)
-        mesh.rotateZ(-triOffset + triRotation)
+        spindown ? mesh.rotateZ(-triOffset) : mesh.rotateZ(-triOffset + triRotation)
         break
       case 3:
         mesh.rotateY(-Math.PI / 4 + Math.PI)
         mesh.rotateX(estimatedXRotation)
         mesh.translateZ(inRadius)
-        mesh.rotateZ(-estimatedZOffset + Math.PI / 2 + triRotation)
+        spindown
+          ? mesh.rotateZ(-estimatedZOffset + Math.PI / 2 - triRotation)
+          : mesh.rotateZ(-estimatedZOffset + Math.PI / 2 + triRotation)
         break
       case 4:
         mesh.rotateX(-Math.PI / 2 + dihedralOffset)
         mesh.translateZ(inRadius)
-        mesh.rotateZ(flip - triRotation)
+        spindown ? mesh.rotateZ(flip) : mesh.rotateZ(flip - triRotation)
         break
       case 5:
         mesh.rotateY(-Math.PI / 2)
         mesh.rotateX(-dihedralOffset)
         mesh.translateZ(inRadius)
-        mesh.rotateZ(-triRotation)
+        spindown ? mesh.rotateZ(triRotation) : mesh.rotateZ(-triRotation)
         break
       case 6:
         mesh.rotateY(Math.PI / 2)
@@ -376,7 +382,9 @@ export const moveGeometryAndMesh = (
         mesh.rotateY(Math.PI / 4 + Math.PI)
         mesh.rotateX(estimatedXRotation)
         mesh.translateZ(inRadius)
-        mesh.rotateZ(estimatedZOffset - Math.PI / 2 - triRotation)
+        spindown
+          ? mesh.rotateZ(estimatedZOffset - Math.PI / 2 + triRotation)
+          : mesh.rotateZ(estimatedZOffset - Math.PI / 2 - triRotation)
         break
       case 8:
         mesh.rotateY(Math.PI / 4)
@@ -393,12 +401,12 @@ export const moveGeometryAndMesh = (
       case 10:
         mesh.rotateX(Math.PI / 2 - dihedralOffset)
         mesh.translateZ(inRadius)
-        mesh.rotateZ(triRotation)
+        !spindown && mesh.rotateZ(triRotation)
         break
       case 11:
         mesh.rotateX(-Math.PI / 2 - dihedralOffset)
         mesh.translateZ(inRadius)
-        mesh.rotateZ(-triRotation)
+        !spindown && mesh.rotateZ(-triRotation)
         break
       case 12:
         mesh.rotateY(-Math.PI / 4)
@@ -416,7 +424,9 @@ export const moveGeometryAndMesh = (
         mesh.rotateY(Math.PI / 4)
         mesh.rotateX(-estimatedXRotation)
         mesh.translateZ(inRadius)
-        mesh.rotateZ(-estimatedZOffset - Math.PI / 2 + triRotation)
+        spindown
+          ? mesh.rotateZ(-estimatedZOffset - Math.PI / 2 - triRotation)
+          : mesh.rotateZ(-estimatedZOffset - Math.PI / 2 + triRotation)
         break
       case 15:
         mesh.rotateY(-Math.PI / 2)
@@ -428,23 +438,25 @@ export const moveGeometryAndMesh = (
         mesh.rotateY(Math.PI / 2)
         mesh.rotateX(dihedralOffset)
         mesh.translateZ(inRadius)
-        mesh.rotateZ(flip + triRotation)
+        spindown ? mesh.rotateZ(flip - triRotation) : mesh.rotateZ(flip + triRotation)
         break
       case 18:
         mesh.rotateY(-Math.PI / 4)
         mesh.rotateX(-estimatedXRotation)
         mesh.translateZ(inRadius)
-        mesh.rotateZ(estimatedZOffset + Math.PI / 2 - triRotation)
+        spindown
+          ? mesh.rotateZ(estimatedZOffset + Math.PI / 2 + triRotation)
+          : mesh.rotateZ(estimatedZOffset + Math.PI / 2 - triRotation)
         break
       case 17:
         mesh.rotateX(-Math.PI / 2 + dihedralOffset + Math.PI)
         mesh.translateZ(inRadius)
-        mesh.rotateZ(flip + triRotation)
+        spindown ? mesh.rotateZ(flip) : mesh.rotateZ(flip + triRotation)
         break
       case 19:
         mesh.rotateY(Math.PI / 2 + dihedral / 2)
         mesh.translateZ(inRadius)
-        mesh.rotateZ(flip + triOffset - triRotation)
+        spindown ? mesh.rotateZ(flip + triOffset) : mesh.rotateZ(flip + triOffset - triRotation)
         break
       case 20:
         mesh.rotateY(dihedralOffset)
