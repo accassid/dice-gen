@@ -12,6 +12,7 @@ import { isFaceOption } from '../models/face'
 import { PentagonalTrapezohedronGeometry } from '../models/pentagonalTrapezohedron'
 import { isDiceOption } from '../models/dice'
 import { meshToPassableObject } from '../models/geometryGenerator'
+import { CrystalD4ShardGeometry } from '../models/crystalD4Shard'
 
 /**
  * This function takes in a die type and then starts off the process of subtracting all the faces (numbers and svgs)
@@ -38,6 +39,15 @@ export function subtractSolid(worker: Worker, die?: string): void {
   if (die === 'd4') {
     dieNumber = 4
     mesh = new Mesh(new TetrahedronGeometry(size))
+  } else if (die === 'd4Shard') {
+    dieNumber = 4
+    mesh = new Mesh(
+      new CrystalD4ShardGeometry(
+        size,
+        getGlobalState().d4ShardHeight * globalScale,
+        getGlobalState().d4ShardPointHeight * globalScale,
+      ),
+    )
   } else if (die === 'd6') {
     dieNumber = 6
     mesh = new Mesh(new BoxGeometry(size, size, size))

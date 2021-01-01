@@ -74,6 +74,28 @@ export const moveGeometryAndMesh = (
     }
   }
 
+  if (die === 'd4Shard') {
+    const offset = scaledSize / 2 - depth / 2
+
+    switch (face) {
+      case 1:
+        mesh.position.z += offset
+        break
+      case 2:
+        mesh.rotation.y = Math.PI / 2
+        mesh.position.x += offset
+        break
+      case 3:
+        mesh.rotation.y = -Math.PI / 2
+        mesh.position.x -= offset
+        break
+      case 4:
+        mesh.rotation.y = Math.PI
+        mesh.position.z -= offset
+        break
+    }
+  }
+
   if (die === 'd6') {
     const offset = scaledSize / 2 - depth / 2
     switch (face) {
