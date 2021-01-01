@@ -26,7 +26,7 @@ const Die: React.FC<Props> = () => {
 
   return (
     <>
-      {!diePreview && sides.map(side => <Face key={side} faceNum={side} dieSize={dieSize} die={die} />)}
+      {/*{!diePreview && sides.map(side => <Face key={side} faceNum={side} dieSize={dieSize} die={die} />)}*/}
       <Internal dieSize={dieSize} />
     </>
   )

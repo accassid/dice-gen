@@ -2,6 +2,7 @@
 import { ReactThreeFiber } from 'react-three-fiber'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { PentagonalTrapezohedronGeometry } from './pentagonalTrapezohedron'
+import { CrystalD4ShardGeometry } from './crystalD4Shard'
 
 /**
  * This type declaration is required to use orbitControls (and any others that we may add) as a intrinsic dom element
@@ -15,6 +16,7 @@ declare global {
         PentagonalTrapezohedronGeometry,
         typeof PentagonalTrapezohedronGeometry
       >
+      crystalD4ShardGeometry: ReactThreeFiber.Object3DNode<CrystalD4ShardGeometry, typeof CrystalD4ShardGeometry>
     }
   }
 }

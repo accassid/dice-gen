@@ -39,6 +39,8 @@ const DiceTabs: React.FC<Props> = () => {
         const d10HeightKey = die === 'd10' || die === 'd100' ? 'd10Height' : null
         const d100FontVerticalKey = die === 'd100' ? 'd100FontVertical' : null
         const spindownKey = die === 'd20' ? 'd20Spindown' : die === 'd10' ? 'd10Spindown' : null
+        const d4ShardHeightKey = die === 'd4Shard' ? 'd4ShardHeight' : null
+        const d4ShardPointHeightKey = die === 'd4Shard' ? 'd4ShardPointHeight' : null
         return (
           <TabPane tab={die.toUpperCase()} key={die}>
             <SectionContainer>
@@ -65,6 +67,12 @@ const DiceTabs: React.FC<Props> = () => {
               )}
               {d100FontVerticalKey && <ValueCheckbox stateKey={d100FontVerticalKey} label="D100 Font Vertical" />}
               {spindownKey && <ValueCheckbox stateKey={spindownKey} label="Spindown" />}
+              {d4ShardHeightKey && (
+                <ValueSlider stateKey={d4ShardHeightKey} label="Base Height" min={1} max={40} step={1} />
+              )}
+              {d4ShardPointHeightKey && (
+                <ValueSlider stateKey={d4ShardPointHeightKey} label="Point Height" min={1} max={20} step={1} />
+              )}
             </SectionContainer>
           </TabPane>
         )
