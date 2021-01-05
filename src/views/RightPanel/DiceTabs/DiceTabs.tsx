@@ -6,7 +6,7 @@ import { Tabs } from 'antd'
 import { SectionContainer } from '../style'
 
 // Models
-import { DICE_LIST, DIE_SIZE_SCALARS } from '../../../models/dice'
+import { DICE_LIST, DIE_NAME, DIE_SIZE_SCALARS } from '../../../models/dice'
 import { isDiceOption, isDiceType } from '../../../models/dice'
 
 // Components
@@ -39,12 +39,14 @@ const DiceTabs: React.FC<Props> = () => {
         const d10HeightKey = die === 'd10' || die === 'd100' ? 'd10Height' : null
         const d100FontVerticalKey = die === 'd100' ? 'd100FontVertical' : null
         const spindownKey = die === 'd20' ? 'd20Spindown' : die === 'd10' ? 'd10Spindown' : null
+        const d4CrystalHeightKey = die === 'd4Crystal' ? 'd4CrystalHeight' : null
+        const d4CrystalPointHeightKey = die === 'd4Crystal' ? 'd4CrystalPointHeight' : null
         return (
-          <TabPane tab={die.toUpperCase()} key={die}>
+          <TabPane tab={DIE_NAME[die]} key={die}>
             <SectionContainer>
               <ValueSlider
                 stateKey={sizeKey}
-                label={`${die.toUpperCase()} Size (mm face to face)`}
+                label={`${DIE_NAME[die]} Size (mm face to face)`}
                 min={1}
                 max={50}
                 step={1}
@@ -52,7 +54,7 @@ const DiceTabs: React.FC<Props> = () => {
               />
               <ValueSlider
                 stateKey={scaleFontKey}
-                label={`${die.toUpperCase()} Font Scale`}
+                label={`${DIE_NAME[die]} Font Scale`}
                 min={0.25}
                 max={2}
                 step={0.05}
@@ -65,6 +67,12 @@ const DiceTabs: React.FC<Props> = () => {
               )}
               {d100FontVerticalKey && <ValueCheckbox stateKey={d100FontVerticalKey} label="D100 Font Vertical" />}
               {spindownKey && <ValueCheckbox stateKey={spindownKey} label="Spindown" />}
+              {d4CrystalHeightKey && (
+                <ValueSlider stateKey={d4CrystalHeightKey} label="Base Height" min={1} max={40} step={1} />
+              )}
+              {d4CrystalPointHeightKey && (
+                <ValueSlider stateKey={d4CrystalPointHeightKey} label="Point Height" min={1} max={20} step={1} />
+              )}
             </SectionContainer>
           </TabPane>
         )
