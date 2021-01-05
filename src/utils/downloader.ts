@@ -25,7 +25,7 @@ export const generateSTL = (geometry: Geometry): string => {
  * @param fileStrings
  * @param callback
  */
-export const download = (fileStrings: Record<string, string>, callback?: Function): void => {
+export const download = (fileStrings: Record<string, string>, callback?: () => void): void => {
   const zip = new JSZip()
   for (const name in fileStrings) {
     zip.file(`${name}.stl`, fileStrings[name])
