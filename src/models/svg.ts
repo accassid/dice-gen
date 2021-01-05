@@ -1,7 +1,7 @@
 export type SVGType = {
   scale: number
   rotation: number
-  primitiveMesh: object | null
+  primitiveMesh: Record<string, unknown> | null
   x: number
   y: number
   fileName: string | null
