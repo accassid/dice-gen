@@ -72,7 +72,7 @@ const FontDropdown: React.FC<Props> = () => {
     <Select
       showSearch
       value={globalFontName ? globalFontName : undefined}
-      style={{ flex: '1 0 auto', marginRight: 5 }}
+      style={{ flex: '1 0 auto', marginRight: 5, maxWidth: 240 }}
       placeholder="Select a font"
       loading={loading}
       onChange={handleChange}>

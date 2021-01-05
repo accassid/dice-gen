@@ -8,7 +8,7 @@ import { ActionButton } from '../style'
 
 // Models
 import { GeometryGenerator } from '../../../models/geometryGenerator'
-import { DiceType } from '../../../models/dice'
+import { DiceType, DIE_NAME } from '../../../models/dice'
 import { CheckboxChangeEvent } from 'antd/es/checkbox'
 
 // Utils
@@ -20,7 +20,7 @@ import Worker from 'worker-loader!../../../subtractSolid.worker' // eslint-disab
 
 type Props = {}
 
-const DIE_LIST: Array<DiceType> = ['d4', 'd6', 'd8', 'd10', 'd100', 'd12', 'd20']
+const DIE_LIST: Array<DiceType> = ['d4', 'd4Crystal', 'd6', 'd8', 'd10', 'd100', 'd12', 'd20']
 
 /**
  * This component renders a button that when clicked opens a modal. That modal allows the user to select all the dice
@@ -104,7 +104,7 @@ const MassDownloader: React.FC<Props> = () => {
    */
   const handleEffect = (): void => {
     if (downloading) {
-      const key = `${die}f${die === 'd100' || die === 'd10' ? '0' : die.replace('d', '')}`
+      const key = `${die}f${die === 'd100' || die === 'd10' ? '0' : die === 'd4Crystal' ? '4' : die.replace('d', '')}`
       const maxFace = getGlobalState()[key]
       if (maxFace && maxFace.ref && maxFace.ref.name === 'rendered') {
         setTimeout(processDie(), 500)
@@ -129,7 +129,7 @@ const MassDownloader: React.FC<Props> = () => {
         {DIE_LIST.map(die => (
           <Row key={die}>
             <Checkbox checked={dieList.includes(die)} onChange={(e: CheckboxChangeEvent): void => handleChange(die, e)}>
-              {die.toUpperCase()}
+              {DIE_NAME[die]}
             </Checkbox>
           </Row>
         ))}

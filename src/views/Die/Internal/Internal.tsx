@@ -6,8 +6,10 @@ import { extend } from 'react-three-fiber'
 
 // Models
 import { PentagonalTrapezohedronGeometry } from '../../../models/pentagonalTrapezohedron'
+import { CrystalD4Geometry } from '../../../models/crystalD4'
 
 extend({ PentagonalTrapezohedronGeometry })
+extend({ CrystalD4Geometry: CrystalD4Geometry })
 
 type Props = {
   dieSize: number
@@ -24,12 +26,20 @@ const Internal: React.FC<Props> = ({ dieSize }: Props) => {
   const [diePreview] = useGlobalState('diePreview')
   const [globalScale] = useGlobalState('globalScale')
   const [d10Height] = useGlobalState('d10Height')
+  const [d4CrystalHeight] = useGlobalState('d4CrystalHeight')
+  const [d4CrystalPointHeight] = useGlobalState('d4CrystalPointHeight')
 
   const size = globalScale * dieSize
 
   return (
     <mesh position={[0, 0, 0]} scale={[0.999, 0.999, 0.999]}>
       {die === 'd4' && <tetrahedronGeometry attach="geometry" args={[size]} />}
+      {die === 'd4Crystal' && (
+        <crystalD4Geometry
+          args={[size, d4CrystalHeight * globalScale, d4CrystalPointHeight * globalScale]}
+          attach="geometry"
+        />
+      )}
       {die === 'd6' && <boxBufferGeometry attach="geometry" args={[size, size, size]} />}
       {die === 'd8' && <octahedronBufferGeometry attach="geometry" args={[size]} />}
       {(die === 'd10' || die === 'd100') && (
