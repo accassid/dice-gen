@@ -74,7 +74,7 @@ export const moveGeometryAndMesh = (
     }
   }
 
-  if (die === 'd4Shard') {
+  if (die === 'd4Crystal') {
     const offset = scaledSize / 2 - depth / 2
 
     switch (face) {

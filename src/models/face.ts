@@ -18,10 +18,10 @@ export type FaceOptions =
   | 'd4f2'
   | 'd4f3'
   | 'd4f4'
-  | 'd4Shardf1'
-  | 'd4Shardf2'
-  | 'd4Shardf3'
-  | 'd4Shardf4'
+  | 'd4Crystalf1'
+  | 'd4Crystalf2'
+  | 'd4Crystalf3'
+  | 'd4Crystalf4'
   | 'd6f1'
   | 'd6f2'
   | 'd6f3'
@@ -85,10 +85,10 @@ export type FaceStateType = {
   d4f3: FaceType
   d4f4: FaceType
 
-  d4Shardf1: FaceType
-  d4Shardf2: FaceType
-  d4Shardf3: FaceType
-  d4Shardf4: FaceType
+  d4Crystalf1: FaceType
+  d4Crystalf2: FaceType
+  d4Crystalf3: FaceType
+  d4Crystalf4: FaceType
 
   d6f1: FaceType
   d6f2: FaceType
@@ -169,10 +169,10 @@ export const DEFAULT_FACE_STATE: FaceStateType = {
   d4f3: { ...DEFAULT_FACE, text: '3' },
   d4f4: { ...DEFAULT_FACE, text: '4' },
 
-  d4Shardf1: { ...DEFAULT_FACE, text: '1' },
-  d4Shardf2: { ...DEFAULT_FACE, text: '2' },
-  d4Shardf3: { ...DEFAULT_FACE, text: '3' },
-  d4Shardf4: { ...DEFAULT_FACE, text: '4' },
+  d4Crystalf1: { ...DEFAULT_FACE, text: '1' },
+  d4Crystalf2: { ...DEFAULT_FACE, text: '2' },
+  d4Crystalf3: { ...DEFAULT_FACE, text: '3' },
+  d4Crystalf4: { ...DEFAULT_FACE, text: '4' },
 
   d6f1: { ...DEFAULT_FACE, text: '1' },
   d6f2: { ...DEFAULT_FACE, text: '2' },
@@ -253,10 +253,10 @@ export const FACE_OPTION_LIST = [
   'd4f3',
   'd4f4',
 
-  'd4Shardf1',
-  'd4Shardf2',
-  'd4Shardf3',
-  'd4Shardf4',
+  'd4Crystalf1',
+  'd4Crystalf2',
+  'd4Crystalf3',
+  'd4Crystalf4',
 
   'd6f1',
   'd6f2',

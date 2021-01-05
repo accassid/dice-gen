@@ -1,6 +1,6 @@
-export type DiceType = 'd4' | 'd4Shard' | 'd6' | 'd8' | 'd10' | 'd100' | 'd12' | 'd20'
+export type DiceType = 'd4' | 'd4Crystal' | 'd6' | 'd8' | 'd10' | 'd100' | 'd12' | 'd20'
 
-export const DICE_LIST = ['d4', 'd4Shard', 'd6', 'd8', 'd10', 'd100', 'd12', 'd20']
+export const DICE_LIST = ['d4', 'd4Crystal', 'd6', 'd8', 'd10', 'd100', 'd12', 'd20']
 
 export const isDiceType = (keyInput: string): keyInput is DiceType => {
   return DICE_LIST.includes(keyInput)
@@ -15,7 +15,7 @@ export const isDiceType = (keyInput: string): keyInput is DiceType => {
  */
 export const DIE_SIZE_SCALARS = {
   d4: 0.75,
-  d4Shard: 0.75,
+  d4Crystal: 1,
   d6: 1,
   d8: 0.866,
   d10: 1.30187,
@@ -29,10 +29,10 @@ export type DiceOptions = {
   d4FontScale: number
   d4RadiusScale: number
 
-  d4ShardSize: number
-  d4ShardFontScale: number
-  d4ShardHeight: number
-  d4ShardPointHeight: number
+  d4CrystalSize: number
+  d4CrystalFontScale: number
+  d4CrystalHeight: number
+  d4CrystalPointHeight: number
 
   d6Size: number
   d6FontScale: number
@@ -62,10 +62,10 @@ export const DEFAULT_DICE_OPTIONS = {
   d4FontScale: 1,
   d4RadiusScale: 1,
 
-  d4ShardSize: 15 * DIE_SIZE_SCALARS['d4'],
-  d4ShardFontScale: 1,
-  d4ShardHeight: 15,
-  d4ShardPointHeight: 7,
+  d4CrystalSize: 12 * DIE_SIZE_SCALARS['d4Crystal'],
+  d4CrystalFontScale: 1,
+  d4CrystalHeight: 14,
+  d4CrystalPointHeight: 7,
 
   d6Size: 15 * DIE_SIZE_SCALARS['d6'],
   d6FontScale: 1,
@@ -96,7 +96,7 @@ export const isDiceOption = (key: string): key is keyof DiceOptions => {
 
 export const DICE_FACE_LISTS = {
   d4: [1, 2, 3, 4],
-  d4Shard: [1, 2, 3, 4],
+  d4Crystal: [1, 2, 3, 4],
   d6: [1, 2, 3, 4, 5, 6],
   d8: [1, 2, 3, 4, 5, 6, 7, 8],
   d10: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
@@ -138,3 +138,14 @@ export const SVG_FACE_OPTIONS = [
   '90',
   '00',
 ]
+
+export const DIE_NAME = {
+  d4: 'D4',
+  d4Crystal: 'D4 Crystal',
+  d6: 'D6',
+  d8: 'D8',
+  d10: 'D10',
+  d100: 'D100',
+  d12: 'D12',
+  d20: 'D20',
+}

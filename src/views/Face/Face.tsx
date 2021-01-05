@@ -80,7 +80,8 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
 
   let svg = null
   if (face.svg) svg = face.svg
-  else if (globalSVG.max && (die === `d${faceNum}` || faceNum === 0 || die === `d${faceNum}Shard`)) svg = globalSVG.max
+  else if (globalSVG.max && (die === `d${faceNum}` || faceNum === 0 || die === `d${faceNum}Crystal`))
+    svg = globalSVG.max
   else if (globalSVG.min && faceNum === 1) svg = globalSVG.min
   else if (globalSVG[`${faceNum}`]) svg = globalSVG[`${faceNum}`]
 

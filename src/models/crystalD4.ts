@@ -1,15 +1,10 @@
 import { Geometry, Vector3, Face3 } from 'three'
 
-const height = 1
-const width = 0.5
-const pointHeight = 0.5
 /**
- * This is a custom geometry for a Pentagonal Trapezohedron (d10/d100). Vertices are manually generated from standard
- * constants. These standard constants yield a shape that is more elongated than the standard d10. Thus a height scale
- * is passed into the constructor to control the elongation. The variable that scales the entirety of the geometry is
- * the radius.
+ * This is a custom geometry for a crystal d4. Vertices are generated based on the width, height and pointHeight that
+ * are passed into this geometry.
  */
-export class CrystalD4ShardGeometry extends Geometry {
+export class CrystalD4Geometry extends Geometry {
   constructor(width: number, height: number, pointHeight: number) {
     super()
 
