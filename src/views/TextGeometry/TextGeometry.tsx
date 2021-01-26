@@ -40,6 +40,7 @@ const TextGeometry: React.FC<Props> = ({ font, face, dieFontScale, dieSize }: Pr
   const [orientationIndicatorOnD8D6] = useGlobalState('orientationIndicatorOnD6D8')
   const [die] = useGlobalState('die')
   const [geometry, setGeometry] = useState<Geometry>(new Geometry())
+  const [d2Radius] = useGlobalState('d2Radius')
 
   /**
    * This effect is called whenever a property changes that effects a text geometry on a die, including sizes, fonts,
@@ -53,7 +54,7 @@ const TextGeometry: React.FC<Props> = ({ font, face, dieFontScale, dieSize }: Pr
     if (font) {
       config = {
         font,
-        size: globalScale * globalFontScale * dieFontScale * dieSize,
+        size: globalScale * globalFontScale * dieFontScale * (die === 'd2' ? d2Radius * 2 : dieSize),
         height: globalDepth + 0.02,
         curveSegments: 6,
         bevelEnabled: false,
@@ -111,6 +112,7 @@ const TextGeometry: React.FC<Props> = ({ font, face, dieFontScale, dieSize }: Pr
     orientationIndicatorOnD8D6,
     orientationIndicatorSize,
     orientationIndicatorSpace,
+    d2Radius,
   ])
 
   return <primitive object={geometry} attach="geometry" />

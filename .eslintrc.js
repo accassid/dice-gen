@@ -29,17 +29,16 @@ module.exports = {
           requireLast: false,
         },
       },
-
     ],
-    "@typescript-eslint/ban-types": [
-      "error",
+    '@typescript-eslint/ban-types': [
+      'error',
       {
-        "extendDefaults": true,
-        "types": {
-          "{}": false
-        }
-      }
-      ],
+        extendDefaults: true,
+        types: {
+          '{}': false,
+        },
+      },
+    ],
     '@typescript-eslint/no-namespace': [0],
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
     // e.g. "@typescript-eslint/explicit-function-return-type": "off",

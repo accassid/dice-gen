@@ -14,6 +14,8 @@ export const DEFAULT_FACE = {
 }
 
 export type FaceOptions =
+  | 'd2f1'
+  | 'd2f2'
   | 'd4f1'
   | 'd4f2'
   | 'd4f3'
@@ -80,6 +82,9 @@ export type FaceOptions =
   | 'd20f20'
 
 export type FaceStateType = {
+  d2f1: FaceType
+  d2f2: FaceType
+
   d4f1: FaceType
   d4f2: FaceType
   d4f3: FaceType
@@ -164,6 +169,9 @@ export type FaceStateType = {
 }
 
 export const DEFAULT_FACE_STATE: FaceStateType = {
+  d2f1: { ...DEFAULT_FACE, text: '1' },
+  d2f2: { ...DEFAULT_FACE, text: '2' },
+
   d4f1: { ...DEFAULT_FACE, text: '1' },
   d4f2: { ...DEFAULT_FACE, text: '2' },
   d4f3: { ...DEFAULT_FACE, text: '3' },
@@ -248,6 +256,9 @@ export const DEFAULT_FACE_STATE: FaceStateType = {
 }
 
 export const FACE_OPTION_LIST = [
+  'd2f1',
+  'd2f2',
+
   'd4f1',
   'd4f2',
   'd4f3',
