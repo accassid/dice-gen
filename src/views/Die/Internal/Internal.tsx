@@ -28,11 +28,16 @@ const Internal: React.FC<Props> = ({ dieSize }: Props) => {
   const [d10Height] = useGlobalState('d10Height')
   const [d4CrystalHeight] = useGlobalState('d4CrystalHeight')
   const [d4CrystalPointHeight] = useGlobalState('d4CrystalPointHeight')
+  const [d2Radius] = useGlobalState('d2Radius')
+  const [d2Sides] = useGlobalState('d2Sides')
 
   const size = globalScale * dieSize
 
   return (
-    <mesh position={[0, 0, 0]} scale={[0.999, 0.999, 0.999]}>
+    <mesh position={[0, 0, 0]} scale={[0.98, 0.98, 0.98]}>
+      {die === 'd2' && (
+        <cylinderGeometry attach="geometry" args={[d2Radius * globalScale, d2Radius * globalScale, size, d2Sides]} />
+      )}
       {die === 'd4' && <tetrahedronGeometry attach="geometry" args={[size]} />}
       {die === 'd4Crystal' && (
         <crystalD4Geometry

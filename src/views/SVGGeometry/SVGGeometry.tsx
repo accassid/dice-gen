@@ -28,12 +28,13 @@ const SVGGeometry: React.FC<Props> = ({ svg, dieSize }: Props) => {
   const [globalScale] = useGlobalState('globalScale')
   const [globalDepth] = useGlobalState('globalDepth')
   const [die] = useGlobalState('die')
+  const [d2Radius] = useGlobalState('d2Radius')
 
   // const svgData = useLoader(SVGLoader, '/star.svg')
 
   useEffect(() => {
     if (svg.primitiveMesh) {
-      const geometry = createSVGGeometry(svg, globalDepth, globalScale, die, dieSize)
+      const geometry = createSVGGeometry(svg, globalDepth, globalScale, die, die === 'd2' ? d2Radius * 2 : dieSize)
       if (geometry) setGeometry(geometry)
     }
   }, [globalScale, globalDepth, svg, die, dieSize])

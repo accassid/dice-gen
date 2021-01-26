@@ -1,6 +1,6 @@
-export type DiceType = 'd4' | 'd4Crystal' | 'd6' | 'd8' | 'd10' | 'd100' | 'd12' | 'd20'
+export type DiceType = 'd2' | 'd4' | 'd4Crystal' | 'd6' | 'd8' | 'd10' | 'd100' | 'd12' | 'd20'
 
-export const DICE_LIST = ['d4', 'd4Crystal', 'd6', 'd8', 'd10', 'd100', 'd12', 'd20']
+export const DICE_LIST = ['d2', 'd4', 'd4Crystal', 'd6', 'd8', 'd10', 'd100', 'd12', 'd20']
 
 export const isDiceType = (keyInput: string): keyInput is DiceType => {
   return DICE_LIST.includes(keyInput)
@@ -14,6 +14,7 @@ export const isDiceType = (keyInput: string): keyInput is DiceType => {
  * value to the user so they see the face to face size, not the three.js size.
  */
 export const DIE_SIZE_SCALARS = {
+  d2: 1,
   d4: 0.75,
   d4Crystal: 1,
   d6: 1,
@@ -25,6 +26,11 @@ export const DIE_SIZE_SCALARS = {
 }
 
 export type DiceOptions = {
+  d2Size: number
+  d2FontScale: number
+  d2Radius: number
+  d2Sides: number
+
   d4Size: number
   d4FontScale: number
   d4RadiusScale: number
@@ -58,6 +64,11 @@ export type DiceOptions = {
 }
 
 export const DEFAULT_DICE_OPTIONS = {
+  d2Size: 2 * DIE_SIZE_SCALARS['d2'],
+  d2FontScale: 1,
+  d2Radius: 12,
+  d2Sides: 32,
+
   d4Size: 20 * DIE_SIZE_SCALARS['d4'],
   d4FontScale: 1,
   d4RadiusScale: 1,
@@ -95,6 +106,7 @@ export const isDiceOption = (key: string): key is keyof DiceOptions => {
 }
 
 export const DICE_FACE_LISTS = {
+  d2: [1, 2],
   d4: [1, 2, 3, 4],
   d4Crystal: [1, 2, 3, 4],
   d6: [1, 2, 3, 4, 5, 6],
@@ -140,6 +152,7 @@ export const SVG_FACE_OPTIONS = [
 ]
 
 export const DIE_NAME = {
+  d2: 'D2',
   d4: 'D4',
   d4Crystal: 'D4 Crystal',
   d6: 'D6',
