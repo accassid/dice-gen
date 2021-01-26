@@ -66,7 +66,7 @@ export type DiceOptions = {
 export const DEFAULT_DICE_OPTIONS = {
   d2Size: 2 * DIE_SIZE_SCALARS['d2'],
   d2FontScale: 1,
-  d2Radius: 8,
+  d2Radius: 12,
   d2Sides: 32,
 
   d4Size: 20 * DIE_SIZE_SCALARS['d4'],
