@@ -142,7 +142,7 @@ export const createSVGGeometry = (
 
   if (geometry) {
     geometry.center()
-    // geometry.rotateY(Math.PI)
+    geometry.rotateY(Math.PI)
     geometry.rotateZ((svg.rotation * Math.PI) / 180)
     let scale = 1
     if (geometry.boundingBox) {

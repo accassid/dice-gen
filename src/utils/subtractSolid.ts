@@ -6,6 +6,7 @@ import {
   DodecahedronGeometry,
   IcosahedronGeometry,
   Geometry,
+  CylinderGeometry,
 } from 'three'
 import { getGlobalState } from '../modules/global'
 import { isFaceOption } from '../models/face'
@@ -36,6 +37,12 @@ export function subtractSolid(worker: Worker, die?: string): void {
 
   let dieNumber = 4
 
+  if (die === 'd2') {
+    dieNumber = 2
+    const d2Radius = getGlobalState().d2Radius
+    const d2Sides = getGlobalState().d2Sides
+    mesh = new Mesh(new CylinderGeometry(d2Radius * globalScale, d2Radius * globalScale, size, d2Sides))
+  }
   if (die === 'd4') {
     dieNumber = 4
     mesh = new Mesh(new TetrahedronGeometry(size))

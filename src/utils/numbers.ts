@@ -39,6 +39,21 @@ export const moveGeometryAndMesh = (
 
   if (die !== 'd4') mesh.geometry.center()
 
+  if (die === 'd2') {
+    const offset = scaledSize / 2 - depth / 2
+    switch (face) {
+      case 1:
+        mesh.rotation.x = -Math.PI / 2
+        mesh.rotation.z = Math.PI
+        mesh.position.y += offset
+        break
+      case 2:
+        mesh.rotation.x = Math.PI / 2
+        mesh.position.y -= offset
+        break
+    }
+  }
+
   if (die === 'd4') {
     // This is the x y or z offset for the points of intersection between the tetrahedron and an inscribed circle.
     // The value was found by the distance equation for a vector using r of the inscribed circle as a distance, adding

@@ -20,7 +20,7 @@ import Worker from 'worker-loader!../../../subtractSolid.worker' // eslint-disab
 
 type Props = {}
 
-const DIE_LIST: Array<DiceType> = ['d4', 'd4Crystal', 'd6', 'd8', 'd10', 'd100', 'd12', 'd20']
+const DIE_LIST: Array<DiceType> = ['d2', 'd4', 'd4Crystal', 'd6', 'd8', 'd10', 'd100', 'd12', 'd20']
 
 /**
  * This component renders a button that when clicked opens a modal. That modal allows the user to select all the dice
