@@ -14,11 +14,20 @@ type Props = {
   dieSize: number
 }
 
-const FACE_MAP: Record<string, [string, string, string]> = {
-  '1': ['3', '4', '2'],
-  '2': ['1', '2', '4'],
-  '3': ['2', '1', '3'],
-  '4': ['4', '3', '1'],
+function GetFaceMap(isD4TopAligned) {
+  return isD4TopAligned
+    ? {
+        '1': ['3', '4', '2'],
+        '2': ['1', '2', '4'],
+        '3': ['2', '1', '3'],
+        '4': ['4', '3', '1'],
+      }
+    : {
+        '1': ['3', '4', '2'],
+        '2': ['1', '2', '4'],
+        '3': ['2', '1', '3'],
+        '4': ['2', '3', '1'],
+      }
 }
 
 /**
@@ -43,7 +52,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
 
   /**
    * This useEffect responds to the changing of any parameter in the state that would effect the rendering of a D4 face.
-   * Depending which face it is, it uses the FACE_MAP const to know which three numbers to render on this particular
+   * Depending which face it is, it uses the faceMap const to know which three numbers to render on this particular
    * face. It then creates text geometries or svg geometries for each of those three numbers. Those geometries are then
    * rotated outward into their triangular positions and merged together into a single geometry for the face. That is
    * then set in the local state of this component and used when the primitive object is rendered.
@@ -63,8 +72,11 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
         bevelOffset: 0,
         bevelSegments: 8,
       }
-    const d4ScaleAdjustment = d4TopAlignment === 0 ? 1.0 : 0.5
-    const numbers = FACE_MAP[`${faceNum}`]
+    const isd4TopAligned = d4TopAlignment === 0
+    const d4ScaleAdjustment = isd4TopAligned ? 1.0 : 0.5
+
+    const faceMap = GetFaceMap(isd4TopAligned)
+    const numbers = faceMap[`${faceNum}`]
     if (!numbers) return
 
     console.log('d4TopAlignment', d4TopAlignment)
