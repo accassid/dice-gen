@@ -20,7 +20,7 @@ const Controls: React.FC<Props> = () => {
   const { camera, gl } = useThree()
 
   return (
-    <orbitControls ref={orbit} args={[camera, gl.domElement]} enableDamping dampingFactor={0.1} rotateSpeed={0.1} />
+    <orbitControls ref={orbit} args={[camera, gl.domElement]} enableDamping dampingFactor={0.1} rotateSpeed={0.5} />
   )
 }
 
