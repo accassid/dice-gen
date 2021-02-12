@@ -26,6 +26,7 @@ export const moveGeometryAndMesh = (
   d10Height: number,
   d100FontVertical: number,
   spindown: number,
+  d4TopAlignment: number,
 ): void => {
   mesh.position.x = 0
   mesh.position.y = 0
@@ -62,36 +63,64 @@ export const moveGeometryAndMesh = (
 
     // This is a right angle minus the angle between the edge and face of a regular tetrahedron
     const edgeFaceAngle = Math.PI / 2 - Math.acos(1 / Math.sqrt(3))
+    const topAligned = d4TopAlignment === 0
 
-    switch (face) {
-      case 1:
-        mesh.translateY(sWithDepth).translateX(-sWithDepth).translateZ(sWithDepth)
-        mesh
-          .rotateY(-Math.PI / 4)
-          .rotateX(-edgeFaceAngle)
-          .rotateZ(Math.PI * 2)
-        break
-      case 2:
-        mesh.translateY(sWithDepth).translateX(sWithDepth).translateZ(-sWithDepth)
-        mesh
-          .rotateY((3 * Math.PI) / 4)
-          .rotateX(-edgeFaceAngle)
-          .rotateZ(Math.PI / 1.5)
-        break
-      case 3:
-        mesh.translateY(-sWithDepth).translateX(-sWithDepth).translateZ(-sWithDepth)
-        mesh
-          .rotateY((-3 * Math.PI) / 4)
-          .rotateX(edgeFaceAngle)
-          .rotateZ(Math.PI * -0.3)
-        break
-      case 4:
-        mesh.translateY(-sWithDepth).translateX(sWithDepth).translateZ(sWithDepth)
-        mesh
-          .rotateY(Math.PI / 4)
-          .rotateX(edgeFaceAngle)
-          .rotateZ(Math.PI / 3)
-        break
+    if (topAligned) {
+      switch (face) {
+        case 1:
+          mesh.translateY(sWithDepth).translateX(-sWithDepth).translateZ(sWithDepth)
+          mesh
+            .rotateY(-Math.PI / 4)
+            .rotateX(-edgeFaceAngle)
+            .rotateZ(Math.PI)
+          break
+        case 2:
+          mesh.translateY(sWithDepth).translateX(sWithDepth).translateZ(-sWithDepth)
+          mesh
+            .rotateY((3 * Math.PI) / 4)
+            .rotateX(-edgeFaceAngle)
+            .rotateZ(Math.PI)
+          break
+        case 3:
+          mesh.translateY(-sWithDepth).translateX(-sWithDepth).translateZ(-sWithDepth)
+          mesh.rotateY((-3 * Math.PI) / 4).rotateX(edgeFaceAngle)
+          break
+        case 4:
+          mesh.translateY(-sWithDepth).translateX(sWithDepth).translateZ(sWithDepth)
+          mesh.rotateY(Math.PI / 4).rotateX(edgeFaceAngle)
+          break
+      }
+    } else {
+      switch (face) {
+        case 1:
+          mesh.translateY(sWithDepth).translateX(-sWithDepth).translateZ(sWithDepth)
+          mesh
+            .rotateY(-Math.PI / 4)
+            .rotateX(-edgeFaceAngle)
+            .rotateZ(Math.PI * 2)
+          break
+        case 2:
+          mesh.translateY(sWithDepth).translateX(sWithDepth).translateZ(-sWithDepth)
+          mesh
+            .rotateY((3 * Math.PI) / 4)
+            .rotateX(-edgeFaceAngle)
+            .rotateZ(Math.PI / 1.5)
+          break
+        case 3:
+          mesh.translateY(-sWithDepth).translateX(-sWithDepth).translateZ(-sWithDepth)
+          mesh
+            .rotateY((-3 * Math.PI) / 4)
+            .rotateX(edgeFaceAngle)
+            .rotateZ(Math.PI * -0.3)
+          break
+        case 4:
+          mesh.translateY(-sWithDepth).translateX(sWithDepth).translateZ(sWithDepth)
+          mesh
+            .rotateY(Math.PI / 4)
+            .rotateX(edgeFaceAngle)
+            .rotateZ(Math.PI / 3)
+          break
+      }
     }
   }
 

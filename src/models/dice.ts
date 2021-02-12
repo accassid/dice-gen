@@ -34,7 +34,7 @@ export type DiceOptions = {
   d4Size: number
   d4FontScale: number
   d4RadiusScale: number
-  d4NumbersOnBottom: number
+  d4TopAlignment: number
 
   d4CrystalSize: number
   d4CrystalFontScale: number
@@ -73,7 +73,7 @@ export const DEFAULT_DICE_OPTIONS = {
   d4Size: 20 * DIE_SIZE_SCALARS['d4'],
   d4FontScale: 1,
   d4RadiusScale: 1,
-  d4NumbersOnBottom: 0,
+  d4TopAlignment: 0,
 
   d4CrystalSize: 12 * DIE_SIZE_SCALARS['d4Crystal'],
   d4CrystalFontScale: 1,

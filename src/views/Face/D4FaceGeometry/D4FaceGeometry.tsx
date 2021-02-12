@@ -37,6 +37,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
   const [globalFontScale] = useGlobalState('globalFontScale')
   const [globalDepth] = useGlobalState('globalDepth')
   const [globalSVG] = useGlobalState('globalSVG')
+  const [d4TopAlignment] = useGlobalState('d4TopAlignment')
   const [d4RadiusScale] = useGlobalState('d4RadiusScale')
   const [d4Size] = useGlobalState('d4Size')
 
@@ -62,9 +63,13 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
         bevelOffset: 0,
         bevelSegments: 8,
       }
+    const d4ScaleAdjustment = d4TopAlignment === 0 ? 1.0 : 0.5
     const numbers = FACE_MAP[`${faceNum}`]
     if (!numbers) return
-    const radius = ((globalScale * d4Size) / 2) * d4RadiusScale
+
+    console.log('d4TopAlignment', d4TopAlignment)
+
+    const radius = ((globalScale * d4Size) / 2) * (d4RadiusScale * d4ScaleAdjustment)
     let rotation = 0
     let geometry: Geometry = new Geometry()
     for (let i = 0; i < numbers.length; i++) {
@@ -102,6 +107,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
     dieFontScale,
     dieSize,
     d4Size,
+    d4TopAlignment,
   ])
 
   return <primitive object={geometry} attach="geometry" />
