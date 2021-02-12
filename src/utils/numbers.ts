@@ -83,7 +83,7 @@ export const moveGeometryAndMesh = (
         mesh
           .rotateY((-3 * Math.PI) / 4)
           .rotateX(edgeFaceAngle)
-          .rotateZ(Math.PI)
+          .rotateZ(Math.PI * -0.3)
         break
       case 4:
         mesh.translateY(-sWithDepth).translateX(sWithDepth).translateZ(sWithDepth)
