@@ -96,6 +96,8 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
         if (svg.primitiveMesh) currentGeometry = createSVGGeometry(svg, globalDepth, globalScale, 'd4', dieSize)
       } else if (config) currentGeometry = new TextGeometry(text, config)
 
+      if (!isd4TopAligned) currentGeometry.rotateZ(3.1)
+
       currentGeometry.center()
       currentGeometry.translate(0, radius, 0)
       currentGeometry.rotateZ(rotation * 2)
