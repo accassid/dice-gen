@@ -69,22 +69,28 @@ export const moveGeometryAndMesh = (
         mesh
           .rotateY(-Math.PI / 4)
           .rotateX(-edgeFaceAngle)
-          .rotateZ(Math.PI)
+          .rotateZ(Math.PI * 2)
         break
       case 2:
         mesh.translateY(sWithDepth).translateX(sWithDepth).translateZ(-sWithDepth)
         mesh
           .rotateY((3 * Math.PI) / 4)
           .rotateX(-edgeFaceAngle)
-          .rotateZ(Math.PI)
+          .rotateZ(Math.PI / 1.5)
         break
       case 3:
         mesh.translateY(-sWithDepth).translateX(-sWithDepth).translateZ(-sWithDepth)
-        mesh.rotateY((-3 * Math.PI) / 4).rotateX(edgeFaceAngle)
+        mesh
+          .rotateY((-3 * Math.PI) / 4)
+          .rotateX(edgeFaceAngle)
+          .rotateZ(Math.PI)
         break
       case 4:
         mesh.translateY(-sWithDepth).translateX(sWithDepth).translateZ(sWithDepth)
-        mesh.rotateY(Math.PI / 4).rotateX(edgeFaceAngle)
+        mesh
+          .rotateY(Math.PI / 4)
+          .rotateX(edgeFaceAngle)
+          .rotateZ(Math.PI / 3)
         break
     }
   }

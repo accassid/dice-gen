@@ -81,7 +81,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
 
       currentGeometry.center()
       currentGeometry.translate(0, radius, 0)
-      currentGeometry.rotateZ(rotation)
+      currentGeometry.rotateZ(rotation * 2)
 
       if (!geometry) geometry = currentGeometry
       else geometry.merge(currentGeometry)
