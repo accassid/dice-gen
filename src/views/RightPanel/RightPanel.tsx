@@ -2,7 +2,7 @@ import React from 'react'
 import { useGlobalState } from '../../modules/global'
 
 // Style
-import { RightPanelContainer, SectionContainer, ButtonContainer } from './style'
+import { RightPanelContainer, SectionContainer, ButtonContainer, ProjectButtonsContainer } from './style'
 import { Spacer } from '../style'
 
 // Components
@@ -14,6 +14,9 @@ import MassDownloader from './MassDownloader/MassDownloader'
 import SVGMenu from './SVGMenu/SVGMenu'
 import OrientationIndicatorMenu from './OrientationIndicatorMenu/OrientationIndicatorMenu'
 import FontOptions from './FontOptions/FontOptions'
+
+import ProjectLoader from './Project/ProjectLoader'
+import ProjectSaver from './Project/ProjectSaver'
 
 type Props = {}
 
@@ -47,6 +50,10 @@ const RightPanel: React.FC<Props> = () => {
           </SectionContainer>
           <h2>&nbsp;Die Settings:</h2>
           <DiceTabs />
+          <ProjectButtonsContainer>
+            <ProjectLoader />
+            <ProjectSaver />
+          </ProjectButtonsContainer>
           <ButtonContainer>
             <PreviewButton />
             <Downloader />

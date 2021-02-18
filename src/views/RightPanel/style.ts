@@ -52,6 +52,14 @@ export const ButtonContainer = styled.div`
   padding-bottom: 10px;
 `
 
+export const ProjectButtonsContainer = styled.div`
+  position: fixed;
+  width: 300px;
+  bottom: 3em;
+  display: flex;
+  padding-bottom: 10px;
+`
+
 export const ActionButton = styled.div<{ rgbColor?: string }>`
   background-color: ${(props): string => (props.rgbColor ? `rgba(${props.rgbColor}, .85)` : `rgba(0,0,0,0.6)`)};
   font-size: 110%;
