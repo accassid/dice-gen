@@ -9,8 +9,6 @@ import { HorizontalContainer } from './style'
 import ValueCheckbox from '../ValueCheckbox/ValueCheckbox'
 import { Button } from 'antd'
 
-import { ORIENTATION_INDICATOR_OPTIONS } from '../../../models/orientationIndicator'
-
 type Props = {}
 
 /**
@@ -47,13 +45,13 @@ const ProjectSection: React.FC<Props> = () => {
         <Button title="Load a project" onClick={(): void => loadProject()}>
           Load
         </Button>
-        <Button title="Save a project" type="primary" onClick={(): void => saveProject()}>
+        <Button title="Save a project" onClick={(): void => saveProject()}>
           Save
         </Button>
       </HorizontalContainer>
       <Spacer />
       <HorizontalContainer>
-        <ValueCheckbox stateKey="orientationIndicatorOnD6D8" label="Autosave" />
+        <ValueCheckbox stateKey="autosaveProject" label="Autosave" />
       </HorizontalContainer>
     </div>
   )

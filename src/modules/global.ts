@@ -6,6 +6,7 @@ import { Font } from 'three'
 import { DEFAULT_DICE_OPTIONS, DiceOptions, DiceType } from '../models/dice'
 import { reducer } from './reducer'
 import { ORIENTATION_INDICATOR, OrientationIndicatorType } from '../models/orientationIndicator'
+import { ProjectSettings, DEFAULT_PROJECT_SETTINGS } from '../models/ProjectSettings'
 
 export type GlobalStateType = {
   rightPanelActive: boolean
@@ -33,7 +34,8 @@ export type GlobalStateType = {
   loadingDice: null | { current: number; max: number }
   loadingFaces: null | { current: number; max: number }
 } & FaceStateType &
-  DiceOptions
+  DiceOptions &
+  ProjectSettings
 
 export type GlobalStateKey = keyof GlobalStateType
 
@@ -65,6 +67,7 @@ const initialState: GlobalStateType = {
 
   ...DEFAULT_FACE_STATE,
   ...DEFAULT_DICE_OPTIONS,
+  ...DEFAULT_PROJECT_SETTINGS,
 }
 const globalState = createStore(reducer, initialState)
 export const useGlobalState = globalState.useGlobalState
