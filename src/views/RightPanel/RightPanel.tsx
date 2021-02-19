@@ -15,8 +15,7 @@ import SVGMenu from './SVGMenu/SVGMenu'
 import OrientationIndicatorMenu from './OrientationIndicatorMenu/OrientationIndicatorMenu'
 import FontOptions from './FontOptions/FontOptions'
 
-import ProjectLoader from './Project/ProjectLoader'
-import ProjectSaver from './Project/ProjectSaver'
+import ProjectSection from './Project/ProjectSection'
 
 type Props = {}
 
@@ -37,6 +36,10 @@ const RightPanel: React.FC<Props> = () => {
         <PreviewButton close />
       ) : (
         <>
+          <h2>&nbsp;Project:</h2>
+          <SectionContainer>
+            <ProjectSection></ProjectSection>
+          </SectionContainer>
           <h2>&nbsp;Global Settings:</h2>
           <SectionContainer>
             <FontOptions />
@@ -50,10 +53,6 @@ const RightPanel: React.FC<Props> = () => {
           </SectionContainer>
           <h2>&nbsp;Die Settings:</h2>
           <DiceTabs />
-          <ProjectButtonsContainer>
-            <ProjectLoader />
-            <ProjectSaver />
-          </ProjectButtonsContainer>
           <ButtonContainer>
             <PreviewButton />
             <Downloader />
