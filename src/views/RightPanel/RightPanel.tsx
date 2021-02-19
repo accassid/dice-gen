@@ -2,7 +2,7 @@ import React from 'react'
 import { useGlobalState } from '../../modules/global'
 
 // Style
-import { RightPanelContainer, SectionContainer, ButtonContainer, ProjectButtonsContainer } from './style'
+import { RightPanelContainer, SectionContainer, ButtonContainer } from './style'
 import { Spacer } from '../style'
 
 // Components
