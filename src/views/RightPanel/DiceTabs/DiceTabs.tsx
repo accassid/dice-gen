@@ -36,6 +36,7 @@ const DiceTabs: React.FC<Props> = () => {
         const scaleFontKey = die + 'FontScale'
         if (!isDiceOption(sizeKey) || !isDiceOption(scaleFontKey)) return null
         const d4RadiusKey = die === 'd4' ? 'd4RadiusScale' : null
+        const d4FontBottomKey = die === 'd4' ? 'd4FontBottom' : null
         const d10HeightKey = die === 'd10' || die === 'd100' ? 'd10Height' : null
         const d100FontVerticalKey = die === 'd100' ? 'd100FontVertical' : null
         const spindownKey = die === 'd20' ? 'd20Spindown' : die === 'd10' ? 'd10Spindown' : null
@@ -64,6 +65,7 @@ const DiceTabs: React.FC<Props> = () => {
               {d4RadiusKey && (
                 <ValueSlider stateKey={d4RadiusKey} label="D4 Face Radius" min={0.25} max={1.5} step={0.05} />
               )}
+              {d4FontBottomKey && <ValueCheckbox stateKey={d4FontBottomKey} label="D4 Font Bottom" />}
               {d10HeightKey && (
                 <ValueSlider stateKey={d10HeightKey} label="D10 Height" min={0.25} max={2} step={0.05} />
               )}

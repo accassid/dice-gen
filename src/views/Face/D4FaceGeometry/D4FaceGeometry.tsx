@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useGlobalState } from '../../../modules/global'
 
 // Libraries
-import { Font, TextGeometry, TextGeometryParameters, Geometry } from 'three'
+import { Font, TextGeometry, TextGeometryParameters, Geometry, MathUtils } from 'three'
 
 // Utils
 import { createSVGGeometry } from '../../../utils/createSVGGeometry'
@@ -39,6 +39,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
   const [globalSVG] = useGlobalState('globalSVG')
   const [d4RadiusScale] = useGlobalState('d4RadiusScale')
   const [d4Size] = useGlobalState('d4Size')
+  const [d4FontBottom] = useGlobalState('d4FontBottom')
 
   /**
    * This useEffect responds to the changing of any parameter in the state that would effect the rendering of a D4 face.
@@ -64,7 +65,40 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
       }
     const numbers = FACE_MAP[`${faceNum}`]
     if (!numbers) return
-    const radius = ((globalScale * d4Size) / 2) * d4RadiusScale
+
+    if(d4FontBottom){
+    const radius = ((globalScale * d4Size) / 4) * d4RadiusScale
+    let faceRotation = MathUtils.degToRad(180)
+    let geometry: Geometry = new Geometry()
+    for (let i = 0; i < numbers.length; i++) {
+      const text = numbers[i]
+      let currentGeometry = new Geometry()
+
+      let svg = globalSVG[text]
+      if (text === '4') svg = globalSVG.max ? globalSVG.max : svg
+      if (text === '1') svg = globalSVG.min ? globalSVG.min : svg
+
+      if (svg) {
+        if (svg.primitiveMesh) currentGeometry = createSVGGeometry(svg, globalDepth, globalScale, 'd4', dieSize)
+      } else if (config) currentGeometry = new TextGeometry(text, config)
+
+      currentGeometry.rotateZ(MathUtils.degToRad(180))
+      currentGeometry.center()
+      currentGeometry.translate(0, radius, 0)
+      currentGeometry.rotateZ(faceRotation)
+
+      if (!geometry) geometry = currentGeometry
+      else geometry.merge(currentGeometry)
+      
+      faceRotation += (Math.PI * 2) / 3
+    }
+  
+    if (!geometry) throw new Error('There must be at least one number for the D4 face generator.')
+
+    setGeometry(geometry)
+  }
+else{
+  const radius = ((globalScale * d4Size) / 2) * d4RadiusScale
     let rotation = 0
     let geometry: Geometry = new Geometry()
     for (let i = 0; i < numbers.length; i++) {
@@ -91,7 +125,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
     if (!geometry) throw new Error('There must be at least one number for the D4 face generator.')
 
     setGeometry(geometry)
-  }, [
+}}, [
     font,
     globalScale,
     globalFontScale,
@@ -102,6 +136,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
     dieFontScale,
     dieSize,
     d4Size,
+    d4FontBottom,
   ])
 
   return <primitive object={geometry} attach="geometry" />
