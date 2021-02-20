@@ -3,6 +3,8 @@ import React, { useRef } from 'react'
 // Libraries
 import { useThree, extend } from 'react-three-fiber'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { getGlobalState } from '../../modules/global'
+import { UI_OPTION_CONSTANTS } from '../../models/UIOptions'
 
 type Props = {}
 
@@ -18,9 +20,16 @@ extend({ OrbitControls })
 const Controls: React.FC<Props> = () => {
   const orbit = useRef()
   const { camera, gl } = useThree()
+  const rotationFactor = getGlobalState()[UI_OPTION_CONSTANTS.orbitSpeed]
 
   return (
-    <orbitControls ref={orbit} args={[camera, gl.domElement]} enableDamping dampingFactor={0.1} rotateSpeed={0.1} />
+    <orbitControls
+      ref={orbit}
+      args={[camera, gl.domElement]}
+      enableDamping
+      dampingFactor={0.1}
+      rotateSpeed={rotationFactor}
+    />
   )
 }
 
