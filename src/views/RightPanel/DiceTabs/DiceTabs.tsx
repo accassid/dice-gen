@@ -10,7 +10,7 @@ import { DICE_LIST, DIE_NAME, DIE_SIZE_SCALARS } from '../../../models/dice'
 import { isDiceOption, isDiceType } from '../../../models/dice'
 
 // Components
-import ValueSlider from '../ValueSlider/ValueSlider'
+import ValueSlider from '../../Controls/ValueSlider'
 import ValueCheckbox from '../ValueCheckbox/ValueCheckbox'
 
 const { TabPane } = Tabs

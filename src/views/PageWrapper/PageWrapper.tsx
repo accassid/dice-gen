@@ -9,6 +9,8 @@ import RightPanel from '../RightPanel/RightPanel'
 import Loader from '../Loader/Loader'
 import Footer from '../Footer/Footer'
 
+import UIOptionsPopup from '../UIOptionsPopup/UIOptionsPopup'
+
 type Props = {
   children?: React.ReactNode
 }
@@ -26,7 +28,7 @@ const PageWrapper: React.FC<Props> = ({ children }: Props) => {
       <TopToolbar />
       <PageBody>
         <RightPanel />
-        {children}
+        <UIOptionsPopup>{children}</UIOptionsPopup>
       </PageBody>
       <Footer />
       <Loader />

@@ -6,7 +6,7 @@ import { Collapse } from 'antd'
 
 // Components
 import ValueCheckbox from '../ValueCheckbox/ValueCheckbox'
-import ValueSlider from '../ValueSlider/ValueSlider'
+import ValueSlider from '../../Controls/ValueSlider'
 import ValueDropdown from '../ValueDropdown/ValueDropdown'
 
 // Models
