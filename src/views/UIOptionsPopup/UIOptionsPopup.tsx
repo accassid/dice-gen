@@ -1,8 +1,10 @@
 import React from 'react'
 import { useGlobalState } from '../../modules/global'
-import { UIOptionsDialog, ActionButton } from './style'
+import { UIOptionsDialog } from './style'
 import ValueSlider from '../Controls/ValueSlider'
+import ValueCheckbox from '../Controls/ValueCheckbox'
 import { Row, Col } from 'antd'
+import { CloseSquareOutlined } from '@ant-design/icons'
 
 type Props = {
   children?: React.ReactNode
@@ -18,18 +20,21 @@ const UIOptionsPopup: React.FC<Props> = ({ children }: Props) => {
     isVisible ? (
       <UIOptionsDialog>
         <Row>
-          <Col span={20}>
+          <Col span={23}>
             <ValueSlider
               stateKey="orbitSpeed"
               min={0.01}
-              max={0.9}
+              max={1}
               step={0.05}
               label={'Rotation Sensitivity'}></ValueSlider>
           </Col>
-          <Col span={4}>
-            <ActionButton rgbColor={'200,200,200'} rgbFontColor={'20,20,120'} onClick={hidePopup} width={'5em'}>
-              OK
-            </ActionButton>
+          <Col span={1} style={{ verticalAlign: 'top' }}>
+            <CloseSquareOutlined style={{ zoom: 2 }} onClick={hidePopup} />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12}>
+            <ValueCheckbox stateKey={'showGrid'} label="Show Grid" />
           </Col>
         </Row>
       </UIOptionsDialog>

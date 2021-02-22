@@ -5,7 +5,7 @@ import { Spacer } from '../../style'
 import { Collapse } from 'antd'
 
 // Components
-import ValueCheckbox from '../ValueCheckbox/ValueCheckbox'
+import ValueCheckbox from '../../Controls/ValueCheckbox'
 import ValueSlider from '../../Controls/ValueSlider'
 import ValueDropdown from '../ValueDropdown/ValueDropdown'
 

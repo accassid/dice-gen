@@ -11,7 +11,7 @@ import { isDiceOption, isDiceType } from '../../../models/dice'
 
 // Components
 import ValueSlider from '../../Controls/ValueSlider'
-import ValueCheckbox from '../ValueCheckbox/ValueCheckbox'
+import ValueCheckbox from '../../Controls/ValueCheckbox'
 
 const { TabPane } = Tabs
 

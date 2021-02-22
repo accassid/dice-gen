@@ -21,8 +21,6 @@ const Controls: React.FC<Props> = () => {
   const { camera, gl } = useThree()
   const [rotationFactor] = useGlobalState('orbitSpeed')
 
-  console.log(`Rotation: ${rotationFactor}`)
-
   return (
     <orbitControls
       ref={orbit}
