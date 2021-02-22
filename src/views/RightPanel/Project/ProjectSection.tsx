@@ -54,7 +54,9 @@ const ProjectSection: React.FC<Props> = () => {
         let project = await readFileAsObjectAsync(blob)
         restoreGlobalState(project['settings'])
       }
-    } catch (ex) {}
+    } catch (ex) {
+      alert(`Unable to load project\n\r\n\r${ex}`)
+    }
   }
 
   let projectFileHandle = undefined
