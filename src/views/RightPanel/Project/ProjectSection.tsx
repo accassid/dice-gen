@@ -1,5 +1,5 @@
 import React from 'react'
-import { getGlobalState, resetGlobalState } from '../../../modules/global'
+import { getGlobalState, resetGlobalState, restoreGlobalState } from '../../../modules/global'
 import { fileOpen, fileSave } from 'browser-fs-access'
 
 // Style
@@ -26,8 +26,35 @@ const ProjectSection: React.FC<Props> = () => {
     resetGlobalState()
   }
 
-  const loadProject = () => {
-    const gs = getGlobalState()
+  const readFileAsTextAsync = async file =>
+    new Promise((resolve, reject) => {
+      let reader = new FileReader()
+      reader.onload = event => {
+        resolve(reader.result)
+      }
+      reader.readAsText(file)
+    })
+
+  const readFileAsObjectAsync = async file =>
+    new Promise(async (resolve, reject) => {
+      let json = await readFileAsTextAsync(file)
+      resolve(JSON.parse(json.toString()))
+    })
+
+  const loadProject = async () => {
+    try {
+      const blob = await fileOpen({
+        mimeTypes: ['applicaiton/json'],
+        extensions: ['.DiceGen', '.json'],
+        multiple: false,
+        description: 'DiceGen project file',
+      })
+
+      if (blob) {
+        let project = await readFileAsObjectAsync(blob)
+        restoreGlobalState(project['settings'])
+      }
+    } catch (ex) {}
   }
 
   let projectFileHandle = undefined
@@ -47,22 +74,24 @@ const ProjectSection: React.FC<Props> = () => {
       { type: 'application/json' },
     )
 
-  const saveProject = async () => {
+  const saveProject = async (bShowFeedback = true) => {
     try {
       projectFileHandle = await fileSave(
         prepareGlobalStateForSaving(),
         {
-          fileName: 'DiceGen-settings.json',
-          extensions: ['.json'],
+          fileName: 'ProjectSettings.DiceGen',
+          extensions: ['.DiceGen'],
         },
         projectFileHandle,
       )
 
-      notification.open({
-        message: 'Project saved successfully',
-        description: `your project has been saved to ${projectFileHandle.name}`,
-        duration: 3,
-      })
+      if (bShowFeedback) {
+        notification.open({
+          message: 'Project saved successfully',
+          description: `your project has been saved to ${projectFileHandle.name}`,
+          duration: 3,
+        })
+      }
     } catch (ex) {
       alert('unable to save file')
     }
@@ -70,6 +99,7 @@ const ProjectSection: React.FC<Props> = () => {
 
   const autoSave = (): void => {
     if (!projectFileHandle) return
+    saveProject(false)
   }
 
   return (
