@@ -16,20 +16,31 @@ const UIOptionsPopup: React.FC<Props> = ({ children }: Props) => {
   const showPopup = () => setVisibility(true)
   const hidePopup = () => setVisibility(false)
 
-  const includePopup = () =>
-    isVisible ? (
-      <UIOptionsDialog>
-        <CloseSquareOutlined style={{ float: 'right', zoom: 2, position: 'relative' }} onClick={hidePopup} />
-        <ValueSlider stateKey="orbitSpeed" min={0.01} max={1} step={0.05} label={'Rotation Sensitivity'}></ValueSlider>
+  const optionsDialog = isVisible ? (
+    <UIOptionsDialog>
+      <CloseSquareOutlined
+        style={{ float: 'right', zoom: 1.75, position: 'relative', right: '-1px' }}
+        onClick={hidePopup}
+      />
+      <ValueSlider
+        stateKey="orbitSpeed"
+        min={0.1}
+        max={1}
+        step={0.1}
+        sliderColumns={18}
+        spinnerColumns={4}
+        label={'Rotation Sensitivity'}></ValueSlider>
+      <div style={{ margin: '2px 8px', height: '0.9em', top: '-0.6em', position: 'relative' }}>
         <ValueCheckbox stateKey={'showGrid'} label="Show Grid" />
-      </UIOptionsDialog>
-    ) : (
-      <></>
-    )
+      </div>
+    </UIOptionsDialog>
+  ) : (
+    <></>
+  )
 
   return (
     <div onContextMenu={showPopup} style={{ height: 'inherit', width: 'inherit}' }}>
-      {includePopup()}
+      {optionsDialog}
       {children}
     </div>
   )
