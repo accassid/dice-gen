@@ -4,9 +4,10 @@ import { SVGType } from '../models/svg'
 import { DEFAULT_FACE_STATE, FaceStateType } from '../models/face'
 import { Font } from 'three'
 import { DEFAULT_DICE_OPTIONS, DiceOptions, DiceType } from '../models/dice'
-import { reducer } from './reducer'
+import { reducer, DispatchVerbs } from './reducer'
 import { ORIENTATION_INDICATOR, OrientationIndicatorType } from '../models/orientationIndicator'
 import { ProjectSettings, DEFAULT_PROJECT_SETTINGS } from '../models/ProjectSettings'
+import { setGlobalState } from '../modules/actions'
 
 export type GlobalStateType = {
   rightPanelActive: boolean
@@ -70,6 +71,13 @@ const initialState: GlobalStateType = {
   ...DEFAULT_PROJECT_SETTINGS,
 }
 const globalState = createStore(reducer, initialState)
+
 export const useGlobalState = globalState.useGlobalState
 export const getGlobalState = globalState.getState
 export const dispatch = globalState.dispatch
+
+export const defaultState = initialState
+
+export const resetGlobalState = () => globalState.dispatch(setGlobalState(defaultState))
+
+export const restoreGlobalState = newState => globalState.dispatch(setGlobalState(newState))

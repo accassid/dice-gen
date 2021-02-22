@@ -1,5 +1,5 @@
 import React from 'react'
-import { getGlobalState, useGlobalState } from '../../../modules/global'
+import { getGlobalState, resetGlobalState } from '../../../modules/global'
 
 // Style
 import { Spacer } from '../../style'
@@ -19,13 +19,10 @@ type Props = {}
  * @constructor
  */
 const ProjectSection: React.FC<Props> = () => {
-  /**
-   * When switching between upload and dropdown modes, clear the currently selected font and set the flag.
-   * @param flag
-   */
-
   const newProject = (): void => {
-    const gs = getGlobalState()
+    if (!confirm('Are you sure - this will reset to factory defaults?')) return
+
+    resetGlobalState()
   }
 
   const loadProject = (): void => {
