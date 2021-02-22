@@ -8,7 +8,7 @@ import { HorizontalContainer } from './style'
 
 // components
 import ValueCheckbox from '../ValueCheckbox/ValueCheckbox'
-import { Button } from 'antd'
+import { Button, notification } from 'antd'
 
 type Props = {}
 
@@ -49,7 +49,7 @@ const ProjectSection: React.FC<Props> = () => {
 
   const saveProject = async () => {
     try {
-      let fileHandle = await fileSave(
+      projectFileHandle = await fileSave(
         prepareGlobalStateForSaving(),
         {
           fileName: 'DiceGen-settings.json',
@@ -58,10 +58,11 @@ const ProjectSection: React.FC<Props> = () => {
         projectFileHandle,
       )
 
-      if (!projectFileHandle) {
-        alert('File saved successfully')
-      }
-      projectFileHandle = fileHandle
+      notification.open({
+        message: 'Project saved successfully',
+        description: `your project has been saved to ${projectFileHandle.name}`,
+        duration: 3,
+      })
     } catch (ex) {
       alert('unable to save file')
     }
