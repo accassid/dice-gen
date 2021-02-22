@@ -13,9 +13,9 @@ export const reducer = (state: GlobalStateType, action: ActionTypes): GlobalStat
       break
 
     case SET_STATE:
-      let newState = action.input
-      console.log('Action', action, state)
-      for (var key in newState) {
+      const newState = action.input
+
+      for (const key in newState) {
         outputState[key] = newState[key]
       }
       return outputState

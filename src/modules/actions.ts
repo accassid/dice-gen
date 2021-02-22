@@ -9,7 +9,7 @@ export const resetFaceRefs = (): GlobalStoreActionTypes => ({
   type: RESET_FACE_REFS,
 })
 
-export const setGlobalState = (newState): GlobalStoreActionTypes => ({
+export const setGlobalState = (newState: any): GlobalStoreActionTypes => ({
   type: SET_STATE,
   input: newState,
 })

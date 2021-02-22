@@ -27,17 +27,17 @@ const ProjectSection: React.FC<Props> = () => {
   }
 
   const readFileAsTextAsync = async file =>
-    new Promise((resolve, reject) => {
-      let reader = new FileReader()
-      reader.onload = event => {
+    new Promise(resolve => {
+      const reader = new FileReader()
+      reader.onload = () => {
         resolve(reader.result)
       }
       reader.readAsText(file)
     })
 
   const readFileAsObjectAsync = async file =>
-    new Promise(async (resolve, reject) => {
-      let json = await readFileAsTextAsync(file)
+    new Promise(async resolve => {
+      const json = await readFileAsTextAsync(file)
       resolve(JSON.parse(json.toString()))
     })
 
@@ -51,8 +51,8 @@ const ProjectSection: React.FC<Props> = () => {
       })
 
       if (blob) {
-        let project = await readFileAsObjectAsync(blob)
-        restoreGlobalState(project['settings'])
+        const projectConfiguration = await readFileAsObjectAsync(blob)
+        restoreGlobalState(projectConfiguration['settings'])
       }
     } catch (ex) {
       alert(`Unable to load project\n\r\n\r${ex}`)
