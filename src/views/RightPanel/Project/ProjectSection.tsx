@@ -1,5 +1,6 @@
 import React from 'react'
 import { getGlobalState, resetGlobalState } from '../../../modules/global'
+import { fileOpen, fileSave } from 'browser-fs-access'
 
 // Style
 import { Spacer } from '../../style'
@@ -19,30 +20,67 @@ type Props = {}
  * @constructor
  */
 const ProjectSection: React.FC<Props> = () => {
-  const newProject = (): void => {
+  const newProject = () => {
     if (!confirm('Are you sure - this will reset to factory defaults?')) return
 
     resetGlobalState()
   }
 
-  const loadProject = (): void => {
+  const loadProject = () => {
     const gs = getGlobalState()
   }
 
-  const saveProject = (): void => {
-    const gs = getGlobalState()
+  let projectFileHandle = undefined
+
+  const prepareGlobalStateForSaving = () =>
+    new Blob(
+      [
+        JSON.stringify(
+          {
+            version: Number(1.1),
+            settings: { ...getGlobalState() },
+          },
+          undefined,
+          2,
+        ),
+      ],
+      { type: 'application/json' },
+    )
+
+  const saveProject = async () => {
+    try {
+      let fileHandle = await fileSave(
+        prepareGlobalStateForSaving(),
+        {
+          fileName: 'DiceGen-settings.json',
+          extensions: ['.json'],
+        },
+        projectFileHandle,
+      )
+
+      if (!projectFileHandle) {
+        alert('File saved successfully')
+      }
+      projectFileHandle = fileHandle
+    } catch (ex) {
+      alert('unable to save file')
+    }
+  }
+
+  const autoSave = (): void => {
+    if (!projectFileHandle) return
   }
 
   return (
     <div>
       <HorizontalContainer>
-        <Button title="Create a project" onClick={(): void => newProject()}>
+        <Button title="Create a project" onClick={() => newProject()}>
           New
         </Button>
-        <Button title="Load a project" onClick={(): void => loadProject()}>
+        <Button title="Load a project" onClick={() => loadProject()}>
           Load
         </Button>
-        <Button title="Save a project" onClick={(): void => saveProject()}>
+        <Button title="Save a project" onClick={() => saveProject()}>
           Save
         </Button>
       </HorizontalContainer>
