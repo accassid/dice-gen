@@ -19,24 +19,9 @@ const UIOptionsPopup: React.FC<Props> = ({ children }: Props) => {
   const includePopup = () =>
     isVisible ? (
       <UIOptionsDialog>
-        <Row>
-          <Col span={23}>
-            <ValueSlider
-              stateKey="orbitSpeed"
-              min={0.01}
-              max={1}
-              step={0.05}
-              label={'Rotation Sensitivity'}></ValueSlider>
-          </Col>
-          <Col span={1} style={{ verticalAlign: 'top' }}>
-            <CloseSquareOutlined style={{ zoom: 2 }} onClick={hidePopup} />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={12}>
-            <ValueCheckbox stateKey={'showGrid'} label="Show Grid" />
-          </Col>
-        </Row>
+        <CloseSquareOutlined style={{ float: 'right', zoom: 2, position: 'relative' }} onClick={hidePopup} />
+        <ValueSlider stateKey="orbitSpeed" min={0.01} max={1} step={0.05} label={'Rotation Sensitivity'}></ValueSlider>
+        <ValueCheckbox stateKey={'showGrid'} label="Show Grid" />
       </UIOptionsDialog>
     ) : (
       <></>
