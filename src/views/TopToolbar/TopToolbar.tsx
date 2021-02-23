@@ -2,7 +2,7 @@ import React from 'react'
 
 // Style
 import { Toolbar, BarSegment } from './style'
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
+import { MenuFoldOutlined, MenuUnfoldOutlined, SettingOutlined } from '@ant-design/icons'
 
 // Assets
 import title from '../../assets/title.svg'
@@ -27,6 +27,8 @@ const TopToolbar: React.FC<Props> = () => {
     setRightPanelMobile(!rightPanelActiveMobile)
   }
 
+  const iconStyle = { fontSize: 25, cursor: 'pointer' }
+
   return (
     <Toolbar>
       <BarSegment>
@@ -36,10 +38,11 @@ const TopToolbar: React.FC<Props> = () => {
         </a>
       </BarSegment>
       <BarSegment>
+        <SettingOutlined style={{ ...iconStyle, margin: '0 0.5em' }}></SettingOutlined>
         {rightPanelActive ? (
-          <MenuUnfoldOutlined onClick={togglePanel} style={{ fontSize: 25, cursor: 'pointer' }} />
+          <MenuUnfoldOutlined onClick={togglePanel} style={iconStyle} />
         ) : (
-          <MenuFoldOutlined onClick={togglePanel} style={{ fontSize: 25, cursor: 'pointer' }} />
+          <MenuFoldOutlined onClick={togglePanel} style={iconStyle} />
         )}
       </BarSegment>
     </Toolbar>
