@@ -6,6 +6,6 @@ export type ProjectSettings = {
 
 export const DEFAULT_PROJECT_SETTINGS = {
   currentProjectFilename: null,
-  autosaveProject: 1,
+  autosaveProject: 0,
   isProjectSettingsDoingSomething: 0,
 }

@@ -8,6 +8,7 @@ import { reducer } from './reducer'
 import { ORIENTATION_INDICATOR, OrientationIndicatorType } from '../models/orientationIndicator'
 import { ProjectSettings, DEFAULT_PROJECT_SETTINGS } from '../models/ProjectSettings'
 import { setGlobalState } from '../modules/actions'
+import EventEmitter from 'browser-event-emitter'
 
 export type GlobalStateType = {
   rightPanelActive: boolean
@@ -72,7 +73,28 @@ const initialState: GlobalStateType = {
 }
 const globalState = createStore(reducer, initialState)
 
-export const useGlobalState = globalState.useGlobalState
+const eventManager = new EventEmitter()
+
+const GlobalStateChangeEventName = 'GlobalStateChange'
+
+export const subscribeToAllChanges = cb => {
+  eventManager.addListener(GlobalStateChangeEventName, cb)
+  console.log(`Subscribed to ${GlobalStateChangeEventName}`)
+}
+
+export const unsubscribeFromAllChanges = cb => {
+  eventManager.removeEvent(GlobalStateChangeEventName, cb)
+}
+
+export const useGlobalState: any = key => {
+  const [value, setter] = globalState.useGlobalState(key)
+  const newSetter = newValue => {
+    console.log(`${key} set to ${newValue}`)
+    setter(newValue)
+    eventManager.emit(GlobalStateChangeEventName)
+  }
+  return [value, newSetter]
+}
 export const getGlobalState = globalState.getState
 export const dispatch = globalState.dispatch
 
