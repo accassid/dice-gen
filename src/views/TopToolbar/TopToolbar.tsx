@@ -8,6 +8,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined, SettingOutlined } from '@ant-desi
 import title from '../../assets/title.svg'
 import logo from '../../assets/dicegenlight.svg'
 import { useGlobalState } from '../../modules/global'
+import ConfigurationDialog from '../UIOptionsPopup/ConfigurationDialog'
 
 type Props = {}
 
@@ -38,7 +39,7 @@ const TopToolbar: React.FC<Props> = () => {
         </a>
       </BarSegment>
       <BarSegment>
-        <SettingOutlined style={{ ...iconStyle, margin: '0 0.5em' }}></SettingOutlined>
+        <ConfigurationDialog style={{ ...iconStyle, margin: '0 0.5em' }} />
         {rightPanelActive ? (
           <MenuUnfoldOutlined onClick={togglePanel} style={iconStyle} />
         ) : (
