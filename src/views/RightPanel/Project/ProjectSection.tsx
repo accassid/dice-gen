@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react'
-import { getGlobalState, resetGlobalState, restoreGlobalState, subscribeToAllChanges } from '../../../modules/global'
+import {
+  useGlobalState,
+  getGlobalState,
+  resetGlobalState,
+  restoreGlobalState,
+  subscribeToAllChanges,
+} from '../../../modules/global'
 import { fileOpen, fileSave } from 'browser-fs-access'
 import debounce from 'debounce'
 
@@ -15,6 +21,13 @@ import { HorizontalContainer } from './style'
 // components
 import ValueCheckbox from '../ValueCheckbox/ValueCheckbox'
 import { Button, notification } from 'antd'
+
+const notify = (title, description) =>
+  notification.open({
+    message: title,
+    description: description,
+    duration: 3,
+  })
 
 const readFileAsTextAsync = async file =>
   new Promise(resolve => {
@@ -45,7 +58,7 @@ const loadProject = async () => {
       restoreGlobalState(projectConfiguration['settings'])
     }
   } catch (ex) {
-    alert(`Unable to load project\n\r\n\r${ex}`)
+    notify(`Unable to load project`, ex)
   }
 }
 
@@ -54,6 +67,7 @@ let projectFileHandle = undefined
 const createBlobFromString = str => new Blob([str], { type: 'application/json' })
 
 const prepareSettingsForSaving = settings => {
+  settings['autoSaveProject'] = 0
   const json = safeJsonStringify(
     {
       version: 1.0,
@@ -62,17 +76,13 @@ const prepareSettingsForSaving = settings => {
     undefined,
     2,
   )
-  console.log('json', json)
   return createBlobFromString(json)
 }
 
 const saveProject = async () => {
   try {
-    console.log('in saveProject')
     const settings = getGlobalState()
-    console.log('State', settings)
     let blobToSave = prepareSettingsForSaving(settings)
-    console.log('Blob:', blobToSave)
     projectFileHandle = await fileSave(
       blobToSave,
       {
@@ -82,27 +92,15 @@ const saveProject = async () => {
       projectFileHandle,
     )
 
-    console.log('file saved')
-
-    notification.open({
-      message: 'Project saved successfully',
-      description: `your project has been saved to ${projectFileHandle.name}`,
-      duration: 3,
-    })
+    notify('Project saved successfully', `your project has been saved to ${projectFileHandle.name}`)
   } catch (ex) {
-    notification.open({
-      message: 'Unable to save project',
-      description: `${ex.message}`,
-      duration: 3,
-    })
+    notify('Unable to save project', ex.message)
   }
 }
 
 subscribeToAllChanges(
   debounce(async () => {
-    console.log('Save event received')
     const { autosaveProject } = getGlobalState()
-    console.log(`autosave ${autosaveProject}`)
     if (!autosaveProject) return
     try {
       await saveProject()
@@ -120,11 +118,23 @@ type Props = {}
  * @constructor
  */
 const ProjectSection: React.FC<Props> = () => {
+  const [, setAutoSave] = useGlobalState('autosaveProject')
+
   const newProject = () => {
     if (!confirm('Are you sure - this will reset to factory defaults?')) return
 
     resetGlobalState()
     projectFileHandle = undefined
+  }
+
+  const loadProjectAndNotify = () => {
+    loadProject().then(() => {
+      setAutoSave(0)
+      notify(
+        'Project loaded',
+        'The project loaded successfully, but due to browser restrictions, you must save your project again before autosave can be enabled.',
+      )
+    })
   }
 
   return (
@@ -133,7 +143,7 @@ const ProjectSection: React.FC<Props> = () => {
         <Button title="Create a project" onClick={() => newProject()}>
           New
         </Button>
-        <Button title="Load a project" onClick={() => loadProject()}>
+        <Button title="Load a project" onClick={() => loadProjectAndNotify()}>
           Load
         </Button>
         <Button title="Save a project" onClick={() => saveProject()}>
