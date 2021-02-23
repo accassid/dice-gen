@@ -6,7 +6,7 @@ import { Font } from 'three'
 import { DEFAULT_DICE_OPTIONS, DiceOptions, DiceType } from '../models/dice'
 import { reducer } from './reducer'
 import { ORIENTATION_INDICATOR, OrientationIndicatorType } from '../models/orientationIndicator'
-import { DEFAULT_UI_OPTIONS, UIOptions } from '../models/UIOptions'
+import { DEFAULT_CONFIGURATION_SETTINGS, ConfigurationSettings } from '../models/Configuration'
 
 export type GlobalStateType = {
   rightPanelActive: boolean
@@ -35,7 +35,7 @@ export type GlobalStateType = {
   loadingFaces: null | { current: number; max: number }
 } & FaceStateType &
   DiceOptions &
-  UIOptions
+  ConfigurationSettings
 
 export type GlobalStateKey = keyof GlobalStateType
 
@@ -67,7 +67,7 @@ const initialState: GlobalStateType = {
 
   ...DEFAULT_FACE_STATE,
   ...DEFAULT_DICE_OPTIONS,
-  ...DEFAULT_UI_OPTIONS,
+  ...DEFAULT_CONFIGURATION_SETTINGS,
 }
 const globalState = createStore(reducer, initialState)
 export const useGlobalState = globalState.useGlobalState

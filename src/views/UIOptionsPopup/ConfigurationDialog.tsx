@@ -3,15 +3,14 @@ import { useGlobalState } from '../../modules/global'
 import { UIOptionsDialog } from './style'
 import ValueSlider from '../Controls/ValueSlider'
 import ValueCheckbox from '../Controls/ValueCheckbox'
-import { Row, Col } from 'antd'
 import { CloseSquareOutlined } from '@ant-design/icons'
 
 type Props = {
   children?: React.ReactNode
 }
 
-const UIOptionsPopup: React.FC<Props> = ({ children }: Props) => {
-  const [isVisible, setVisibility] = useGlobalState('isUIOptionsPopupVisible')
+const ConfigurationDialog: React.FC<Props> = ({ children }: Props) => {
+  const [isVisible, setVisibility] = useGlobalState('isConfigurationDialogVisible')
 
   const showPopup = () => setVisibility(true)
   const hidePopup = () => setVisibility(false)
@@ -46,4 +45,4 @@ const UIOptionsPopup: React.FC<Props> = ({ children }: Props) => {
   )
 }
 
-export default UIOptionsPopup
+export default ConfigurationDialog
