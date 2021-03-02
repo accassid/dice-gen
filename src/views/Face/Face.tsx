@@ -75,10 +75,22 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
       d10Height,
       d100FontVertical,
       spindown,
-      d4FontBottom,
     )
     meshRef.current.name = 'rendered'
-  }, [font, globalSVG, globalScale, globalDepth, d10Height, die, dieSize, d100FontVertical, meshRef, faceNum, spindown, d4FontBottom])
+  }, [
+    font,
+    globalSVG,
+    globalScale,
+    globalDepth,
+    d10Height,
+    die,
+    dieSize,
+    d100FontVertical,
+    meshRef,
+    faceNum,
+    spindown,
+    d4FontBottom,
+  ])
 
   let svg = null
   if (face.svg) svg = face.svg

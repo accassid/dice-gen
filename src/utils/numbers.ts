@@ -26,7 +26,6 @@ export const moveGeometryAndMesh = (
   d10Height: number,
   d100FontVertical: number,
   spindown: number,
-  d4FontBottom: number,
 ): void => {
   mesh.position.x = 0
   mesh.position.y = 0
