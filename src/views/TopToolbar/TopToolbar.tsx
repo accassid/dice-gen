@@ -2,7 +2,7 @@ import React from 'react'
 
 // Style
 import { Toolbar, BarSegment } from './style'
-import { MenuFoldOutlined, MenuUnfoldOutlined, SettingOutlined } from '@ant-design/icons'
+import { MenuOutlined } from '@ant-design/icons'
 
 // Assets
 import title from '../../assets/title.svg'
@@ -43,12 +43,7 @@ const TopToolbar: React.FC<Props> = () => {
         </a>
       </BarSegment>
       <BarSegment>
-        <ConfigurationDialog style={{ ...iconStyle, margin: '0 0.5em' }} />
-        {rightPanelActive ? (
-          <MenuUnfoldOutlined onClick={togglePanel} style={iconStyle} />
-        ) : (
-          <MenuFoldOutlined onClick={togglePanel} style={iconStyle} />
-        )}
+        <MenuOutlined onClick={togglePanel} style={{ fontSize: 25, cursor: 'pointer' }} />
       </BarSegment>
     </Toolbar>
   )
