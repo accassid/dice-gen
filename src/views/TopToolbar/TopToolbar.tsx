@@ -2,7 +2,7 @@ import React from 'react'
 
 // Style
 import { Toolbar, BarSegment } from './style'
-import { MenuOutlined, SettingOutlined } from '@ant-design/icons'
+import { MenuOutlined } from '@ant-design/icons'
 
 // Assets
 import title from '../../assets/title.svg'

@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { useGlobalState } from '../../modules/global'
 import { UIOptionsDialog } from './style'
 import ValueSlider from '../Controls/ValueSlider'
 import ValueCheckbox from '../Controls/ValueCheckbox'
 import { SettingOutlined } from '@ant-design/icons'
 
 type Props = {
-  style?: any
+  style?: Record<string, unknown>
 }
 
 const ConfigurationDialog: React.FC<Props> = ({ style }: Props) => {
