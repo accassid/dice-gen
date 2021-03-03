@@ -40,6 +40,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
   const [globalSVG] = useGlobalState('globalSVG')
   const [d4RadiusScale] = useGlobalState('d4RadiusScale')
   const [d4Size] = useGlobalState('d4Size')
+  const [d4FontBottom] = useGlobalState('d4FontBottom')
 
   /**
    * This useEffect responds to the changing of any parameter in the state that would effect the rendering of a D4 face.
@@ -65,8 +66,10 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
       }
     const numbers = FACE_MAP[`${faceNum}`]
     if (!numbers) return
-    const radius = ((globalScale * d4Size) / 2) * d4RadiusScale
-    let rotation = 0
+
+    const radDivisor = d4FontBottom ? 4 : 2
+    let rotation = d4FontBottom ? Math.PI : 0
+    const radius = ((globalScale * d4Size) / radDivisor) * d4RadiusScale
     let geometry: Geometry = new Geometry()
     for (let i = 0; i < numbers.length; i++) {
       const text = numbers[i]
@@ -80,6 +83,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
         if (svg.primitiveMesh) currentGeometry = createSVGGeometry(svg, globalDepth, globalScale, 'd4', dieSize)
       } else if (config) currentGeometry = new CombinedTextGeometry(text, config)
 
+      if (d4FontBottom) currentGeometry.rotateZ(Math.PI)
       currentGeometry.center()
       currentGeometry.translate(0, radius, 0)
       currentGeometry.rotateZ(rotation)
@@ -88,10 +92,11 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
       else geometry.merge(currentGeometry)
 
       rotation += (Math.PI * 2) / 3
-    }
-    if (!geometry) throw new Error('There must be at least one number for the D4 face generator.')
 
-    setGeometry(geometry)
+      if (!geometry) throw new Error('There must be at least one number for the D4 face generator.')
+
+      setGeometry(geometry)
+    }
   }, [
     font,
     globalScale,
@@ -103,6 +108,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
     dieFontScale,
     dieSize,
     d4Size,
+    d4FontBottom,
   ])
 
   return <primitive object={geometry} attach="geometry" />
