@@ -66,9 +66,9 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
     const numbers = FACE_MAP[`${faceNum}`]
     if (!numbers) return
 
-    let radDivisor = d4FontBottom ? 4 : 2
+    const radDivisor = d4FontBottom ? 4 : 2
     let rotation = d4FontBottom ? Math.PI : 0
-    let radius = ((globalScale * d4Size) / radDivisor) * d4RadiusScale
+    const radius = ((globalScale * d4Size) / radDivisor) * d4RadiusScale
     let geometry: Geometry = new Geometry()
     for (let i = 0; i < numbers.length; i++) {
       const text = numbers[i]

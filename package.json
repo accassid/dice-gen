@@ -21,7 +21,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hooks-global-state": "^1.0.0",
-    "react-scripts": "^4.0.1",
+    "react-scripts": "^4.0.3",
     "react-three-fiber": "^4.1.4",
     "styled-components": "^5.1.0",
     "svg-mesh-3d": "^1.1.0",
