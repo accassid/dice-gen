@@ -82,7 +82,7 @@ const prepareSettingsForSaving = settings => {
 const saveProject = async () => {
   try {
     const settings = getGlobalState()
-    let blobToSave = prepareSettingsForSaving(settings)
+    const blobToSave = prepareSettingsForSaving(settings)
     projectFileHandle = await fileSave(
       blobToSave,
       {
