@@ -26,7 +26,7 @@ const ConfigurationDialog: React.FC<Props> = ({ style }: Props) => {
             min={0.1}
             max={1}
             step={0.1}
-            sliderColumns={18}
+            sliderColumns={17}
             spinnerColumns={4}
             label={'Rotation Sensitivity'}></ValueSlider>
           <div style={{ margin: '2px 8px', height: '0.9em', top: '-0.6em', position: 'relative' }}>
