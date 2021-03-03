@@ -24,5 +24,4 @@ yarn-error.log*
 
 # ide
 /.idea
-
-**/.eslintcache
+.eslintcache
