@@ -2,7 +2,7 @@ import React from 'react'
 
 // Style
 import { Toolbar, BarSegment } from './style'
-import { MenuOutlined } from '@ant-design/icons'
+import { MenuOutlined, SettingOutlined } from '@ant-design/icons'
 
 // Assets
 import title from '../../assets/title.svg'
@@ -43,7 +43,8 @@ const TopToolbar: React.FC<Props> = () => {
         </a>
       </BarSegment>
       <BarSegment>
-        <MenuOutlined onClick={togglePanel} style={{ fontSize: 25, cursor: 'pointer' }} />
+        <ConfigurationDialog style={{ ...iconStyle, margin: '0 0.5em' }} />
+        <MenuOutlined onClick={togglePanel} style={iconStyle} />
       </BarSegment>
     </Toolbar>
   )

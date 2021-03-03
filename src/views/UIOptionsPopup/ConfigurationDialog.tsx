@@ -21,7 +21,7 @@ const ConfigurationDialog: React.FC<Props> = ({ style }: Props) => {
       <SettingOutlined onClick={togglePopup} style={style}></SettingOutlined>
       {isVisible ? (
         <UIOptionsDialog>
-          <h3 style={{ borderBottom: '1px solid white' }}>Settings</h3>
+          <h3 style={{ borderBottom: '1px solid #434343' }}>Settings</h3>
           <ValueSlider
             stateKey="orbitSpeed"
             min={0.1}
