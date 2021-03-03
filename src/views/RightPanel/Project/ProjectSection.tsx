@@ -9,11 +9,6 @@ import {
 import { fileOpen, fileSave } from 'browser-fs-access'
 import debounce from 'debounce'
 
-// the default JSON.stringify errors out after selecting a new die.
-//  It is likely a problem with three.js objects
-//  This polyfill works.
-import safeJsonStringify from 'safe-json-stringify'
-
 // Style
 import { Spacer } from '../../style'
 import { HorizontalContainer } from './style'
@@ -48,7 +43,7 @@ const loadProject = async () => {
   try {
     const blob = await fileOpen({
       mimeTypes: ['applicaiton/json'],
-      extensions: ['.DiceGen', '.json'],
+      extensions: ['.json'],
       multiple: false,
       description: 'DiceGen project file',
     })
@@ -68,14 +63,7 @@ const createBlobFromString = str => new Blob([str], { type: 'application/json' }
 
 const prepareSettingsForSaving = settings => {
   settings['autoSaveProject'] = 0
-  const json = safeJsonStringify(
-    {
-      version: 1.0,
-      settings: { ...settings },
-    },
-    undefined,
-    2,
-  )
+  const json = JSON.stringify(settings, undefined, 2)
   return createBlobFromString(json)
 }
 
@@ -86,8 +74,8 @@ const saveProject = async () => {
     projectFileHandle = await fileSave(
       blobToSave,
       {
-        fileName: (projectFileHandle && projectFileHandle.fileName) || 'ProjectSettings.DiceGen',
-        extensions: ['.DiceGen'],
+        fileName: (projectFileHandle && projectFileHandle.fileName) || 'DiceGenSettings.json',
+        extensions: ['.json'],
       },
       projectFileHandle,
     )

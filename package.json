@@ -27,7 +27,6 @@
     "react-hooks-global-state": "^1.0.0",
     "react-scripts": "^4.0.1",
     "react-three-fiber": "^4.1.4",
-    "safe-json-stringify": "^1.2.0",
     "styled-components": "^5.1.0",
     "svg-mesh-3d": "^1.1.0",
     "three": "^0.123.0",

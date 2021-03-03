@@ -6,6 +6,7 @@ import { Font, TextGeometry, TextGeometryParameters, Geometry } from 'three'
 
 // Utils
 import { createSVGGeometry } from '../../../utils/createSVGGeometry'
+import { CombinedTextGeometry } from './../../../models/combinedTextGeometry'
 
 type Props = {
   font: Font | null
@@ -77,7 +78,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
 
       if (svg) {
         if (svg.primitiveMesh) currentGeometry = createSVGGeometry(svg, globalDepth, globalScale, 'd4', dieSize)
-      } else if (config) currentGeometry = new TextGeometry(text, config)
+      } else if (config) currentGeometry = new CombinedTextGeometry(text, config)
 
       currentGeometry.center()
       currentGeometry.translate(0, radius, 0)

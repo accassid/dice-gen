@@ -3,7 +3,7 @@ export const SET_STATE = 'setGlobalState'
 
 type GlobalStoreActionTypes = {
   type: 'resetFaceRefs' | 'setGlobalState'
-  input?: any
+  input?: Record<string, undefined>
 }
 export const resetFaceRefs = (): GlobalStoreActionTypes => ({
   type: RESET_FACE_REFS,
