@@ -7,6 +7,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined, SettingOutlined } from '@ant-desi
 // Assets
 import title from '../../assets/title.svg'
 import logo from '../../assets/dicegenlight.svg'
+import beta from '../../assets/beta.svg'
 import { useGlobalState } from '../../modules/global'
 import ConfigurationDialog from '../UIOptionsPopup/ConfigurationDialog'
 
@@ -36,6 +37,9 @@ const TopToolbar: React.FC<Props> = () => {
         <a href="/">
           <img alt="DiceGen Logo" src={logo} height="30x" />
           <img alt="DiceGen" src={title} height="23x" />
+          {location.hostname.includes('beta.dicegen') && (
+            <img alt="beta" src={beta} height="20x" style={{ marginBottom: 15 }} />
+          )}
         </a>
       </BarSegment>
       <BarSegment>
