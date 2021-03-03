@@ -25,6 +25,6 @@ yarn-error.log*
 # ide
 /.idea
 
-**/.eslintcache
+.eslintcache
 package-lock.json
 yarn.lock
