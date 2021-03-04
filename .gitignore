@@ -24,11 +24,7 @@ yarn-error.log*
 
 # ide
 /.idea
-<<<<<<< HEAD
 
 .eslintcache
 package-lock.json
 yarn.lock
-=======
-.eslintcache
->>>>>>> e34cd2ff49ab2f9a165079d13b5717b68ccc5b21
