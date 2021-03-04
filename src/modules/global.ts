@@ -9,6 +9,8 @@ import { ORIENTATION_INDICATOR, OrientationIndicatorType } from '../models/orien
 import { ProjectSettings, DEFAULT_PROJECT_SETTINGS } from '../models/ProjectSettings'
 import { setGlobalState } from '../modules/actions'
 import EventEmitter from 'browser-event-emitter'
+import { GlobalStoreActionTypes } from './actions'
+import { Dispatch, SetStateAction } from 'react'
 
 export type GlobalStateType = {
   rightPanelActive: boolean
@@ -77,16 +79,16 @@ const eventManager = new EventEmitter()
 
 const GlobalStateChangeEventName = 'GlobalStateChange'
 
-export const subscribeToAllChanges = cb => {
+export const subscribeToAllChanges = (cb: () => void): void => {
   eventManager.addListener(GlobalStateChangeEventName, cb)
   console.log(`Subscribed to ${GlobalStateChangeEventName}`)
 }
 
-export const unsubscribeFromAllChanges = cb => {
+export const unsubscribeFromAllChanges = (cb: () => void): void => {
   eventManager.removeEvent(GlobalStateChangeEventName, cb)
 }
 
-export const useGlobalState: any = key => {
+export const useGlobalState = <S>(key: GlobalStateKey): [any, Dispatch<SetStateAction<S>>] => {
   const [value, setter] = globalState.useGlobalState(key)
   const newSetter = newValue => {
     console.log(`${key} set to ${newValue}`)
@@ -100,6 +102,7 @@ export const dispatch = globalState.dispatch
 
 export const defaultState = initialState
 
-export const resetGlobalState = () => globalState.dispatch(setGlobalState(defaultState))
+export const resetGlobalState = (): GlobalStoreActionTypes => globalState.dispatch(setGlobalState(defaultState))
 
-export const restoreGlobalState = newState => globalState.dispatch(setGlobalState(newState))
+export const restoreGlobalState = (newState: GlobalStateType): GlobalStoreActionTypes =>
+  globalState.dispatch(setGlobalState(newState))

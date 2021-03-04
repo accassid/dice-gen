@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   useGlobalState,
   getGlobalState,
@@ -86,14 +86,16 @@ const saveProject = async () => {
   }
 }
 
-subscribeToAllChanges(
-  debounce(async () => {
-    const { autosaveProject } = getGlobalState()
-    if (!autosaveProject) return
-    try {
-      await saveProject()
-    } catch (ex) {}
-  }, 1000),
+setTimeout(() =>
+  subscribeToAllChanges(
+    debounce(async () => {
+      const { autosaveProject } = getGlobalState()
+      if (!autosaveProject) return
+      try {
+        await saveProject()
+      } catch (ex) {}
+    }, 1000),
+  ),
 )
 
 type Props = {}

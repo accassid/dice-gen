@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useGlobalState } from '../../../modules/global'
 
 // Libraries
-import { Font, TextGeometry, TextGeometryParameters, Geometry } from 'three'
+import { Font, TextGeometryParameters, Geometry } from 'three'
 
 // Utils
 import { createSVGGeometry } from '../../../utils/createSVGGeometry'
