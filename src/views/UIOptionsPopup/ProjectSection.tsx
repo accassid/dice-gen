@@ -128,7 +128,8 @@ const ProjectSection: React.FC<Props> = () => {
   }
 
   return (
-    <div>
+    <>
+      <h4>Manage Project</h4>
       <HorizontalContainer>
         <Button title="Create a project" onClick={() => newProject()}>
           New
@@ -144,7 +145,7 @@ const ProjectSection: React.FC<Props> = () => {
       <HorizontalContainer>
         <ValueCheckbox stateKey="autosaveProject" label="Autosave" />
       </HorizontalContainer>
-    </div>
+    </>
   )
 }
 

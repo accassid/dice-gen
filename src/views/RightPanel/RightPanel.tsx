@@ -15,8 +15,6 @@ import SVGMenu from './SVGMenu/SVGMenu'
 import OrientationIndicatorMenu from './OrientationIndicatorMenu/OrientationIndicatorMenu'
 import FontOptions from './FontOptions/FontOptions'
 
-import ProjectSection from '../UIOptionsPopup/ProjectSection'
-
 type Props = {}
 
 /**
@@ -36,10 +34,6 @@ const RightPanel: React.FC<Props> = () => {
         <PreviewButton close />
       ) : (
         <>
-          <h2>&nbsp;Project:</h2>
-          <SectionContainer>
-            <ProjectSection></ProjectSection>
-          </SectionContainer>
           <h2>&nbsp;Global Settings:</h2>
           <SectionContainer>
             <FontOptions />

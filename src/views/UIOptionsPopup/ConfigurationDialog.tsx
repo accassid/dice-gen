@@ -4,6 +4,7 @@ import ValueSlider from '../Controls/ValueSlider'
 import ValueCheckbox from '../Controls/ValueCheckbox'
 import { SettingOutlined } from '@ant-design/icons'
 import ValueInput from '../Controls/ValueInput'
+import ProjectSection from './ProjectSection'
 
 type Props = {
   style?: Record<string, unknown>
@@ -34,6 +35,7 @@ const ConfigurationDialog: React.FC<Props> = ({ style }: Props) => {
           <div style={{ margin: '2px 8px', height: '0.9em', top: '-0.6em', position: 'relative' }}>
             <ValueCheckbox stateKey={'showGrid'} label="Show Grid" />
           </div>
+          <ProjectSection></ProjectSection>
         </UIOptionsDialog>
       ) : (
         <></>
