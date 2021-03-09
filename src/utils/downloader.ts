@@ -25,7 +25,8 @@ export const generateSTL = (geometry: Geometry): string => {
  * @param fileStrings
  * @param callback
  */
-export const download = (fileStrings: Record<string, string>, callback?: () => void): void => {
+export const download = (fileName: string = null, fileStrings: Record<string, string>, callback?: () => void): void => {
+  fileName = fileName || `diceGen${new Date(Date.now()).toISOString()}.zip`
   const zip = new JSZip()
   for (const name in fileStrings) {
     zip.file(`${name}.stl`, fileStrings[name])
@@ -33,7 +34,7 @@ export const download = (fileStrings: Record<string, string>, callback?: () => v
   zip.generateAsync({ type: 'base64' }).then(result => {
     const element = document.createElement('a')
     element.setAttribute('href', 'data:application/zip;base64,' + result)
-    element.setAttribute('download', `diceGen${new Date(Date.now()).toISOString()}.zip`)
+    element.setAttribute('download', fileName)
 
     element.style.display = 'none'
     document.body.appendChild(element)

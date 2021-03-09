@@ -24,6 +24,7 @@ const Downloader: React.FC<Props> = () => {
   const setLoadingDice = useGlobalState('loadingDice')[1]
   const setLoadingFaces = useGlobalState('loadingFaces')[1]
   const [die] = useGlobalState('die')
+  const [projectName] = useGlobalState('projectName')
 
   /**
    * When a download is triggered first the global state used for the loader is set for a single die. Then a new
@@ -48,7 +49,7 @@ const Downloader: React.FC<Props> = () => {
       if (passableGeometry) {
         const geometry = new GeometryGenerator(passableGeometry)
         newWorker.terminate()
-        download({ [die]: generateSTL(geometry) })
+        download(projectName, { [die]: generateSTL(geometry) })
         setLoadingFaces(null)
         setLoadingDice(null)
       }

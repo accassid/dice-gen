@@ -49,6 +49,7 @@ const MassDownloader: React.FC<Props> = () => {
    */
   const processDie = (): void => {
     const newWorker = new Worker()
+    const [projectName] = useGlobalState('projectName')
 
     newWorker.addEventListener('message', event => {
       const { current, max, passableGeometry } = event.data
@@ -62,7 +63,7 @@ const MassDownloader: React.FC<Props> = () => {
         newWorker.terminate()
         const newDownloadStrings = { ...downloadStrings, [die]: generateSTL(geometry) }
         if (dieList.indexOf(die) === dieList.length - 1) {
-          download(newDownloadStrings, () => {
+          download(projectName, newDownloadStrings, () => {
             setLoadingDice(null)
             setLoadingFaces(null)
             setDownloading(false)

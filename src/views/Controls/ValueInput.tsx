@@ -21,7 +21,7 @@ const ValueInput: React.FC<Props> = ({ stateKey, label }: Props) => {
       <Row>
         <Col span={6}>{label}</Col>
         <Col span={16}>
-          <Input value={value} onChange={setValue} />
+          <Input value={value} onChange={e => setValue(e.target.value)} />
         </Col>
       </Row>
     </>
