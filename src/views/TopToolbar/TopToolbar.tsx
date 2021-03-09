@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Style
-import { Toolbar, BarSegment } from './style'
+import { Toolbar, BarSegment, ProjectNameWrapper } from './style'
 import { MenuOutlined } from '@ant-design/icons'
 
 // Assets
@@ -23,6 +23,7 @@ type Props = {}
 const TopToolbar: React.FC<Props> = () => {
   const [rightPanelActive, setRightPanel] = useGlobalState('rightPanelActive')
   const [rightPanelActiveMobile, setRightPanelMobile] = useGlobalState('rightPanelActiveMobile')
+  const [projectName] = useGlobalState('projectName')
 
   const togglePanel = (): void => {
     setRightPanel(!rightPanelActive)
@@ -43,6 +44,7 @@ const TopToolbar: React.FC<Props> = () => {
         </a>
       </BarSegment>
       <BarSegment>
+        <ProjectNameWrapper>{projectName}</ProjectNameWrapper>
         <ConfigurationDialog style={{ ...iconStyle, margin: '0 0.5em' }} />
         <MenuOutlined onClick={togglePanel} style={iconStyle} />
       </BarSegment>
