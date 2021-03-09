@@ -1,4 +1,5 @@
 import React from 'react'
+import { useGlobalState } from '../../modules/global'
 
 type Props = {}
 
@@ -8,7 +9,8 @@ type Props = {}
  * @constructor
  */
 const Grid: React.FC<Props> = () => {
-  return <gridHelper args={[60, 60, 0xb4b4b4]} position={[0, 0, 0]} receiveShadow />
+  const [showGrid] = useGlobalState('showGrid')
+  return showGrid ? <gridHelper args={[60, 60, 0xb4b4b4]} position={[0, 0, 0]} receiveShadow /> : <></>
 }
 
 export default Grid

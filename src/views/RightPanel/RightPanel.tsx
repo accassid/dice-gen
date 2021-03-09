@@ -8,7 +8,7 @@ import { Spacer } from '../style'
 // Components
 import Downloader from './Downloader/Downloader'
 import PreviewButton from './PreviewButton/PreviewButton'
-import ValueSlider from './ValueSlider/ValueSlider'
+import ValueSlider from '../Controls/ValueSlider'
 import DiceTabs from './DiceTabs/DiceTabs'
 import MassDownloader from './MassDownloader/MassDownloader'
 import SVGMenu from './SVGMenu/SVGMenu'

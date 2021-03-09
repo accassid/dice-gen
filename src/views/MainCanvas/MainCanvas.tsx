@@ -3,7 +3,7 @@ import { Canvas } from 'react-three-fiber'
 
 // Components
 import Grid from '../Grid/Grid'
-import Controls from '../Controls/Controls'
+import { OrbitView } from '../Controls/Controls'
 import Die from '../Die/Die'
 import Preview from '../Preview/Preview'
 
@@ -30,7 +30,7 @@ const MainCanvas: React.FC<Props> = () => {
         <Suspense fallback={null}></Suspense>
         <axesHelper args={[5]} />
         <Grid />
-        <Controls />
+        <OrbitView />
       </Canvas>
     </CanvasContainer>
   )
