@@ -14,7 +14,7 @@ import { Spacer } from '../style'
 import { HorizontalContainer } from './style'
 
 // components
-import { Button, notification } from 'antd'
+import { Button, Row, Col, notification } from 'antd'
 import ValueCheckbox from '../Controls/ValueCheckbox'
 
 const notify = (title, description) =>
@@ -129,22 +129,23 @@ const ProjectSection: React.FC<Props> = () => {
 
   return (
     <>
-      <h4>Manage Project</h4>
-      <HorizontalContainer>
-        <Button title="Create a project" onClick={() => newProject()}>
-          New
-        </Button>
-        <Button title="Load a project" onClick={() => loadProjectAndNotify()}>
-          Load
-        </Button>
-        <Button title="Save a project" onClick={() => saveProject()}>
-          Save
-        </Button>
-      </HorizontalContainer>
-      <Spacer />
-      <HorizontalContainer>
-        <ValueCheckbox stateKey="autosaveProject" label="Autosave" />
-      </HorizontalContainer>
+      <h4>Manage Project:</h4>
+      <Row>
+        <Col span={18}>
+          <Button style={{ marginRight: '3px' }} title="Create a new project" onClick={() => newProject()}>
+            New
+          </Button>
+          <Button style={{ marginRight: '3px' }} title="Load a saved project" onClick={() => loadProjectAndNotify()}>
+            Load
+          </Button>
+          <Button style={{ marginRight: '3px' }} title="Save your project" onClick={() => saveProject()}>
+            Save
+          </Button>
+        </Col>
+        <Col span={6}>
+          <ValueCheckbox stateKey="autosaveProject" label="Autosave" />
+        </Col>
+      </Row>
     </>
   )
 }

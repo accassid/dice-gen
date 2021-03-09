@@ -22,8 +22,8 @@ const ConfigurationDialog: React.FC<Props> = ({ style }: Props) => {
       <SettingOutlined onClick={togglePopup} style={style}></SettingOutlined>
       {isVisible ? (
         <UIOptionsDialog>
-          <h3 style={{ borderBottom: '1px solid #434343' }}>Settings</h3>
-          <ValueInput label={'Project Name'} stateKey="projectName" />
+          <h3 style={{ borderBottom: '1px solid #434343' }}>Settings:</h3>
+          <ValueInput label={'Project Name:'} stateKey="projectName" />
           <ValueSlider
             stateKey="orbitSpeed"
             min={0.1}
@@ -31,7 +31,7 @@ const ConfigurationDialog: React.FC<Props> = ({ style }: Props) => {
             step={0.1}
             sliderColumns={17}
             spinnerColumns={4}
-            label={'Rotation Sensitivity'}></ValueSlider>
+            label={'Rotation Sensitivity:'}></ValueSlider>
           <div style={{ margin: '2px 8px', height: '0.9em', top: '-0.6em', position: 'relative' }}>
             <ValueCheckbox stateKey={'showGrid'} label="Show Grid" />
           </div>
