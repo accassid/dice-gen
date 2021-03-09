@@ -9,13 +9,9 @@ import {
 import { fileOpen, fileSave } from 'browser-fs-access'
 import debounce from 'debounce'
 
-// Style
-import { Spacer } from '../style'
-import { HorizontalContainer } from './style'
-
 // components
 import { Button, Row, Col, notification } from 'antd'
-import ValueCheckbox from '../Controls/ValueCheckbox'
+import { ValueCheckbox } from '../Controls/Controls'
 
 const notify = (title, description) =>
   notification.open({
@@ -67,14 +63,16 @@ const prepareSettingsForSaving = settings => {
   return createBlobFromString(json)
 }
 
-const saveProject = async () => {
+const saveProject = async (projectName?: string) => {
   try {
     const settings = getGlobalState()
     const blobToSave = prepareSettingsForSaving(settings)
+    const fileName = (projectFileHandle && projectFileHandle.fileName) || `${settings.projectName}.json`
+
     projectFileHandle = await fileSave(
       blobToSave,
       {
-        fileName: (projectFileHandle && projectFileHandle.fileName) || 'DiceGenSettings.json',
+        fileName: fileName,
         extensions: ['.json'],
       },
       projectFileHandle,
@@ -109,6 +107,7 @@ type Props = {}
  */
 const ProjectSection: React.FC<Props> = () => {
   const [, setAutoSave] = useGlobalState('autosaveProject')
+  const [projectName] = useGlobalState('projectName')
 
   const newProject = () => {
     if (!confirm('Are you sure - this will reset to factory defaults?')) return
@@ -138,7 +137,7 @@ const ProjectSection: React.FC<Props> = () => {
           <Button style={{ marginRight: '3px' }} title="Load a saved project" onClick={() => loadProjectAndNotify()}>
             Load
           </Button>
-          <Button style={{ marginRight: '3px' }} title="Save your project" onClick={() => saveProject()}>
+          <Button style={{ marginRight: '3px' }} title="Save your project" onClick={() => saveProject(projectName)}>
             Save
           </Button>
         </Col>
