@@ -1,5 +1,5 @@
 import React from 'react'
-import { GlobalStateKey, useGlobalState } from '../../../modules/global'
+import { GlobalStateKey, useGlobalState } from '../../modules/global'
 
 // Style
 import { Slider, InputNumber, Row, Col } from 'antd'
@@ -12,6 +12,8 @@ type Props = {
   max: number
   step: number
   scale?: number
+  sliderColumns?: number
+  spinnerColumns?: number
 }
 
 /**
@@ -28,12 +30,23 @@ type Props = {
  * @param scale
  * @constructor
  */
-const ValueSlider: React.FC<Props> = ({ stateKey, label, min, max, step, scale }: Props) => {
+const ValueSlider: React.FC<Props> = ({
+  stateKey,
+  label,
+  min,
+  max,
+  step,
+  scale,
+  sliderColumns,
+  spinnerColumns,
+}: Props) => {
   const [value, setValue] = useGlobalState(stateKey)
 
   if (typeof value !== 'number')
     throw new Error(`The value from the GlobalState must be of type number. ${stateKey} is of type ${typeof stateKey}`)
 
+  sliderColumns = sliderColumns || 14
+  spinnerColumns = spinnerColumns || 3
   const onChange = (currentValue: SliderValue | number | string | undefined): void => {
     currentValue = Number(currentValue)
     setValue(scale ? currentValue * scale : currentValue)
@@ -47,10 +60,10 @@ const ValueSlider: React.FC<Props> = ({ stateKey, label, min, max, step, scale }
         <h4>{label}</h4>
       </Row>
       <Row>
-        <Col span={14}>
+        <Col span={sliderColumns}>
           <Slider min={min} max={max} step={step} onChange={onChange} value={scaledValue} />
         </Col>
-        <Col span={3}>
+        <Col span={spinnerColumns}>
           <InputNumber
             min={min}
             max={max}

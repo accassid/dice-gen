@@ -9,6 +9,7 @@ import title from '../../assets/title.svg'
 import logo from '../../assets/dicegenlight.svg'
 import beta from '../../assets/beta.svg'
 import { useGlobalState } from '../../modules/global'
+import ConfigurationDialog from '../UIOptionsPopup/ConfigurationDialog'
 
 type Props = {}
 
@@ -28,6 +29,8 @@ const TopToolbar: React.FC<Props> = () => {
     setRightPanelMobile(!rightPanelActiveMobile)
   }
 
+  const iconStyle = { fontSize: 25, cursor: 'pointer' }
+
   return (
     <Toolbar>
       <BarSegment>
@@ -40,7 +43,8 @@ const TopToolbar: React.FC<Props> = () => {
         </a>
       </BarSegment>
       <BarSegment>
-        <MenuOutlined onClick={togglePanel} style={{ fontSize: 25, cursor: 'pointer' }} />
+        <ConfigurationDialog style={{ ...iconStyle, margin: '0 0.5em' }} />
+        <MenuOutlined onClick={togglePanel} style={iconStyle} />
       </BarSegment>
     </Toolbar>
   )

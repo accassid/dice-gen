@@ -1,5 +1,5 @@
 import React from 'react'
-import { GlobalStateKey, useGlobalState } from '../../../modules/global'
+import { GlobalStateKey, useGlobalState } from '../../modules/global'
 
 // Style
 import { Checkbox, Row } from 'antd'
