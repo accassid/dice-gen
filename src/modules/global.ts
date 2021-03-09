@@ -11,6 +11,7 @@ import { setGlobalState } from '../modules/actions'
 import EventEmitter from 'browser-event-emitter'
 import { GlobalStoreActionTypes } from './actions'
 import { Dispatch, SetStateAction } from 'react'
+import { DEFAULT_CONFIGURATION_SETTINGS, ConfigurationSettings } from '../models/Configuration'
 
 export type GlobalStateType = {
   rightPanelActive: boolean
@@ -39,7 +40,8 @@ export type GlobalStateType = {
   loadingFaces: null | { current: number; max: number }
 } & FaceStateType &
   DiceOptions &
-  ProjectSettings
+  ProjectSettings &
+  ConfigurationSettings
 
 export type GlobalStateKey = keyof GlobalStateType
 
@@ -72,6 +74,7 @@ const initialState: GlobalStateType = {
   ...DEFAULT_FACE_STATE,
   ...DEFAULT_DICE_OPTIONS,
   ...DEFAULT_PROJECT_SETTINGS,
+  ...DEFAULT_CONFIGURATION_SETTINGS,
 }
 const globalState = createStore(reducer, initialState)
 
