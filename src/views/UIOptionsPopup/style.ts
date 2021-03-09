@@ -12,3 +12,7 @@ export const UIOptionsDialog = styled.div`
   z-index: 5;
   max-width: 95%;
 `
+
+export const HorizontalContainer = styled.div`
+  display: flex;
+`

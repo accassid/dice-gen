@@ -5,17 +5,17 @@ import {
   resetGlobalState,
   restoreGlobalState,
   subscribeToAllChanges,
-} from '../../../modules/global'
+} from '../../modules/global'
 import { fileOpen, fileSave } from 'browser-fs-access'
 import debounce from 'debounce'
 
 // Style
-import { Spacer } from '../../style'
+import { Spacer } from '../style'
 import { HorizontalContainer } from './style'
 
 // components
-import ValueCheckbox from '../ValueCheckbox/ValueCheckbox'
 import { Button, notification } from 'antd'
+import ValueCheckbox from '../Controls/ValueCheckbox'
 
 const notify = (title, description) =>
   notification.open({

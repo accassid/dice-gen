@@ -15,7 +15,7 @@ import SVGMenu from './SVGMenu/SVGMenu'
 import OrientationIndicatorMenu from './OrientationIndicatorMenu/OrientationIndicatorMenu'
 import FontOptions from './FontOptions/FontOptions'
 
-import ProjectSection from './Project/ProjectSection'
+import ProjectSection from '../UIOptionsPopup/ProjectSection'
 
 type Props = {}
 
