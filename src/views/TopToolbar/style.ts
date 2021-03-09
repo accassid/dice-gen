@@ -18,3 +18,18 @@ export const BarSegment = styled.div`
   display: flex;
   align-items: center;
 `
+
+export const ProjectNameWrapper = styled.div`
+  display: flex;
+  padding-right: 0.5em;
+  overflow: hidden;
+  text-align: right;
+  color: '#rgba(28,28,28,0.9)';
+
+  @media (max-width: 500px) {
+    padding-right: 0.2em;
+    font-size: x-small;
+    max-width: 20em;
+    max-height: 2.75em;
+  }
+`

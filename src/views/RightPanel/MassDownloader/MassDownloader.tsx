@@ -36,6 +36,7 @@ const MassDownloader: React.FC<Props> = () => {
   const [die, setDie] = useGlobalState('die')
   const [loadingDice, setLoadingDice] = useGlobalState('loadingDice')
   const setLoadingFaces = useGlobalState('loadingFaces')[1]
+  const [projectName] = useGlobalState('projectName')
 
   /**
    * This works in the same way with web workers as the handleDownload function in Downloader.tsx so refer to that
@@ -62,7 +63,7 @@ const MassDownloader: React.FC<Props> = () => {
         newWorker.terminate()
         const newDownloadStrings = { ...downloadStrings, [die]: generateSTL(geometry) }
         if (dieList.indexOf(die) === dieList.length - 1) {
-          download(newDownloadStrings, () => {
+          download(projectName, newDownloadStrings, () => {
             setLoadingDice(null)
             setLoadingFaces(null)
             setDownloading(false)

@@ -1,10 +1,18 @@
-export const RESET_FACE_REFS = 'resetFaceRefs'
+import { GlobalStateType } from './global'
 
-type ResetFaceRefsType = {
-  type: 'resetFaceRefs'
+export const RESET_FACE_REFS = 'resetFaceRefs'
+export const SET_STATE = 'setGlobalState'
+
+export type GlobalStoreActionTypes = {
+  type: 'resetFaceRefs' | 'setGlobalState'
+  input?: Record<string, unknown>
 }
-export const resetFaceRefs = (): ResetFaceRefsType => ({
+export const resetFaceRefs = (): GlobalStoreActionTypes => ({
   type: RESET_FACE_REFS,
 })
 
-export type ActionTypes = ResetFaceRefsType
+export const setGlobalState = (newState: GlobalStateType): GlobalStoreActionTypes => ({
+  type: SET_STATE,
+  input: newState,
+})
+export type ActionTypes = GlobalStoreActionTypes

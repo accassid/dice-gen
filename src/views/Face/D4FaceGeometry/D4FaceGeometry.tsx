@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useGlobalState } from '../../../modules/global'
 
 // Libraries
-import { Font, TextGeometry, TextGeometryParameters, Geometry } from 'three'
+import { Font, TextGeometryParameters, Geometry } from 'three'
 
 // Utils
 import { createSVGGeometry } from '../../../utils/createSVGGeometry'
+import { CombinedTextGeometry } from './../../../models/combinedTextGeometry'
 
 type Props = {
   font: Font | null
@@ -80,7 +81,7 @@ const D4FaceGeometry: React.FC<Props> = ({ font, faceNum, dieFontScale, dieSize 
 
       if (svg) {
         if (svg.primitiveMesh) currentGeometry = createSVGGeometry(svg, globalDepth, globalScale, 'd4', dieSize)
-      } else if (config) currentGeometry = new TextGeometry(text, config)
+      } else if (config) currentGeometry = new CombinedTextGeometry(text, config)
 
       if (d4FontBottom) currentGeometry.rotateZ(Math.PI)
       currentGeometry.center()

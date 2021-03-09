@@ -6,6 +6,11 @@ import { Font } from 'three'
 import { DEFAULT_DICE_OPTIONS, DiceOptions, DiceType } from '../models/dice'
 import { reducer } from './reducer'
 import { ORIENTATION_INDICATOR, OrientationIndicatorType } from '../models/orientationIndicator'
+import { ProjectSettings, DEFAULT_PROJECT_SETTINGS } from '../models/ProjectSettings'
+import { setGlobalState } from '../modules/actions'
+import EventEmitter from 'browser-event-emitter'
+import { GlobalStoreActionTypes } from './actions'
+import { Dispatch, SetStateAction } from 'react'
 import { DEFAULT_CONFIGURATION_SETTINGS, ConfigurationSettings } from '../models/Configuration'
 
 export type GlobalStateType = {
@@ -35,6 +40,7 @@ export type GlobalStateType = {
   loadingFaces: null | { current: number; max: number }
 } & FaceStateType &
   DiceOptions &
+  ProjectSettings &
   ConfigurationSettings
 
 export type GlobalStateKey = keyof GlobalStateType
@@ -67,9 +73,39 @@ const initialState: GlobalStateType = {
 
   ...DEFAULT_FACE_STATE,
   ...DEFAULT_DICE_OPTIONS,
+  ...DEFAULT_PROJECT_SETTINGS,
   ...DEFAULT_CONFIGURATION_SETTINGS,
 }
 const globalState = createStore(reducer, initialState)
-export const useGlobalState = globalState.useGlobalState
+
+const eventManager = new EventEmitter()
+
+const GlobalStateChangeEventName = 'GlobalStateChange'
+
+export const subscribeToAllChanges = (cb: () => void): void => {
+  eventManager.addListener(GlobalStateChangeEventName, cb)
+  console.log(`Subscribed to ${GlobalStateChangeEventName}`)
+}
+
+export const unsubscribeFromAllChanges = (cb: () => void): void => {
+  eventManager.removeEvent(GlobalStateChangeEventName, cb)
+}
+
+export const useGlobalState = <S>(key: GlobalStateKey): [any, Dispatch<SetStateAction<S>>] => {
+  const [value, setter] = globalState.useGlobalState(key)
+  const newSetter = newValue => {
+    console.log(`${key} set to ${newValue}`)
+    setter(newValue)
+    eventManager.emit(GlobalStateChangeEventName)
+  }
+  return [value, newSetter]
+}
 export const getGlobalState = globalState.getState
 export const dispatch = globalState.dispatch
+
+export const defaultState = initialState
+
+export const resetGlobalState = (): GlobalStoreActionTypes => globalState.dispatch(setGlobalState(defaultState))
+
+export const restoreGlobalState = (newState: GlobalStateType): GlobalStoreActionTypes =>
+  globalState.dispatch(setGlobalState(newState))
