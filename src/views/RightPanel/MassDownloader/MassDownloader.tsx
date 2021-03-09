@@ -36,6 +36,7 @@ const MassDownloader: React.FC<Props> = () => {
   const [die, setDie] = useGlobalState('die')
   const [loadingDice, setLoadingDice] = useGlobalState('loadingDice')
   const setLoadingFaces = useGlobalState('loadingFaces')[1]
+  const [projectName] = useGlobalState('projectName')
 
   /**
    * This works in the same way with web workers as the handleDownload function in Downloader.tsx so refer to that
@@ -49,7 +50,6 @@ const MassDownloader: React.FC<Props> = () => {
    */
   const processDie = (): void => {
     const newWorker = new Worker()
-    const [projectName] = useGlobalState('projectName')
 
     newWorker.addEventListener('message', event => {
       const { current, max, passableGeometry } = event.data
