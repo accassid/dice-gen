@@ -1,6 +1,7 @@
 import { Mesh, Vector3, Line3 } from 'three'
 import { PentagonalTrapezohedronGeometry } from '../models/pentagonalTrapezohedron'
 import { D10_SPINDOWN_MAP, D20_SPINDOWN_MAP } from '../models/spindown'
+import { AdjustableOctahedronGeometry } from '../models/adjustableOctahedron'
 
 /**
  * This function does the main work of moving a face (text or svg) to the correct face of the die. It takes in the die
@@ -23,6 +24,7 @@ export const moveGeometryAndMesh = (
   scale: number,
   dieSize: number,
   depth: number,
+  d8Height: number,
   d10Height: number,
   d100FontVertical: number,
   spindown: number,
@@ -145,54 +147,70 @@ export const moveGeometryAndMesh = (
   }
 
   if (die === 'd8') {
+    const adjOG = new AdjustableOctahedronGeometry(scaledSize, d8Height)
+    const faceAngle = adjOG.getFaceAngle()
+    const { radius, midpoint } = adjOG.getMidpointRadius()
+    const distance = radius - depth / 2
+
+    // console.log(faceAngle)
     const dihedral = Math.acos(-1 / 3)
     const facePlaneAngle = Math.PI / 2 - dihedral / 2
     const sWithDepth = (2 * Math.sqrt(3) * scaledSize - 3 * depth) / (6 * Math.sqrt(3))
     switch (face) {
       case 1:
-        mesh.translateX(sWithDepth).translateY(sWithDepth).translateZ(sWithDepth)
+        mesh.translateOnAxis(midpoint, distance)
         mesh.rotateY(Math.PI / 4)
-        mesh.rotateX(-facePlaneAngle)
+        mesh.rotateX(faceAngle)
         break
+
       case 2:
-        mesh.translateX(sWithDepth).translateY(-sWithDepth).translateZ(sWithDepth)
+        mesh.rotateX(Math.PI)
+        mesh.rotateY(Math.PI / 2)
+        mesh.translateOnAxis(midpoint, distance)
         mesh.rotateY(Math.PI / 4)
-        mesh.rotateX(facePlaneAngle)
-        mesh.rotateZ(Math.PI)
+        mesh.rotateX(faceAngle)
         break
       case 3:
-        mesh.translateX(-sWithDepth).translateY(-sWithDepth).translateZ(sWithDepth)
-        mesh.rotateY(-Math.PI / 4)
-        mesh.rotateX(facePlaneAngle)
-        mesh.rotateZ(Math.PI)
+        mesh.rotateY(Math.PI)
+        mesh.rotateX(Math.PI)
+        mesh.translateOnAxis(midpoint, distance)
+        mesh.rotateY(Math.PI / 4)
+        mesh.rotateX(faceAngle)
         break
       case 4:
-        mesh.translateX(-sWithDepth).translateY(sWithDepth).translateZ(sWithDepth)
-        mesh.rotateY(-Math.PI / 4)
-        mesh.rotateX(-facePlaneAngle)
+        mesh.rotateY(-Math.PI / 2)
+        mesh.translateOnAxis(midpoint, distance)
+        mesh.rotateY(Math.PI / 4)
+        mesh.rotateX(faceAngle)
         break
       case 5:
-        mesh.translateX(sWithDepth).translateY(-sWithDepth).translateZ(-sWithDepth)
-        mesh.rotateY((3 * Math.PI) / 4)
-        mesh.rotateX(facePlaneAngle)
-        mesh.rotateZ(Math.PI)
+        mesh.rotateY(Math.PI)
+        mesh.rotateX(-Math.PI)
+        mesh.translateOnAxis(midpoint, distance)
+        mesh.rotateY(Math.PI / 4)
+        mesh.rotateX(faceAngle)
         break
-      case 6:
-        mesh.translateX(sWithDepth).translateY(sWithDepth).translateZ(-sWithDepth)
-        mesh.rotateY((3 * Math.PI) / 4)
-        mesh.rotateX(-facePlaneAngle)
-        break
-      case 7:
-        mesh.translateX(-sWithDepth).translateY(sWithDepth).translateZ(-sWithDepth)
-        mesh.rotateY((-3 * Math.PI) / 4)
-        mesh.rotateX(-facePlaneAngle)
-        break
+      //   mesh.translateX(sWithDepth).translateY(-sWithDepth).translateZ(-sWithDepth)
+      //   mesh.rotateY((3 * Math.PI) / 4)
+      //   mesh.rotateX(faceAngle)
+      //   mesh.rotateZ(Math.PI)
+      //   break
+      // case 6:
+      //   mesh.translateX(sWithDepth).translateY(sWithDepth).translateZ(-sWithDepth)
+      //   mesh.rotateY((3 * Math.PI) / 4)
+      //   mesh.rotateX(-faceAngle)
+      //   break
+      // case 7:
+      //   mesh.translateX(-sWithDepth).translateY(sWithDepth).translateZ(-sWithDepth)
+      //   mesh.rotateY((-3 * Math.PI) / 4)
+      //   mesh.rotateX(-faceAngle)
+      //   break
       case 8:
-        mesh.translateX(-sWithDepth).translateY(-sWithDepth).translateZ(-sWithDepth)
-        mesh.rotateY((-3 * Math.PI) / 4)
-        mesh.rotateX(facePlaneAngle)
-        mesh.rotateZ(Math.PI)
-        break
+        mesh.rotateX(Math.PI)
+        mesh.rotateY(-Math.PI / 2)
+        mesh.translateOnAxis(midpoint, distance)
+        mesh.rotateY(Math.PI / 4)
+        mesh.rotateX(faceAngle)
     }
   }
 

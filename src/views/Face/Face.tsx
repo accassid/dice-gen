@@ -40,6 +40,7 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
   const [globalSVG] = useGlobalState('globalSVG')
   const [globalScale] = useGlobalState('globalScale')
   const [globalDepth] = useGlobalState('globalDepth')
+  const [d8Height] = useGlobalState('d8Height')
   const [d10Height] = useGlobalState('d10Height')
   const [d100FontVertical] = useGlobalState('d100FontVertical')
   const [d4FontBottom] = useGlobalState('d4FontBottom')
@@ -72,6 +73,7 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
       globalScale,
       dieSize,
       globalDepth,
+      d8Height,
       d10Height,
       d100FontVertical,
       spindown,
@@ -82,6 +84,7 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
     globalSVG,
     globalScale,
     globalDepth,
+    d8Height,
     d10Height,
     die,
     dieSize,
