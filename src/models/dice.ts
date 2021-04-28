@@ -45,6 +45,7 @@ export type DiceOptions = {
   d6FontScale: number
 
   d8Size: number
+  d8Height: number
   d8FontScale: number
 
   d10Size: number
@@ -84,6 +85,7 @@ export const DEFAULT_DICE_OPTIONS = {
   d6FontScale: 1,
 
   d8Size: 15 * DIE_SIZE_SCALARS['d8'],
+  d8Height: 1,
   d8FontScale: 1,
 
   d10Size: 16 * DIE_SIZE_SCALARS['d10'],
