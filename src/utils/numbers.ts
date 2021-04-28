@@ -151,18 +151,12 @@ export const moveGeometryAndMesh = (
     const faceAngle = adjOG.getFaceAngle()
     const { radius, midpoint } = adjOG.getMidpointRadius()
     const distance = radius - depth / 2
-
-    // console.log(faceAngle)
-    const dihedral = Math.acos(-1 / 3)
-    const facePlaneAngle = Math.PI / 2 - dihedral / 2
-    const sWithDepth = (2 * Math.sqrt(3) * scaledSize - 3 * depth) / (6 * Math.sqrt(3))
     switch (face) {
       case 1:
         mesh.translateOnAxis(midpoint, distance)
         mesh.rotateY(Math.PI / 4)
         mesh.rotateX(faceAngle)
         break
-
       case 2:
         mesh.rotateX(Math.PI)
         mesh.rotateY(Math.PI / 2)
@@ -184,27 +178,24 @@ export const moveGeometryAndMesh = (
         mesh.rotateX(faceAngle)
         break
       case 5:
-        mesh.rotateY(Math.PI)
-        mesh.rotateX(-Math.PI)
+        mesh.rotateX(Math.PI)
         mesh.translateOnAxis(midpoint, distance)
         mesh.rotateY(Math.PI / 4)
         mesh.rotateX(faceAngle)
         break
-      //   mesh.translateX(sWithDepth).translateY(-sWithDepth).translateZ(-sWithDepth)
-      //   mesh.rotateY((3 * Math.PI) / 4)
-      //   mesh.rotateX(faceAngle)
-      //   mesh.rotateZ(Math.PI)
-      //   break
-      // case 6:
-      //   mesh.translateX(sWithDepth).translateY(sWithDepth).translateZ(-sWithDepth)
-      //   mesh.rotateY((3 * Math.PI) / 4)
-      //   mesh.rotateX(-faceAngle)
-      //   break
-      // case 7:
-      //   mesh.translateX(-sWithDepth).translateY(sWithDepth).translateZ(-sWithDepth)
-      //   mesh.rotateY((-3 * Math.PI) / 4)
-      //   mesh.rotateX(-faceAngle)
-      //   break
+
+      case 6:
+        mesh.rotateY(Math.PI / 2)
+        mesh.translateOnAxis(midpoint, distance)
+        mesh.rotateY(Math.PI / 4)
+        mesh.rotateX(faceAngle)
+        break
+      case 7:
+        mesh.rotateY(Math.PI)
+        mesh.translateOnAxis(midpoint, distance)
+        mesh.rotateY(Math.PI / 4)
+        mesh.rotateX(faceAngle)
+        break
       case 8:
         mesh.rotateX(Math.PI)
         mesh.rotateY(-Math.PI / 2)
