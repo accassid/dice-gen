@@ -5,6 +5,7 @@ export type SVGType = {
   x: number
   y: number
   fileName: string | null
+  showNumber: boolean
 }
 export const DEFAULT_SVG = {
   scale: 0.7,
@@ -13,4 +14,5 @@ export const DEFAULT_SVG = {
   x: 0,
   y: 0,
   fileName: null,
+  showNumber: false,
 }
