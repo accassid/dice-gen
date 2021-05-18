@@ -53,11 +53,12 @@ export const createSVGGeometry = (
   size: number,
   die: string,
   dieScale: number,
+  isFace = false,
 ): Geometry => {
   let geometry: Geometry = new Geometry()
 
   let dieSVGScale = 1
-  if (die === 'd4') dieSVGScale = 0.45
+  if (die === 'd4' && !isFace) dieSVGScale = 0.45
   if (die === 'd10' || die === 'd100') dieSVGScale = 0.5
   if (die === 'd20') dieSVGScale = 0.65
 

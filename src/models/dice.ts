@@ -153,6 +153,19 @@ export const SVG_FACE_OPTIONS = [
   '80',
   '90',
   '00',
+  'd2',
+  'd4',
+  'd4Crystal',
+  'd6',
+  'd8',
+  'd10',
+  'd100',
+  'd12',
+  'd20',
+  'd4 face 1',
+  'd4 face 2',
+  'd4 face 3',
+  'd4 face 4',
 ]
 
 export const DIE_NAME = {
