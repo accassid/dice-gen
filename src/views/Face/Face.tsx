@@ -137,8 +137,31 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
         d4Size,
         d4FontBottom,
       )
-    else if (svg) glyphGeometry = svgGeometryGenerator(globalScale, globalDepth, svg, die, dieSize, d2Radius)
-    else
+    else if (svg) {
+      if (svg.showNumber) {
+        faceContent = {
+          svg,
+          geometry: svgGeometryGenerator(globalScale, globalDepth, svg, die, dieSize, d2Radius),
+        }
+        glyphGeometry = textGeometryGenerator(
+          font,
+          globalScale,
+          globalFontScale,
+          globalDepth,
+          face,
+          dieFontScale,
+          dieSize,
+          die,
+          orientationIndicator,
+          orientationIndicatorOnD8D6,
+          orientationIndicatorSize,
+          orientationIndicatorSpace,
+          d2Radius,
+        )
+      } else {
+        glyphGeometry = svgGeometryGenerator(globalScale, globalDepth, svg, die, dieSize, d2Radius)
+      }
+    } else
       glyphGeometry = textGeometryGenerator(
         font,
         globalScale,
@@ -167,7 +190,6 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
       }
 
     if (faceContent && faceContent.svg.showNumber && faceContent.geometry) {
-      // TODO check if there is a sub SVG in addition to the dieSVG
       if (glyphGeometry) {
         geometry = new MergedGeometry([glyphGeometry, faceContent.geometry])
       } else geometry = faceContent.geometry
@@ -195,6 +217,7 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
     orientationIndicatorOnD8D6,
     orientationIndicatorSpace,
     d2Radius,
+    die,
   ])
 
   return (
