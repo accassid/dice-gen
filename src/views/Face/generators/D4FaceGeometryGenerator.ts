@@ -1,6 +1,6 @@
-import {Font, Geometry, TextGeometry, TextGeometryParameters} from "three";
-import {createSVGGeometry} from "../../../utils/createSVGGeometry";
-import {SVGType} from "../../../models/svg";
+import { Font, Geometry, TextGeometry, TextGeometryParameters } from 'three'
+import { createSVGGeometry } from '../../../utils/createSVGGeometry'
+import { SVGType } from '../../../models/svg'
 
 const FACE_MAP: Record<string, [string, string, string]> = {
   '1': ['3', '4', '2'],
@@ -21,7 +21,7 @@ export const d4FaceGeometryGenerator = (
   dieSize: number,
   d4Size: number,
   d4FontBottom: number,
-  ): Geometry => {
+): Geometry => {
   let config: null | TextGeometryParameters = null
 
   if (font)
@@ -66,7 +66,6 @@ export const d4FaceGeometryGenerator = (
     rotation += (Math.PI * 2) / 3
 
     if (!geometry) throw new Error('There must be at least one number for the D4 face generator.')
-
   }
   return geometry
 }

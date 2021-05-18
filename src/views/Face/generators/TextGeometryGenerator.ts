@@ -1,8 +1,8 @@
-import {Font, Geometry, TextGeometryParameters} from "three";
-import {CombinedTextGeometry} from "../../../models/combinedTextGeometry";
-import {ORIENTATION_INDICATOR, OrientationIndicatorType} from "../../../models/orientationIndicator";
-import {addBarIndicator, addPeriodIndicator} from "../../../utils/addOrientationIndicator";
-import {FaceType} from "../../../models/face";
+import { Font, Geometry, TextGeometryParameters } from 'three'
+import { CombinedTextGeometry } from '../../../models/combinedTextGeometry'
+import { ORIENTATION_INDICATOR, OrientationIndicatorType } from '../../../models/orientationIndicator'
+import { addBarIndicator, addPeriodIndicator } from '../../../utils/addOrientationIndicator'
+import { FaceType } from '../../../models/face'
 
 export const textGeometryGenerator = (
   font: Font,
@@ -18,7 +18,7 @@ export const textGeometryGenerator = (
   orientationIndicatorSize: number,
   orientationIndicatorSpace: number,
   d2Radius: number,
-  ): Geometry => {
+): Geometry => {
   let config: null | TextGeometryParameters = null
   let geometry: Geometry = new Geometry()
   if (font) {

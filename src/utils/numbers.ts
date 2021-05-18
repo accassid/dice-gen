@@ -37,6 +37,8 @@ export const moveGeometryAndMesh = (
   mesh.rotation.y = 0
   mesh.rotation.z = 0
 
+  const extraOffset = 0.01
+
   const scaledSize = scale * dieSize
 
   if (die !== 'd4') mesh.geometry.center()
@@ -114,7 +116,7 @@ export const moveGeometryAndMesh = (
   }
 
   if (die === 'd6') {
-    const offset = scaledSize / 2 - depth / 2 + 0.01
+    const offset = scaledSize / 2 - depth / 2 + extraOffset
     switch (face) {
       case 1:
         mesh.position.z += offset

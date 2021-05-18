@@ -1,7 +1,7 @@
 import { BoxGeometry, BufferGeometry, Face3, Geometry, Matrix4, Mesh, Vector3 } from 'three'
 import { ThreeBSP } from 'three-js-csg-es6'
 import { CombinedTextGeometry } from './combinedTextGeometry'
-import {MergedGeometry} from "./mergedGeometry";
+import { MergedGeometry } from './mergedGeometry'
 
 /**
  * This is a custom object that contains necessary data to construct a Three.js geometry. It is passed between the
@@ -73,7 +73,7 @@ const processCombinedTextGeometry = (geometry: CombinedTextGeometry): Geometry =
  */
 const processMergedGeometry = (geometry: MergedGeometry): Geometry => {
   let sum = null
-  geometry.geometries.forEach((subGeometry) => {
+  geometry.geometries.forEach(subGeometry => {
     if (subGeometry instanceof CombinedTextGeometry) subGeometry = processCombinedTextGeometry(subGeometry)
     if (!sum) sum = new ThreeBSP(subGeometry)
     else sum = sum.union(new ThreeBSP(subGeometry))

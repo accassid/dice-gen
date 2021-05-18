@@ -6,13 +6,13 @@ import { SVGType } from '../../../../models/svg'
 import { SVG_FACE_OPTIONS } from '../../../../models/dice'
 
 // Style
-import {Select, Row, Col, InputNumber, Checkbox} from 'antd'
+import { Select, Row, Col, InputNumber, Checkbox } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons/lib'
 import { SVGCard, CornerDiv } from './style'
 
 // Components
 import SVGDropzone from '../SVGDropzone/SVGDropzone'
-import {CheckboxChangeEvent} from "antd/es/checkbox";
+import { CheckboxChangeEvent } from 'antd/es/checkbox'
 
 const { Option } = Select
 
@@ -134,7 +134,7 @@ const SVGEntry: React.FC<Props> = ({ svg, name }: Props) => {
         </Col>
       </Row>
       <Row>
-        <Checkbox checked={globalSVG[name].showNumber} onChange={(e) => handleBooleanChange(e,'showNumber')}>
+        <Checkbox checked={globalSVG[name].showNumber} onChange={e => handleBooleanChange(e, 'showNumber')}>
           Display number
         </Checkbox>
       </Row>

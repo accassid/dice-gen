@@ -53,7 +53,7 @@ export const createSVGGeometry = (
   size: number,
   die: string,
   dieScale: number,
-  isFace = false
+  isFace = false,
 ): Geometry => {
   let geometry: Geometry = new Geometry()
 

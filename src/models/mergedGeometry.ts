@@ -1,7 +1,5 @@
 import { Geometry } from 'three'
 
-
-
 /**
  * This class is essentially a clone of the TextGeometry class from three.js however it allows us to call a custom
  * shape generation function as well as store all the extrusion from every generated shape in an array before merging
@@ -9,7 +7,6 @@ import { Geometry } from 'three'
  * this class for the same purpose.
  */
 export class MergedGeometry extends Geometry {
-
   geometries: Array<Geometry>
 
   constructor(geometries: Array<Geometry>) {
@@ -18,7 +15,7 @@ export class MergedGeometry extends Geometry {
 
     this.geometries = geometries
 
-    geometries.forEach((geometry) => {
+    geometries.forEach(geometry => {
       this.merge(geometry)
     })
 

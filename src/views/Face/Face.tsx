@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useGlobalState, getGlobalState } from '../../modules/global'
 
 // Models
@@ -6,17 +6,17 @@ import { isFaceOption } from '../../models/face'
 import { isDiceOption } from '../../models/dice'
 
 // Libraries
-import { Geometry, Mesh} from 'three'
+import { Geometry, Mesh } from 'three'
 import { useUpdate } from 'react-three-fiber'
 
 // Utils
 import { moveGeometryAndMesh } from '../../utils/numbers'
 
 // Components
-import {d4FaceGeometryGenerator} from "./generators/D4FaceGeometryGenerator";
-import {svgGeometryGenerator} from "./generators/SVGGeometryGenerator";
-import {textGeometryGenerator} from "./generators/TextGeometryGenerator";
-import {MergedGeometry} from "../../models/mergedGeometry";
+import { d4FaceGeometryGenerator } from './generators/D4FaceGeometryGenerator'
+import { svgGeometryGenerator } from './generators/SVGGeometryGenerator'
+import { textGeometryGenerator } from './generators/TextGeometryGenerator'
+import { MergedGeometry } from '../../models/mergedGeometry'
 
 type Props = {
   faceNum: number
@@ -60,7 +60,6 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
   const [orientationIndicatorSize] = useGlobalState('orientationIndicatorSize')
   const [orientationIndicatorSpace] = useGlobalState('orientationIndicatorSpace')
   const [orientationIndicatorOnD8D6] = useGlobalState('orientationIndicatorOnD6D8')
-
 
   const spindown = die === 'd10' ? d10Spindown : die === 'd20' ? d20Spindown : 0
 
@@ -107,7 +106,6 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
     d4FontBottom,
   ])
 
-
   useEffect(() => {
     let svg = null
     let d4FaceSVG = null
@@ -121,30 +119,63 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
     let dieSvg = null
     if (globalSVG[die]) dieSvg = globalSVG[die]
 
-
-
     let geometry = null
     let glyphGeometry = null
     let faceContent = null
 
-    if (die === 'd4') glyphGeometry = d4FaceGeometryGenerator(font, globalScale, globalFontScale, globalDepth, faceNum, globalSVG, d4RadiusScale, dieFontScale, dieSize, d4Size, d4FontBottom)
-    else if (svg) glyphGeometry = svgGeometryGenerator(globalScale,globalDepth,svg, die, dieSize, d2Radius)
-    else glyphGeometry = textGeometryGenerator(font,globalScale,globalFontScale, globalDepth, face, dieFontScale, dieSize, die, orientationIndicator, orientationIndicatorOnD8D6, orientationIndicatorSize, orientationIndicatorSpace, d2Radius)
+    if (die === 'd4')
+      glyphGeometry = d4FaceGeometryGenerator(
+        font,
+        globalScale,
+        globalFontScale,
+        globalDepth,
+        faceNum,
+        globalSVG,
+        d4RadiusScale,
+        dieFontScale,
+        dieSize,
+        d4Size,
+        d4FontBottom,
+      )
+    else if (svg) glyphGeometry = svgGeometryGenerator(globalScale, globalDepth, svg, die, dieSize, d2Radius)
+    else
+      glyphGeometry = textGeometryGenerator(
+        font,
+        globalScale,
+        globalFontScale,
+        globalDepth,
+        face,
+        dieFontScale,
+        dieSize,
+        die,
+        orientationIndicator,
+        orientationIndicatorOnD8D6,
+        orientationIndicatorSize,
+        orientationIndicatorSpace,
+        d2Radius,
+      )
 
-    if (die === 'd4' && d4FaceSVG) faceContent = {svg: d4FaceSVG, geometry: svgGeometryGenerator(globalScale, globalDepth, d4FaceSVG, die, dieSize, d2Radius, true)}
-    else if (dieSvg) faceContent = {svg: dieSvg, geometry: svgGeometryGenerator(globalScale, globalDepth, dieSvg, die, dieSize, d2Radius, true)}
-
-    if (faceContent && faceContent.svg.showNumber && faceContent.geometry) { // TODO check if there is a sub SVG in addition to the dieSVG
-      if (glyphGeometry){
-        geometry = new MergedGeometry([glyphGeometry, faceContent.geometry])
+    if (die === 'd4' && d4FaceSVG)
+      faceContent = {
+        svg: d4FaceSVG,
+        geometry: svgGeometryGenerator(globalScale, globalDepth, d4FaceSVG, die, dieSize, d2Radius, true),
       }
-      else geometry = faceContent.geometry
+    else if (dieSvg)
+      faceContent = {
+        svg: dieSvg,
+        geometry: svgGeometryGenerator(globalScale, globalDepth, dieSvg, die, dieSize, d2Radius, true),
+      }
+
+    if (faceContent && faceContent.svg.showNumber && faceContent.geometry) {
+      // TODO check if there is a sub SVG in addition to the dieSVG
+      if (glyphGeometry) {
+        geometry = new MergedGeometry([glyphGeometry, faceContent.geometry])
+      } else geometry = faceContent.geometry
     } else if (faceContent && faceContent.geometry) {
       geometry = faceContent.geometry
     } else {
       geometry = glyphGeometry
     }
-
 
     if (geometry) setGeometry(geometry)
   }, [
@@ -163,13 +194,12 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
     orientationIndicatorSize,
     orientationIndicatorOnD8D6,
     orientationIndicatorSpace,
-    d2Radius
+    d2Radius,
   ])
-
 
   return (
     <mesh ref={meshRef}>
-      <primitive object={geometry} attach="geometry"/>
+      <primitive object={geometry} attach="geometry" />
     </mesh>
   )
 }
