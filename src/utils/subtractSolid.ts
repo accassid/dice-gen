@@ -2,7 +2,6 @@ import {
   Mesh,
   BoxGeometry,
   TetrahedronGeometry,
-  OctahedronGeometry,
   DodecahedronGeometry,
   IcosahedronGeometry,
   Geometry,
@@ -14,7 +13,7 @@ import { PentagonalTrapezohedronGeometry } from '../models/pentagonalTrapezohedr
 import { isDiceOption } from '../models/dice'
 import { meshToPassableObject } from '../models/geometryGenerator'
 import { CrystalD4Geometry } from '../models/crystalD4'
-import {AdjustableOctahedronGeometry} from "../models/adjustableOctahedron";
+import { AdjustableOctahedronGeometry } from '../models/adjustableOctahedron'
 
 /**
  * This function takes in a die type and then starts off the process of subtracting all the faces (numbers and svgs)

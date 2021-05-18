@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useGlobalState, getGlobalState } from '../../modules/global'
 
 // Models
@@ -6,16 +6,17 @@ import { isFaceOption } from '../../models/face'
 import { isDiceOption } from '../../models/dice'
 
 // Libraries
-import { DoubleSide, Mesh } from 'three'
+import { Geometry, Mesh } from 'three'
 import { useUpdate } from 'react-three-fiber'
 
 // Utils
 import { moveGeometryAndMesh } from '../../utils/numbers'
 
 // Components
-import SVGGeometry from '../SVGGeometry/SVGGeometry'
-import TextGeometry from '../TextGeometry/TextGeometry'
-import D4FaceGeometry from './D4FaceGeometry/D4FaceGeometry'
+import { d4FaceGeometryGenerator } from './generators/D4FaceGeometryGenerator'
+import { svgGeometryGenerator } from './generators/SVGGeometryGenerator'
+import { textGeometryGenerator } from './generators/TextGeometryGenerator'
+import { MergedGeometry } from '../../models/mergedGeometry'
 
 type Props = {
   faceNum: number
@@ -50,6 +51,16 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
   const [dieFontScale] = useGlobalState(fontScaleKey)
   const [d10Spindown] = useGlobalState('d10Spindown')
   const [d20Spindown] = useGlobalState('d20Spindown')
+  const [geometry, setGeometry] = useState<Geometry>(new Geometry())
+  const [globalFontScale] = useGlobalState('globalFontScale')
+  const [d4RadiusScale] = useGlobalState('d4RadiusScale')
+  const [d4Size] = useGlobalState('d4Size')
+  const [d2Radius] = useGlobalState('d2Radius')
+  const [orientationIndicator] = useGlobalState('orientationIndicator')
+  const [orientationIndicatorSize] = useGlobalState('orientationIndicatorSize')
+  const [orientationIndicatorSpace] = useGlobalState('orientationIndicatorSpace')
+  const [orientationIndicatorOnD8D6] = useGlobalState('orientationIndicatorOnD6D8')
+
   const spindown = die === 'd10' ? d10Spindown : die === 'd20' ? d20Spindown : 0
 
   const meshRef = useUpdate<Mesh>(
@@ -95,23 +106,123 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
     d4FontBottom,
   ])
 
-  let svg = null
-  if (face.svg) svg = face.svg
-  else if (globalSVG.max && (die === `d${faceNum}` || faceNum === 0 || die === `d${faceNum}Crystal`))
-    svg = globalSVG.max
-  else if (globalSVG.min && faceNum === 1) svg = globalSVG.min
-  else if (globalSVG[`${faceNum}`]) svg = globalSVG[`${faceNum}`]
+  useEffect(() => {
+    let svg = null
+    let d4FaceSVG = null
+    if (die === 'd4') d4FaceSVG = globalSVG[`d4 face ${faceNum}`]
+    if (face.svg) svg = face.svg
+    else if (globalSVG.max && (die === `d${faceNum}` || faceNum === 0 || die === `d${faceNum}Crystal`))
+      svg = globalSVG.max
+    else if (globalSVG.min && faceNum === 1) svg = globalSVG.min
+    else if (globalSVG[`${faceNum}`]) svg = globalSVG[`${faceNum}`]
+
+    let dieSvg = null
+    if (globalSVG[die]) dieSvg = globalSVG[die]
+
+    let geometry = null
+    let glyphGeometry = null
+    let faceContent = null
+
+    if (die === 'd4')
+      glyphGeometry = d4FaceGeometryGenerator(
+        font,
+        globalScale,
+        globalFontScale,
+        globalDepth,
+        faceNum,
+        globalSVG,
+        d4RadiusScale,
+        dieFontScale,
+        dieSize,
+        d4Size,
+        d4FontBottom,
+      )
+    else if (svg) {
+      if (svg.showNumber) {
+        faceContent = {
+          svg,
+          geometry: svgGeometryGenerator(globalScale, globalDepth, svg, die, dieSize, d2Radius),
+        }
+        glyphGeometry = textGeometryGenerator(
+          font,
+          globalScale,
+          globalFontScale,
+          globalDepth,
+          face,
+          dieFontScale,
+          dieSize,
+          die,
+          orientationIndicator,
+          orientationIndicatorOnD8D6,
+          orientationIndicatorSize,
+          orientationIndicatorSpace,
+          d2Radius,
+        )
+      } else {
+        glyphGeometry = svgGeometryGenerator(globalScale, globalDepth, svg, die, dieSize, d2Radius)
+      }
+    } else
+      glyphGeometry = textGeometryGenerator(
+        font,
+        globalScale,
+        globalFontScale,
+        globalDepth,
+        face,
+        dieFontScale,
+        dieSize,
+        die,
+        orientationIndicator,
+        orientationIndicatorOnD8D6,
+        orientationIndicatorSize,
+        orientationIndicatorSpace,
+        d2Radius,
+      )
+
+    if (die === 'd4' && d4FaceSVG)
+      faceContent = {
+        svg: d4FaceSVG,
+        geometry: svgGeometryGenerator(globalScale, globalDepth, d4FaceSVG, die, dieSize, d2Radius, true),
+      }
+    else if (dieSvg)
+      faceContent = {
+        svg: dieSvg,
+        geometry: svgGeometryGenerator(globalScale, globalDepth, dieSvg, die, dieSize, d2Radius, true),
+      }
+
+    if (faceContent && faceContent.svg.showNumber && faceContent.geometry) {
+      if (glyphGeometry) {
+        geometry = new MergedGeometry([glyphGeometry, faceContent.geometry])
+      } else geometry = faceContent.geometry
+    } else if (faceContent && faceContent.geometry) {
+      geometry = faceContent.geometry
+    } else {
+      geometry = glyphGeometry
+    }
+
+    if (geometry) setGeometry(geometry)
+  }, [
+    font,
+    globalScale,
+    globalFontScale,
+    globalDepth,
+    faceNum,
+    globalSVG,
+    d4RadiusScale,
+    dieFontScale,
+    dieSize,
+    d4Size,
+    d4FontBottom,
+    orientationIndicator,
+    orientationIndicatorSize,
+    orientationIndicatorOnD8D6,
+    orientationIndicatorSpace,
+    d2Radius,
+    die,
+  ])
 
   return (
     <mesh ref={meshRef}>
-      {die === 'd4' ? (
-        <D4FaceGeometry font={font} faceNum={faceNum} dieFontScale={dieFontScale} dieSize={dieSize} />
-      ) : svg ? (
-        <SVGGeometry svg={svg} dieSize={dieSize} />
-      ) : (
-        <TextGeometry font={font} face={face} dieFontScale={dieFontScale} dieSize={dieSize} />
-      )}
-      <meshStandardMaterial side={DoubleSide} attach="material" color={'#898989'} />
+      <primitive object={geometry} attach="geometry" />
     </mesh>
   )
 }
