@@ -6,21 +6,16 @@ import { isFaceOption } from '../../models/face'
 import { isDiceOption } from '../../models/dice'
 
 // Libraries
-import {DoubleSide, Geometry, Mesh, TextGeometryParameters} from 'three'
+import { Geometry, Mesh} from 'three'
 import { useUpdate } from 'react-three-fiber'
-import { ThreeBSP } from 'three-js-csg-es6'
 
 // Utils
 import { moveGeometryAndMesh } from '../../utils/numbers'
 
 // Components
-import SVGGeometry from '../SVGGeometry/SVGGeometry'
-import TextGeometry from '../TextGeometry/TextGeometry'
-import D4FaceGeometry from './D4FaceGeometry/D4FaceGeometry'
-import {createSVGGeometry} from "../../utils/createSVGGeometry";
-import {d4FaceGeometryGenerator} from "./D4FaceGeometry/D4FaceGeometryGenerator";
-import {svgGeometryGenerator} from "../SVGGeometry/SVGGeometryGenerator";
-import {textGeometryGenerator} from "../TextGeometry/TextGeometryGenerator";
+import {d4FaceGeometryGenerator} from "./generators/D4FaceGeometryGenerator";
+import {svgGeometryGenerator} from "./generators/SVGGeometryGenerator";
+import {textGeometryGenerator} from "./generators/TextGeometryGenerator";
 import {MergedGeometry} from "../../models/mergedGeometry";
 
 type Props = {
@@ -115,8 +110,9 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
 
   useEffect(() => {
     let svg = null
-    if (die === 'd4') {svg = globalSVG[`d4 face ${faceNum}`]; console.log('hello')}
-    else if (face.svg) svg = face.svg
+    let d4FaceSVG = null
+    if (die === 'd4') d4FaceSVG = globalSVG[`d4 face ${faceNum}`]
+    if (face.svg) svg = face.svg
     else if (globalSVG.max && (die === `d${faceNum}` || faceNum === 0 || die === `d${faceNum}Crystal`))
       svg = globalSVG.max
     else if (globalSVG.min && faceNum === 1) svg = globalSVG.min
@@ -128,21 +124,25 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
 
 
     let geometry = null
+    let glyphGeometry = null
+    let faceContent = null
 
-    if (svg) geometry = svgGeometryGenerator(globalScale,globalDepth,svg, die, dieSize, d2Radius)
-    else if (dieSvg) geometry = svgGeometryGenerator(globalScale,globalDepth,dieSvg, die, dieSize, d2Radius)
-    else if (die === 'd4') geometry = d4FaceGeometryGenerator(font, globalScale, globalFontScale, globalDepth, faceNum, globalSVG, d4RadiusScale, dieFontScale, dieSize, d4Size, d4FontBottom)
-    else geometry = textGeometryGenerator(font,globalScale,globalFontScale, globalDepth, face, dieFontScale, dieSize, die, orientationIndicator, orientationIndicatorOnD8D6, orientationIndicatorSize, orientationIndicatorSpace, d2Radius)
+    if (die === 'd4') glyphGeometry = d4FaceGeometryGenerator(font, globalScale, globalFontScale, globalDepth, faceNum, globalSVG, d4RadiusScale, dieFontScale, dieSize, d4Size, d4FontBottom)
+    else if (svg) glyphGeometry = svgGeometryGenerator(globalScale,globalDepth,svg, die, dieSize, d2Radius)
+    else glyphGeometry = textGeometryGenerator(font,globalScale,globalFontScale, globalDepth, face, dieFontScale, dieSize, die, orientationIndicator, orientationIndicatorOnD8D6, orientationIndicatorSize, orientationIndicatorSpace, d2Radius)
 
-    if ((svg && svg.showNumber) || (dieSvg && dieSvg.showNumber)) { // TODO check if there is a sub SVG in addition to the dieSVG
-      console.log('sub')
-      let textGeometry
-      if (die === 'd4') textGeometry = d4FaceGeometryGenerator(font, globalScale, globalFontScale, globalDepth, faceNum, globalSVG, d4RadiusScale, dieFontScale, dieSize, d4Size, d4FontBottom)
-      else textGeometry = textGeometryGenerator(font,globalScale,globalFontScale, globalDepth, face, dieFontScale, dieSize, die, orientationIndicator, orientationIndicatorOnD8D6, orientationIndicatorSize, orientationIndicatorSpace, d2Radius)
-      if (geometry && textGeometry){
-        geometry = new MergedGeometry([geometry, textGeometry])
+    if (die === 'd4' && d4FaceSVG) faceContent = {svg: d4FaceSVG, geometry: svgGeometryGenerator(globalScale, globalDepth, d4FaceSVG, die, dieSize, d2Radius, true)}
+    else if (dieSvg) faceContent = {svg: dieSvg, geometry: svgGeometryGenerator(globalScale, globalDepth, dieSvg, die, dieSize, d2Radius, true)}
+
+    if (faceContent && faceContent.svg.showNumber && faceContent.geometry) { // TODO check if there is a sub SVG in addition to the dieSVG
+      if (glyphGeometry){
+        geometry = new MergedGeometry([glyphGeometry, faceContent.geometry])
       }
-      else geometry = textGeometry
+      else geometry = faceContent.geometry
+    } else if (faceContent && faceContent.geometry) {
+      geometry = faceContent.geometry
+    } else {
+      geometry = glyphGeometry
     }
 
 

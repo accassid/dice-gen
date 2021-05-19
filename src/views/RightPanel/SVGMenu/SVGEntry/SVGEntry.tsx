@@ -69,7 +69,7 @@ const SVGEntry: React.FC<Props> = ({ svg, name }: Props) => {
     <SVGCard>
       <Row>
         <Col>
-          <Select style={{ width: 70 }} value={name} onChange={handleChange}>
+          <Select style={{ width: 100 }} value={name} onChange={handleChange}>
             {SVG_FACE_OPTIONS.filter(key => !globalSVG[key]).map(key => (
               <Option key={key} value={key}>
                 {key}
@@ -89,7 +89,7 @@ const SVGEntry: React.FC<Props> = ({ svg, name }: Props) => {
         <Col span={11}>
           <InputNumber
             min={0.05}
-            max={2}
+            max={3}
             step={0.05}
             style={{}}
             value={globalSVG[name].scale}

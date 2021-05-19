@@ -21,7 +21,7 @@ export const d4FaceGeometryGenerator = (
   dieSize: number,
   d4Size: number,
   d4FontBottom: number,
-  ) => {
+  ): Geometry => {
   let config: null | TextGeometryParameters = null
 
   if (font)

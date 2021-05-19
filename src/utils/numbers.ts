@@ -114,7 +114,7 @@ export const moveGeometryAndMesh = (
   }
 
   if (die === 'd6') {
-    const offset = scaledSize / 2 - depth / 2
+    const offset = scaledSize / 2 - depth / 2 + 0.01
     switch (face) {
       case 1:
         mesh.position.z += offset

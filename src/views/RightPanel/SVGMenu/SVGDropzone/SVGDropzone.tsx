@@ -49,7 +49,7 @@ const SVGDropzone: React.FC<Props> = ({ name }: Props) => {
 
   return (
     <StyledDragger
-      width="140px"
+      width="110px"
       showUploadList={false}
       accept={'.svg'}
       fileList={file ? [file] : []}

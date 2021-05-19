@@ -2,7 +2,6 @@ import {
   Mesh,
   BoxGeometry,
   TetrahedronGeometry,
-  OctahedronGeometry,
   DodecahedronGeometry,
   IcosahedronGeometry,
   Geometry,
