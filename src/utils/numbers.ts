@@ -117,7 +117,7 @@ export const moveGeometryAndMesh = (
   }
 
   if (die === 'd4Shard') {
-    const adjOG = new AdjustableOctahedronGeometry(scaledSize, d4ShardBottomPointHeight)
+    const adjOG = new AdjustableOctahedronGeometry(scaledSize, d4ShardBottomPointHeight, d4ShardBottomPointHeight)
     const faceAngle = adjOG.getFaceAngle()
     const { radius, midpoint } = adjOG.getMidpointRadius()
     const distance = radius - depth / 2
