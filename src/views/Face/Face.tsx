@@ -45,6 +45,7 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
   const [d10Height] = useGlobalState('d10Height')
   const [d100FontVertical] = useGlobalState('d100FontVertical')
   const [d4FontBottom] = useGlobalState('d4FontBottom')
+  const [d4ShardBottomPointHeight] = useGlobalState('d4ShardBottomPointHeight')
   const fontScaleKey = die + 'FontScale'
   if (!isDiceOption(fontScaleKey))
     throw new Error(`${die}FontScale was not fount as a dice option key for the global state`)
@@ -85,6 +86,7 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
       dieSize,
       globalDepth,
       d8Height,
+      d4ShardBottomPointHeight,
       d10Height,
       d100FontVertical,
       spindown,
@@ -96,6 +98,7 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
     globalScale,
     globalDepth,
     d8Height,
+    d4ShardBottomPointHeight,
     d10Height,
     die,
     dieSize,

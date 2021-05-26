@@ -25,6 +25,7 @@ export const moveGeometryAndMesh = (
   dieSize: number,
   depth: number,
   d8Height: number,
+  d4ShardBottomPointHeight: number,
   d10Height: number,
   d100FontVertical: number,
   spindown: number,
@@ -116,19 +117,20 @@ export const moveGeometryAndMesh = (
   }
 
   if (die === 'd4Shard') {
-    const adjOG = new AdjustableOctahedronGeometry(scaledSize, d8Height)
+    const adjOG = new AdjustableOctahedronGeometry(scaledSize, d4ShardBottomPointHeight)
     const faceAngle = adjOG.getFaceAngle()
     const { radius, midpoint } = adjOG.getMidpointRadius()
     const distance = radius - depth / 2
     switch (face) {
       case 1:
+        mesh.rotateX(Math.PI)
+        mesh.rotateY(Math.PI / 2)
         mesh.translateOnAxis(midpoint, distance)
         mesh.rotateY(Math.PI / 4)
         mesh.rotateX(faceAngle)
         break
       case 2:
         mesh.rotateX(Math.PI)
-        mesh.rotateY(Math.PI / 2)
         mesh.translateOnAxis(midpoint, distance)
         mesh.rotateY(Math.PI / 4)
         mesh.rotateX(faceAngle)
@@ -141,6 +143,7 @@ export const moveGeometryAndMesh = (
         mesh.rotateX(faceAngle)
         break
       case 4:
+        mesh.rotateX(Math.PI)
         mesh.rotateY(-Math.PI / 2)
         mesh.translateOnAxis(midpoint, distance)
         mesh.rotateY(Math.PI / 4)
