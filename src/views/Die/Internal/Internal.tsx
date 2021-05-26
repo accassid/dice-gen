@@ -31,6 +31,8 @@ const Internal: React.FC<Props> = ({ dieSize }: Props) => {
   const [d10Height] = useGlobalState('d10Height')
   const [d4CrystalHeight] = useGlobalState('d4CrystalHeight')
   const [d4CrystalPointHeight] = useGlobalState('d4CrystalPointHeight')
+  const [d4ShardTopPointHeight] = useGlobalState('d4ShardTopPointHeight')
+  const [d4ShardBottomPointHeight] = useGlobalState('d4ShardBottomPointHeight')
   const [d2Radius] = useGlobalState('d2Radius')
   const [d2Sides] = useGlobalState('d2Sides')
 
@@ -48,8 +50,14 @@ const Internal: React.FC<Props> = ({ dieSize }: Props) => {
           attach="geometry"
         />
       )}
+      {die === 'd4Shard' && (
+        <AdjustableOctahedronGeometry
+          args={[size, d4ShardTopPointHeight, d4ShardBottomPointHeight]}
+          attach="geometry"
+        />
+      )}
       {die === 'd6' && <boxBufferGeometry attach="geometry" args={[size, size, size]} />}
-      {die === 'd8' && <adjustableOctahedronGeometry attach="geometry" args={[size, d8Height]} />}
+      {die === 'd8' && <adjustableOctahedronGeometry attach="geometry" args={[size, d8Height, d8Height]} />}
       {(die === 'd10' || die === 'd100') && (
         <pentagonalTrapezohedronGeometry args={[size, d10Height]} attach="geometry" />
       )}
