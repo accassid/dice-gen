@@ -115,6 +115,39 @@ export const moveGeometryAndMesh = (
     }
   }
 
+  if (die === 'd4Shard') {
+    const adjOG = new AdjustableOctahedronGeometry(scaledSize, d8Height)
+    const faceAngle = adjOG.getFaceAngle()
+    const { radius, midpoint } = adjOG.getMidpointRadius()
+    const distance = radius - depth / 2
+    switch (face) {
+      case 1:
+        mesh.translateOnAxis(midpoint, distance)
+        mesh.rotateY(Math.PI / 4)
+        mesh.rotateX(faceAngle)
+        break
+      case 2:
+        mesh.rotateX(Math.PI)
+        mesh.rotateY(Math.PI / 2)
+        mesh.translateOnAxis(midpoint, distance)
+        mesh.rotateY(Math.PI / 4)
+        mesh.rotateX(faceAngle)
+        break
+      case 3:
+        mesh.rotateY(Math.PI)
+        mesh.rotateX(Math.PI)
+        mesh.translateOnAxis(midpoint, distance)
+        mesh.rotateY(Math.PI / 4)
+        mesh.rotateX(faceAngle)
+        break
+      case 4:
+        mesh.rotateY(-Math.PI / 2)
+        mesh.translateOnAxis(midpoint, distance)
+        mesh.rotateY(Math.PI / 4)
+        mesh.rotateX(faceAngle)
+    }
+  }
+
   if (die === 'd6') {
     const offset = scaledSize / 2 - depth / 2 + extraOffset
     switch (face) {
