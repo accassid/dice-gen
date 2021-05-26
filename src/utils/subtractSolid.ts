@@ -60,8 +60,8 @@ export function subtractSolid(worker: Worker, die?: string): void {
     mesh = new Mesh(
       new AdjustableOctahedronGeometry(
         size,
-        getGlobalState().d4ShardTopPointHeight * globalScale,
-        getGlobalState().d4ShardBottomPointHeight * globalScale,
+        getGlobalState().d4ShardTopPointHeight,
+        getGlobalState().d4ShardBottomPointHeight,
       ),
     )
   } else if (die === 'd6') {

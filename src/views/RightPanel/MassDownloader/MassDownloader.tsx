@@ -105,13 +105,7 @@ const MassDownloader: React.FC<Props> = () => {
   const handleEffect = (): void => {
     if (downloading) {
       const key = `${die}f${
-        die === 'd100' || die === 'd10'
-          ? '0'
-          : die === 'd4Crystal'
-          ? '4'
-          : die === 'd4Shard'
-          ? '4'
-          : die.replace('d', '')
+        die === 'd100' || die === 'd10' ? '0' : die === 'd4Crystal' || die === 'd4Shard' ? '4' : die.replace('d', '')
       }`
       const maxFace = getGlobalState()[key]
       if (maxFace && maxFace.ref && maxFace.ref.name === 'rendered') {
