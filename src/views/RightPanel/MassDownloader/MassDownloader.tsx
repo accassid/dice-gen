@@ -20,7 +20,7 @@ import Worker from 'worker-loader!../../../subtractSolid.worker' // eslint-disab
 
 type Props = {}
 
-const DIE_LIST: Array<DiceType> = ['d2', 'd4', 'd4Crystal', 'd6', 'd8', 'd10', 'd100', 'd12', 'd20']
+const DIE_LIST: Array<DiceType> = ['d2', 'd4', 'd4Crystal', 'd4Shard', 'd6', 'd8', 'd10', 'd100', 'd12', 'd20']
 
 /**
  * This component renders a button that when clicked opens a modal. That modal allows the user to select all the dice
@@ -104,7 +104,9 @@ const MassDownloader: React.FC<Props> = () => {
    */
   const handleEffect = (): void => {
     if (downloading) {
-      const key = `${die}f${die === 'd100' || die === 'd10' ? '0' : die === 'd4Crystal' ? '4' : die.replace('d', '')}`
+      const key = `${die}f${
+        die === 'd100' || die === 'd10' ? '0' : die === 'd4Crystal' || die === 'd4Shard' ? '4' : die.replace('d', '')
+      }`
       const maxFace = getGlobalState()[key]
       if (maxFace && maxFace.ref && maxFace.ref.name === 'rendered') {
         setTimeout(processDie(), 500)

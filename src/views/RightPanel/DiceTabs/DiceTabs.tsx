@@ -43,6 +43,8 @@ const DiceTabs: React.FC<Props> = () => {
         const spindownKey = die === 'd20' ? 'd20Spindown' : die === 'd10' ? 'd10Spindown' : null
         const d4CrystalHeightKey = die === 'd4Crystal' ? 'd4CrystalHeight' : null
         const d4CrystalPointHeightKey = die === 'd4Crystal' ? 'd4CrystalPointHeight' : null
+        const d4ShardTopPointHeightKey = die === 'd4Shard' ? 'd4ShardTopPointHeight' : null
+        const d4ShardBottomPointHeightKey = die === 'd4Shard' ? 'd4ShardBottomPointHeight' : null
         const d2RadiusKey = die === 'd2' ? 'd2Radius' : null
         const d2SidesKey = die === 'd2' ? 'd2Sides' : null
         return (
@@ -78,6 +80,24 @@ const DiceTabs: React.FC<Props> = () => {
               )}
               {d4CrystalPointHeightKey && (
                 <ValueSlider stateKey={d4CrystalPointHeightKey} label="Point Height" min={1} max={20} step={1} />
+              )}
+              {d4ShardTopPointHeightKey && (
+                <ValueSlider
+                  stateKey={d4ShardTopPointHeightKey}
+                  label="Top Point Height"
+                  min={0.25}
+                  max={2}
+                  step={0.05}
+                />
+              )}
+              {d4ShardBottomPointHeightKey && (
+                <ValueSlider
+                  stateKey={d4ShardBottomPointHeightKey}
+                  label="Bottom Point Height"
+                  min={0.25}
+                  max={2.5}
+                  step={0.05}
+                />
               )}
               {d2RadiusKey && <ValueSlider stateKey={d2RadiusKey} label="Radius" min={1} max={20} step={0.5} />}
               {d2SidesKey && <ValueSlider stateKey={d2SidesKey} label="Sides" min={3} max={64} step={1} />}
