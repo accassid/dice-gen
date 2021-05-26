@@ -88,8 +88,8 @@ export const DEFAULT_DICE_OPTIONS = {
   d4CrystalPointHeight: 7,
 
   d4ShardSize: 12 * DIE_SIZE_SCALARS['d4Shard'],
-  d4ShardTopPointHeight: 1,
-  d4ShardBottomPointHeight: 1,
+  d4ShardTopPointHeight: 0.75,
+  d4ShardBottomPointHeight: 1.75,
   d4ShardFontScale: 1,
 
   d6Size: 15 * DIE_SIZE_SCALARS['d6'],

@@ -82,15 +82,21 @@ const DiceTabs: React.FC<Props> = () => {
                 <ValueSlider stateKey={d4CrystalPointHeightKey} label="Point Height" min={1} max={20} step={1} />
               )}
               {d4ShardTopPointHeightKey && (
-                <ValueSlider stateKey={d4ShardTopPointHeightKey} label="Top Point Height" min={1} max={40} step={1} />
+                <ValueSlider
+                  stateKey={d4ShardTopPointHeightKey}
+                  label="Top Point Height"
+                  min={0.25}
+                  max={2}
+                  step={0.05}
+                />
               )}
               {d4ShardBottomPointHeightKey && (
                 <ValueSlider
                   stateKey={d4ShardBottomPointHeightKey}
                   label="Bottom Point Height"
-                  min={1}
-                  max={20}
-                  step={1}
+                  min={0.25}
+                  max={2.5}
+                  step={0.05}
                 />
               )}
               {d2RadiusKey && <ValueSlider stateKey={d2RadiusKey} label="Radius" min={1} max={20} step={0.5} />}

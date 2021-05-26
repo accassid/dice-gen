@@ -3,7 +3,8 @@ import { Line3, Vector3, OctahedronGeometry } from 'three'
 export class AdjustableOctahedronGeometry extends OctahedronGeometry {
   constructor(radius = 1, topheight = 1, bottomheight = 1, detail = 0) {
     super(radius, detail)
-    this.scale(1, bottomheight, 1)
+    this.vertices[0].y = this.vertices[0].y * topheight
+    this.vertices[3].y = this.vertices[3].y * bottomheight
   }
 
   getFaceAngle(): number {

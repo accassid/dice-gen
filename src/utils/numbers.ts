@@ -128,12 +128,14 @@ export const moveGeometryAndMesh = (
         mesh.translateOnAxis(midpoint, distance)
         mesh.rotateY(Math.PI / 4)
         mesh.rotateX(faceAngle)
+        mesh.rotateZ(Math.PI)
         break
       case 2:
         mesh.rotateX(Math.PI)
         mesh.translateOnAxis(midpoint, distance)
         mesh.rotateY(Math.PI / 4)
         mesh.rotateX(faceAngle)
+        mesh.rotateZ(Math.PI)
         break
       case 3:
         mesh.rotateY(Math.PI)
@@ -141,6 +143,7 @@ export const moveGeometryAndMesh = (
         mesh.translateOnAxis(midpoint, distance)
         mesh.rotateY(Math.PI / 4)
         mesh.rotateX(faceAngle)
+        mesh.rotateZ(Math.PI)
         break
       case 4:
         mesh.rotateX(Math.PI)
@@ -148,6 +151,7 @@ export const moveGeometryAndMesh = (
         mesh.translateOnAxis(midpoint, distance)
         mesh.rotateY(Math.PI / 4)
         mesh.rotateX(faceAngle)
+        mesh.rotateZ(Math.PI)
     }
   }
 
