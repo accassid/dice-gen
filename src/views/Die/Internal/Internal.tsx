@@ -51,7 +51,7 @@ const Internal: React.FC<Props> = ({ dieSize }: Props) => {
         />
       )}
       {die === 'd4Shard' && (
-        <AdjustableOctahedronGeometry
+        <adjustableOctahedronGeometry
           args={[size, d4ShardTopPointHeight, d4ShardBottomPointHeight]}
           attach="geometry"
         />
