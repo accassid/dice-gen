@@ -25,7 +25,7 @@
     "react-three-fiber": "^4.1.4",
     "styled-components": "^5.1.0",
     "svg-mesh-3d": "^1.1.0",
-    "three": "^0.123.0",
+    "three": "^0.137.0",
     "three-js-csg-es6": "^73.0.0",
     "three-simplicial-complex": "^69.0.6",
     "typescript": "~3.7.2",
