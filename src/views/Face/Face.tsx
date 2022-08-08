@@ -48,7 +48,10 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
   const [dieFontScale] = useGlobalState(fontScaleKey)
   const [d10Spindown] = useGlobalState('d10Spindown')
   const [d20Spindown] = useGlobalState('d20Spindown')
+  const [d10PlusOneRatio] = useGlobalState('d10PlusOneRatio')
+  const [d100PlusOneRatio] = useGlobalState('d100PlusOneRatio')
   const spindown = die === 'd10' ? d10Spindown : die === 'd20' ? d20Spindown : 0
+  const plusOneRatio = die === 'd10' ? d10PlusOneRatio : die === 'd100' ? d100PlusOneRatio : 0
 
   const meshRef = useUpdate<Mesh>(
     self => {
@@ -74,9 +77,23 @@ const Face: React.FC<Props> = ({ faceNum, dieSize, die }: Props) => {
       d10Height,
       d100FontVertical,
       spindown,
+      plusOneRatio,
     )
     meshRef.current.name = 'rendered'
-  }, [font, globalSVG, globalScale, globalDepth, d10Height, die, dieSize, d100FontVertical, meshRef, faceNum, spindown])
+  }, [
+    font,
+    globalSVG,
+    globalScale,
+    globalDepth,
+    d10Height,
+    die,
+    dieSize,
+    d100FontVertical,
+    meshRef,
+    faceNum,
+    spindown,
+    plusOneRatio,
+  ])
 
   let svg = null
   if (face.svg) svg = face.svg

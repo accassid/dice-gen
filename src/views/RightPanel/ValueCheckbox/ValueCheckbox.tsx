@@ -8,6 +8,7 @@ import { CheckboxChangeEvent } from 'antd/es/checkbox'
 type Props = {
   stateKey: GlobalStateKey
   label: string
+  disabled?: boolean
 }
 
 /**
@@ -17,7 +18,7 @@ type Props = {
  * @param label
  * @constructor
  */
-const ValueCheckbox: React.FC<Props> = ({ stateKey, label }: Props) => {
+const ValueCheckbox: React.FC<Props> = ({ stateKey, label, disabled = false }: Props) => {
   const [value, setValue] = useGlobalState(stateKey)
 
   if (typeof value !== 'number')
@@ -29,7 +30,7 @@ const ValueCheckbox: React.FC<Props> = ({ stateKey, label }: Props) => {
 
   return (
     <Row>
-      <Checkbox checked={!!value} onChange={handleChange}>
+      <Checkbox checked={!!value} onChange={handleChange} disabled={disabled}>
         {label}
       </Checkbox>
     </Row>
