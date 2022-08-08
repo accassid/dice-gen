@@ -26,6 +26,8 @@ type Props = {}
  */
 const DiceTabs: React.FC<Props> = () => {
   const [die, setDie] = useGlobalState('die')
+  const [d10Spindown] = useGlobalState('d10Spindown')
+  const [d10PlusOneRatio] = useGlobalState('d10PlusOneRatio')
   const callback = (key: string): void => {
     if (isDiceType(key)) setDie(key)
   }
@@ -39,10 +41,15 @@ const DiceTabs: React.FC<Props> = () => {
         const d10HeightKey = die === 'd10' || die === 'd100' ? 'd10Height' : null
         const d100FontVerticalKey = die === 'd100' ? 'd100FontVertical' : null
         const spindownKey = die === 'd20' ? 'd20Spindown' : die === 'd10' ? 'd10Spindown' : null
+        const plusOneRatioKey = die === 'd10' ? 'd10PlusOneRatio' : die === 'd100' ? 'd100PlusOneRatio' : null
         const d4CrystalHeightKey = die === 'd4Crystal' ? 'd4CrystalHeight' : null
         const d4CrystalPointHeightKey = die === 'd4Crystal' ? 'd4CrystalPointHeight' : null
         const d2RadiusKey = die === 'd2' ? 'd2Radius' : null
         const d2SidesKey = die === 'd2' ? 'd2Sides' : null
+
+        const plusOneRatioDisabled = die === 'd10' && d10Spindown ? true : false
+        const spindownDisabled = die === 'd10' && d10PlusOneRatio ? true : false
+
         return (
           <TabPane tab={DIE_NAME[die]} key={die}>
             <SectionContainer>
@@ -68,7 +75,10 @@ const DiceTabs: React.FC<Props> = () => {
                 <ValueSlider stateKey={d10HeightKey} label="D10 Height" min={0.25} max={2} step={0.05} />
               )}
               {d100FontVerticalKey && <ValueCheckbox stateKey={d100FontVerticalKey} label="D100 Font Vertical" />}
-              {spindownKey && <ValueCheckbox stateKey={spindownKey} label="Spindown" />}
+              {spindownKey && <ValueCheckbox stateKey={spindownKey} label="Spindown" disabled={spindownDisabled} />}
+              {plusOneRatioKey && (
+                <ValueCheckbox stateKey={plusOneRatioKey} label="+1 ratio" disabled={plusOneRatioDisabled} />
+              )}
               {d4CrystalHeightKey && (
                 <ValueSlider stateKey={d4CrystalHeightKey} label="Base Height" min={1} max={40} step={1} />
               )}

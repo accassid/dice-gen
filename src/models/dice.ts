@@ -50,10 +50,12 @@ export type DiceOptions = {
   d10Height: number
   d10FontScale: number
   d10Spindown: number
+  d10PlusOneRatio: number
 
   d100Size: number
   d100FontScale: number
   d100FontVertical: number
+  d100PlusOneRatio: number
 
   d12Size: number
   d12FontScale: number
@@ -88,10 +90,12 @@ export const DEFAULT_DICE_OPTIONS = {
   d10FontScale: 0.55,
   d10Height: 0.6,
   d10Spindown: 0,
+  d10PlusOneRatio: 0,
 
   d100Size: 16 * DIE_SIZE_SCALARS['d100'],
   d100FontScale: 0.4,
   d100FontVertical: 0,
+  d100PlusOneRatio: 0,
 
   d12Size: 18 * DIE_SIZE_SCALARS['d12'],
   d12FontScale: 1,

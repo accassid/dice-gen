@@ -1,6 +1,7 @@
 import { Mesh, Vector3, Line3 } from 'three'
 import { PentagonalTrapezohedronGeometry } from '../models/pentagonalTrapezohedron'
 import { D10_SPINDOWN_MAP, D20_SPINDOWN_MAP } from '../models/spindown'
+import { D10_PLUSONERATIO_MAP } from '../models/plusOneRatioMap'
 
 /**
  * This function does the main work of moving a face (text or svg) to the correct face of the die. It takes in the die
@@ -26,6 +27,7 @@ export const moveGeometryAndMesh = (
   d10Height: number,
   d100FontVertical: number,
   spindown: number,
+  plusOneRatio: number,
 ): void => {
   mesh.position.x = 0
   mesh.position.y = 0
@@ -198,6 +200,7 @@ export const moveGeometryAndMesh = (
 
   if (die === 'd10' || die === 'd100') {
     if (spindown) face = D10_SPINDOWN_MAP[`${face}`]
+    else if (plusOneRatio) face = D10_PLUSONERATIO_MAP[`${face}`]
     const pt = new PentagonalTrapezohedronGeometry(scaledSize, d10Height)
     const top = pt.vertices[8]
     const bottom = pt.vertices[10]
